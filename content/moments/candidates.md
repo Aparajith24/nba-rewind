@@ -84,7 +84,7 @@ Scores and clocks here come from memory and news recaps. **Each one gets verifie
 | 59 | 2025 ECF G1 | Haliburton's buzzer two to force OT at MSG | Pacers down 125-123, ~7s | Last shot |
 | 60 | 2025 Finals G1 | Haliburton's 0.3 jumper vs. OKC | Pacers down 110-109, ~1s | Last shot |
 | 61 | 2026 Finals G4 | Anunoby blocks Fox, then tips in Brunson's miss at 2.1s, completing a 29-point comeback | Knicks down 106-105, 30.3s (verified) | Clutch |
-| 62 | 2026 Finals G2 | Wembanyama misses the potential game-winner | Spurs down 105-104, final possession | Last shot |
+| 62 | 2026 Finals G2 | Wemby's turnover, Brunson's split free throws, then Wemby misses the potential game-winner | Spurs down 105-104, 7.5s, Spurs ball (verified) | Last shot |
 | 63 | 2026 Finals G5 | Brunson's title-clinching floater on a 45-point night | Tied 88-88, ~1:06 | Clutch |
 | 64 | 2026 ECF G1 | Brunson leads a comeback from 22 down with 8 minutes left, won in OT | Knicks down 22, ~8:00 Q4 | Takeover |
 | 65 | 2026 Finals G3 | Knicks' late rally: Bridges and Anunoby miss their final threes | Knicks down 115-111, 6.8s | Last shot |

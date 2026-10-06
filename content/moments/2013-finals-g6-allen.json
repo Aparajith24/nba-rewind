@@ -1,0 +1,29 @@
+{
+  "id": "2013-finals-g6-allen",
+  "number": 32,
+  "title": "The Corner",
+  "season": "2012-13",
+  "gameId": "0041200406",
+  "period": 4,
+  "clockSeconds": 19.4,
+  "hook": "Down 3. 19 seconds. They're already roping off the floor.",
+  "intro": "Game 6, Miami. The Spurs lead by three and are one stop from the title. Security is stretching yellow rope along the sideline. The trophy is in the hallway. Fans are heading for the exits. The Heat inbound under their own basket with 19.4 seconds left.",
+  "realOutcome": "LeBron misses a three. Bosh grabs the offensive rebound and kicks it to Ray Allen, who backpedals behind the line and ties it 95-95 with 5.2 seconds left. Miami wins in overtime, then wins Game 7.",
+  "positionsNote": "Placeholder positions for the inbound after Leonard's free throw. To be adjusted by hand.",
+  "positions": {
+    "MIA": [
+      { "playerId": 2547, "name": "C. Bosh", "x": -1.0, "y": 21.0 },
+      { "playerId": 201596, "name": "M. Chalmers", "x": 9.0, "y": 14.0 },
+      { "playerId": 2544, "name": "L. James", "x": 13.0, "y": 33.0 },
+      { "playerId": 2548, "name": "D. Wade", "x": 38.0, "y": 42.0 },
+      { "playerId": 951, "name": "R. Allen", "x": 52.0, "y": 7.0 }
+    ],
+    "SAS": [
+      { "playerId": 2564, "name": "B. Diaw", "x": 6.0, "y": 23.0 },
+      { "playerId": 2225, "name": "T. Parker", "x": 14.0, "y": 16.0 },
+      { "playerId": 202695, "name": "K. Leonard", "x": 18.0, "y": 31.0 },
+      { "playerId": 1938, "name": "M. Ginobili", "x": 42.0, "y": 38.0 },
+      { "playerId": 201980, "name": "D. Green", "x": 49.0, "y": 10.0 }
+    ]
+  }
+}
