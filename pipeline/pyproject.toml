@@ -1,0 +1,9 @@
+[project]
+name = "nba-rewind-pipeline"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "nba-api>=1.11.4",
+    "pandas>=3.0.6",
+    "pyarrow>=25.0.1",
+]
