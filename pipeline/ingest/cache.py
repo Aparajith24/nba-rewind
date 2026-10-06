@@ -12,6 +12,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import requests
+from nba_api.stats.library.http import NBAStatsHTTP
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 RAW_DIR = REPO_ROOT / "data" / "raw"
@@ -61,7 +62,13 @@ def _request_with_retry(endpoint_cls, params: dict) -> dict:
             time.sleep(wait)
         _last_request_at = time.monotonic()
         try:
-            return endpoint_cls(**params, timeout=TIMEOUT_S).get_dict()
+            # Build the request with nba_api but skip its response parsing, which crashes on
+            # some older games. We only want the raw JSON anyway.
+            request = endpoint_cls(**params, get_request=False)
+            response = NBAStatsHTTP().send_api_request(
+                endpoint=request.endpoint, parameters=request.parameters, timeout=TIMEOUT_S
+            )
+            return response.get_dict()
         except (requests.RequestException, json.JSONDecodeError) as exc:
             if retry_delay is None:
                 raise
