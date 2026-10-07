@@ -15,6 +15,7 @@ period; if that's still ambiguous we raise rather than guess.
 
 import argparse
 import re
+import unicodedata
 from dataclasses import dataclass
 
 from ingest.moment_games import fetch_game_box, fetch_play_by_play
@@ -52,19 +53,53 @@ class MomentState:
 
 
 class Roster:
-    def __init__(self, team: dict):
+    """One team's players, findable by the names play-by-play descriptions use.
+
+    Descriptions like "SUB: Allen FOR Miller" name players by last name only, and
+    the spelling can differ from the box score (accents, "Jr.", nicknames). So each
+    player is indexed under several normalized aliases: box score family name, with
+    and without suffix, full name, and the play-by-play's own spelling of him.
+    """
+
+    def __init__(self, team: dict, actions: list[dict]):
         self.team_id = team["teamId"]
         self.tricode = team["teamTricode"]
         self.players = {p["personId"]: Player(p["personId"], p["nameI"]) for p in team["players"]}
-        self._by_family_name: dict[str, list[Player]] = {}
+        self._aliases: dict[str, set[int]] = {}
         for p in team["players"]:
-            self._by_family_name.setdefault(p["familyName"], []).append(self.players[p["personId"]])
+            for alias in (p["familyName"], f"{p['firstName']} {p['familyName']}"):
+                self._add_alias(alias, p["personId"])
+        for a in actions:
+            if a["teamId"] == self.team_id and a["personId"] in self.players and a["playerName"]:
+                self._add_alias(a["playerName"], a["personId"])
 
-    def by_family_name(self, name: str, context: str) -> Player:
-        matches = self._by_family_name.get(name, [])
+    def _add_alias(self, name: str, person_id: int) -> None:
+        for key in {normalize_name(name), normalize_name(name, drop_suffix=True)}:
+            self._aliases.setdefault(key, set()).add(person_id)
+
+    def candidates(self, name: str) -> list[Player]:
+        ids = self._aliases.get(normalize_name(name)) or self._aliases.get(normalize_name(name, drop_suffix=True), set())
+        return [self.players[i] for i in sorted(ids)]
+
+    def resolve(self, name: str, context: str, exclude: set[int] = frozenset()) -> Player:
+        """The one player matching `name`, skipping anyone in `exclude` (e.g. already on the floor)."""
+        matches = [p for p in self.candidates(name) if p.person_id not in exclude]
         if len(matches) != 1:
-            raise ValueError(f"{self.tricode}: can't resolve player {name!r} in: {context}")
+            found = [p.name for p in matches] or "nobody"
+            raise ValueError(f"{self.tricode}: can't resolve player {name!r} (matched {found}) in: {context}")
         return matches[0]
+
+
+NAME_SUFFIXES = {"jr", "sr", "ii", "iii", "iv"}
+
+
+def normalize_name(name: str, drop_suffix: bool = False) -> str:
+    """'Nenê' -> 'nene', "O'Neal" -> 'oneal', 'Hardaway Jr.' -> 'hardaway jr' (or 'hardaway')."""
+    ascii_name = unicodedata.normalize("NFKD", name).encode("ascii", "ignore").decode()
+    words = re.sub(r"[^a-z0-9 ]", "", ascii_name.lower().replace("-", " ")).split()
+    if drop_suffix and len(words) > 1 and words[-1] in NAME_SUFFIXES:
+        words = words[:-1]
+    return " ".join(words)
 
 
 def clock_seconds(clock: str) -> float:
@@ -75,7 +110,7 @@ def clock_seconds(clock: str) -> float:
 def state_at(game_id: str, period: int, clock: float) -> MomentState:
     actions = fetch_play_by_play(game_id)
     box = fetch_game_box(game_id)
-    rosters = {r.team_id: r for r in (Roster(box["homeTeam"]), Roster(box["awayTeam"]))}
+    rosters = {r.team_id: r for r in (Roster(box["homeTeam"], actions), Roster(box["awayTeam"], actions))}
 
     def happened(a: dict) -> bool:
         return a["period"] < period or (a["period"] == period and clock_seconds(a["clock"]) >= clock)
@@ -113,14 +148,22 @@ def _infer_starters(period_actions: list[dict], roster: Roster, carried_over: li
         if a["teamId"] != roster.team_id or _is_off_court_action(a):
             continue
         if a["actionType"] == "Substitution":
-            incoming = _incoming_player(a, roster)
             first_seen.setdefault(a["personId"], "started")
-            first_seen.setdefault(incoming.person_id, "checked_in")
+            # If two players share the name we can't tell yet who checked in; the
+            # substitution pass below settles it using who's already on the floor.
+            incoming = roster.candidates(_incoming_name(a))
+            if len(incoming) == 1:
+                first_seen.setdefault(incoming[0].person_id, "checked_in")
+            elif not incoming:
+                roster.resolve(_incoming_name(a), a["description"])  # raises with a clear message
             continue
         if a["personId"] in roster.players:
             first_seen.setdefault(a["personId"], "started")
+        # Assists are extra evidence only, so an ambiguous assister is skipped rather than fatal.
         for assister in ASSIST_PATTERN.findall(a["description"]):
-            first_seen.setdefault(roster.by_family_name(assister, a["description"]).person_id, "started")
+            matches = roster.candidates(assister)
+            if len(matches) == 1:
+                first_seen.setdefault(matches[0].person_id, "started")
 
     starters = [roster.players[pid] for pid, how in first_seen.items() if how == "started"]
     if len(starters) < LINEUP_SIZE:
@@ -139,17 +182,19 @@ def _is_off_court_action(a: dict) -> bool:
     return a["actionType"] == "Ejection" or "Technical" in a["subType"] or "T.FOUL" in a["description"]
 
 
-def _incoming_player(action: dict, roster: Roster) -> Player:
-    # "SUB: X FOR Y": the action's player is Y (leaving); X (entering) appears only by last name.
+def _incoming_name(action: dict) -> str:
+    # "SUB: X FOR Y": the action's player is Y (leaving); X (entering) appears only by name.
     incoming_name, _ = SUB_PATTERN.fullmatch(action["description"]).groups()
-    return roster.by_family_name(incoming_name, action["description"])
+    return incoming_name
 
 
 def _apply_substitution(lineup: list[Player], roster: Roster, action: dict) -> None:
     outgoing = next((i for i, p in enumerate(lineup) if p.person_id == action["personId"]), None)
     if outgoing is None:
         raise ValueError(f"{action['playerNameI']} subbed out but wasn't on the floor: {action['description']}")
-    lineup[outgoing] = _incoming_player(action, roster)
+    # Whoever checks in can't already be on the floor, which settles players who share a name.
+    on_floor = {p.person_id for p in lineup}
+    lineup[outgoing] = roster.resolve(_incoming_name(action), action["description"], exclude=on_floor)
 
 
 def _score(past: list[dict]) -> tuple[int, int]:
