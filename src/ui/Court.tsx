@@ -1,11 +1,13 @@
 import { headshotUrl } from "@/lib/images";
-import type { LineupPlayer, Side } from "@/lib/types";
+import type { Side } from "@/lib/types";
 import { initials } from "./PlayerSilhouette";
 
 /**
- * Top-down full court in feet (94 x 50), from the offense's point of view:
- * the offense attacks the basket on the right at (88.75, 25).
- * Static freeze frame for now; event-log playback comes later in src/animation.
+ * Top-down full court in feet (94 x 50). The team with the ball at the start of the
+ * moment attacks the right basket at (88.75, 25).
+ *
+ * A pure renderer: it draws players and the ball wherever it's told. The freeze frame
+ * passes the moment's positions; the replay passes interpolated positions every frame.
  */
 
 const LENGTH = 94;
@@ -16,6 +18,9 @@ const CORNER_THREE_Y = 3; // the corner three is 22' from the hoop: 25 - 22
 const ARC_START = Math.sqrt(THREE_RADIUS ** 2 - (WIDTH / 2 - CORNER_THREE_Y) ** 2); // ~8.95' out from the hoop
 const DOT_RADIUS = 2.2;
 const HEADSHOT_ASPECT = 260 / 190;
+
+export type CourtPlayer = { playerId: number; name: string; side: Side; x: number; y: number };
+export type CourtBall = { x: number; y: number; inAir: boolean };
 
 function HalfCourtLines({ mirrored }: { mirrored: boolean }) {
   // Drawn for the right basket; the left one is the same shape mirrored.
@@ -33,8 +38,67 @@ function HalfCourtLines({ mirrored }: { mirrored: boolean }) {
   );
 }
 
-export function Court({ lineups, offense }: { lineups: Record<Side, LineupPlayer[]>; offense: Side }) {
-  const players = (["home", "away"] as const).flatMap((side) => lineups[side].map((p) => ({ ...p, side })));
+/** An orange ball with black seams: one across, one down, and the two curved side seams. */
+function Basketball({ x, y, radius, inAir }: { x: number; y: number; radius: number; inAir: boolean }) {
+  const r = radius;
+  const seam = { fill: "none", stroke: "#1a1206", strokeWidth: r * 0.12, strokeLinecap: "round" as const };
+  return (
+    <g transform={`translate(${x} ${y})`} style={{ filter: inAir ? "drop-shadow(0 0.8px 0.8px rgba(0,0,0,0.6))" : undefined }}>
+      <circle r={r} fill="#e8762b" stroke="#1a1206" strokeWidth={r * 0.1} />
+      <line x1={-r} y1={0} x2={r} y2={0} {...seam} />
+      <line x1={0} y1={-r} x2={0} y2={r} {...seam} />
+      <path d={`M ${-r * 0.7} ${-r * 0.7} Q ${-r * 0.25} 0 ${-r * 0.7} ${r * 0.7}`} {...seam} />
+      <path d={`M ${r * 0.7} ${-r * 0.7} Q ${r * 0.25} 0 ${r * 0.7} ${r * 0.7}`} {...seam} />
+    </g>
+  );
+}
+
+function PlayerDot({ player, onOffense, index, animateIn }: { player: CourtPlayer; onOffense: boolean; index: number; animateIn: boolean }) {
+  const clipId = `headshot-${player.playerId}`;
+  return (
+    // Children are drawn around (0, 0) and the group is moved, so a moving player only changes one transform.
+    <g transform={`translate(${player.x} ${player.y})`}>
+      <g className={animateIn ? "animate-pop-in" : undefined} style={animateIn ? { animationDelay: `${150 + index * 50}ms` } : undefined}>
+        <clipPath id={clipId}>
+          <circle r={DOT_RADIUS} />
+        </clipPath>
+        <circle r={DOT_RADIUS} fill="var(--surface-raised)" />
+        {/* Initials sit under the headshot and show through if the image can't load. */}
+        <text y={0.55} textAnchor="middle" fontSize={1.4} fontWeight={700} fill="var(--muted)" fontFamily="var(--font-geist-mono)">
+          {initials(player.name)}
+        </text>
+        <image
+          href={headshotUrl(player.playerId)}
+          x={-DOT_RADIUS * HEADSHOT_ASPECT}
+          y={-DOT_RADIUS}
+          width={2 * DOT_RADIUS * HEADSHOT_ASPECT}
+          height={2 * DOT_RADIUS}
+          clipPath={`url(#${clipId})`}
+        >
+          <title>{player.name}</title>
+        </image>
+        <circle r={DOT_RADIUS} fill="none" stroke={player.side === "home" ? "var(--home)" : "var(--away)"} strokeWidth={0.35} />
+        {onOffense ? <circle r={DOT_RADIUS + 0.45} fill="none" stroke="var(--accent)" strokeWidth={0.18} /> : null}
+      </g>
+    </g>
+  );
+}
+
+export function Court({
+  players,
+  offense,
+  ball = null,
+  flash = null,
+  animateIn = false,
+}: {
+  players: CourtPlayer[];
+  offense: Side | null;
+  ball?: CourtBall | null;
+  /** Brief highlight at the rim nearest the ball: a make or a miss. */
+  flash?: "make" | "miss" | "whistle" | null;
+  animateIn?: boolean;
+}) {
+  const rimX = ball && ball.x < LENGTH / 2 ? HOOP_FROM_BASELINE : LENGTH - HOOP_FROM_BASELINE;
   return (
     <svg viewBox={`-2 -2 ${LENGTH + 4} ${WIDTH + 4}`} className="w-full rounded-xl bg-court" role="img" aria-label="Court with player positions">
       <g fill="none" stroke="var(--court-line)" strokeWidth={0.25}>
@@ -44,37 +108,22 @@ export function Court({ lineups, offense }: { lineups: Record<Side, LineupPlayer
         <HalfCourtLines mirrored={false} />
         <HalfCourtLines mirrored />
       </g>
+      {flash === "make" || flash === "miss" ? (
+        <circle
+          key={`${flash}-${rimX}`}
+          cx={rimX}
+          cy={25}
+          r={flash === "make" ? 3.2 : 1.6}
+          fill="none"
+          stroke={flash === "make" ? "var(--accent)" : "var(--muted)"}
+          strokeWidth={0.4}
+          className="animate-pop-in"
+        />
+      ) : null}
       {players.map((p, i) => (
-        <g key={p.playerId} className="animate-pop-in" style={{ animationDelay: `${150 + i * 50}ms` }}>
-          <clipPath id={`headshot-${p.playerId}`}>
-            <circle cx={p.x} cy={p.y} r={DOT_RADIUS} />
-          </clipPath>
-          <circle cx={p.x} cy={p.y} r={DOT_RADIUS} fill="var(--surface-raised)" />
-          {/* Initials sit under the headshot and show through if the image can't load. */}
-          <text x={p.x} y={p.y + 0.55} textAnchor="middle" fontSize={1.4} fontWeight={700} fill="var(--muted)" fontFamily="var(--font-geist-mono)">
-            {initials(p.name)}
-          </text>
-          <image
-            href={headshotUrl(p.playerId)}
-            x={p.x - DOT_RADIUS * HEADSHOT_ASPECT}
-            y={p.y - DOT_RADIUS}
-            width={2 * DOT_RADIUS * HEADSHOT_ASPECT}
-            height={2 * DOT_RADIUS}
-            clipPath={`url(#headshot-${p.playerId})`}
-          >
-            <title>{p.name}</title>
-          </image>
-          <circle
-            cx={p.x}
-            cy={p.y}
-            r={DOT_RADIUS}
-            fill="none"
-            stroke={p.side === "home" ? "var(--home)" : "var(--away)"}
-            strokeWidth={0.35}
-          />
-          {p.side === offense ? <circle cx={p.x} cy={p.y} r={DOT_RADIUS + 0.45} fill="none" stroke="var(--accent)" strokeWidth={0.18} /> : null}
-        </g>
+        <PlayerDot key={p.playerId} player={p} onOffense={p.side === offense} index={i} animateIn={animateIn} />
       ))}
+      {ball ? <Basketball x={ball.x} y={ball.y} radius={ball.inAir ? 1.25 : 0.95} inAir={ball.inAir} /> : null}
     </svg>
   );
 }

@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 
+import type { MomentFile } from "@/engine/types";
 import { getBuiltMomentIds, getMoment } from "@/lib/moments";
-import type { Side } from "@/lib/types";
-import { Court } from "@/ui/Court";
+import type { Moment, Side } from "@/lib/types";
 import { PlayerHeadshot } from "@/ui/PlayerHeadshot";
-import { ScoreBug } from "@/ui/ScoreBug";
+import { ReplayPanel } from "@/ui/ReplayPanel";
 
 // Static export: one page per built moment, and nothing else.
 export const dynamicParams = false;
@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: PageProps<"/moments/[id]">): 
 export default async function MomentPage({ params }: PageProps<"/moments/[id]">) {
   const { id } = await params;
   const moment = getMoment(id);
-  const { state, teams, lineups } = moment;
+  const { teams, lineups } = moment;
   const sides: Side[] = ["away", "home"];
 
   return (
@@ -35,9 +35,7 @@ export default async function MomentPage({ params }: PageProps<"/moments/[id]">)
         <p className="text-muted">{moment.hook}</p>
       </div>
 
-      <ScoreBug moment={moment} />
-
-      <Court lineups={lineups} offense={state.possession} />
+      <ReplayPanel moment={moment as Moment & MomentFile} />
 
       <p className="max-w-2xl leading-relaxed text-foreground/90">{moment.intro}</p>
 
@@ -58,7 +56,7 @@ export default async function MomentPage({ params }: PageProps<"/moments/[id]">)
       </div>
 
       <div className="rounded-xl border border-dashed border-border p-4 text-center font-mono text-xs tracking-widest text-muted">
-        SWAP + SIMULATE · COMING NEXT
+        SWAP A PLAYER · COMING NEXT
       </div>
     </div>
   );

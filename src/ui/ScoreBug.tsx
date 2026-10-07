@@ -13,9 +13,12 @@ function periodLabel(period: number): string {
   return period <= 4 ? `Q${period}` : period === 5 ? "OT" : `${period - 4}OT`;
 }
 
-function TeamSide({ moment, side }: { moment: Moment; side: Side }) {
+/** The live parts of the score bug: during a replay these change every frame. */
+export type ScoreState = { period: number; clockSeconds: number; score: Record<Side, number>; possession: Side | null };
+
+function TeamSide({ moment, state, side }: { moment: Moment; state: ScoreState; side: Side }) {
   const team = moment.teams[side];
-  const hasBall = moment.state.possession === side;
+  const hasBall = state.possession === side;
   const isHome = side === "home";
   return (
     <div className={`flex flex-1 items-center gap-3 sm:gap-4 ${isHome ? "flex-row-reverse" : ""}`}>
@@ -26,22 +29,23 @@ function TeamSide({ moment, side }: { moment: Moment; side: Side }) {
           {hasBall ? <span className="rounded-sm bg-scorebug-ink px-1 text-[9px] text-scorebug">BALL</span> : null}
           {isHome ? team.tricode : null}
         </span>
-        <span className="font-mono text-4xl font-bold leading-none text-scorebug-ink sm:text-5xl">{moment.state.score[side]}</span>
+        <span className="font-mono text-4xl font-bold leading-none tabular-nums text-scorebug-ink sm:text-5xl">{state.score[side]}</span>
       </div>
     </div>
   );
 }
 
-export function ScoreBug({ moment }: { moment: Moment }) {
+export function ScoreBug({ moment, live }: { moment: Moment; live?: ScoreState }) {
+  const state: ScoreState = live ?? moment.state;
   return (
     <div className="overflow-hidden rounded-xl bg-scorebug shadow-lg shadow-black/30">
       <div className="flex items-center gap-2 px-4 py-4 sm:px-6">
-        <TeamSide moment={moment} side="away" />
+        <TeamSide moment={moment} state={state} side="away" />
         <div className="flex flex-col items-center px-2 sm:px-6">
-          <span className="font-mono text-xs font-semibold tracking-widest text-scorebug-muted">{periodLabel(moment.state.period)}</span>
-          <span className="font-mono text-3xl font-bold tabular-nums text-clock sm:text-4xl">{formatClock(moment.state.clockSeconds)}</span>
+          <span className="font-mono text-xs font-semibold tracking-widest text-scorebug-muted">{periodLabel(state.period)}</span>
+          <span className="font-mono text-3xl font-bold tabular-nums text-clock sm:text-4xl">{formatClock(state.clockSeconds)}</span>
         </div>
-        <TeamSide moment={moment} side="home" />
+        <TeamSide moment={moment} state={state} side="home" />
       </div>
       {/* Team color strip: our own away/home colors, not official team colors. */}
       <div className="flex h-1.5">
