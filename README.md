@@ -259,9 +259,9 @@ Averaged over whole careers (minutes-weighted, 1,500+ playoff minutes), the step
 
 **Small samples are noisy.** James Harden's 2012–13 playoffs (243 minutes) show a block-rate step-up of 2.13, which is a handful of blocks, not a real skill. The pipeline stores **playoff minutes** with every step-up so the simulation can decide how much to trust each one (next section).
 
-#### 4c. Putting it together in the simulation (planned)
+#### 4c. Putting it together in the simulation
 
-These rules are decided, and the engine will apply them. The pipeline already provides every number they need.
+The full set of basketball rules the simulation follows (who shoots, fouling, timeouts, rebounds) is in [`docs/simulation-rules.md`](docs/simulation-rules.md). For player profiles, the pipeline provides every number the engine needs:
 
 ```
 projected playoff rate = his regular-season rate
