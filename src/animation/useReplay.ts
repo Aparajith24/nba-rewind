@@ -7,7 +7,7 @@ import { frameAt, lerpPoint, type Frame, type Point, type ReplayPlayer } from ".
 
 /** Plays keyframes back with the browser's animation clock and hands out what to draw right now. */
 
-export type ReplayStatus = "idle" | "playing" | "done";
+export type ReplayStatus = "idle" | "playing" | "paused" | "done";
 
 export type ReplayView = {
   players: (ReplayPlayer & { jersey?: string })[];
@@ -66,6 +66,9 @@ export function useReplay(frames: Frame[], roster: (ReplayPlayer & { jersey?: st
     setT(0);
     setStatus("idle");
   };
+  /** Freeze where it is; resume picks up from the same instant. */
+  const pause = () => setStatus((s) => (s === "playing" ? "paused" : s));
+  const resume = () => setStatus((s) => (s === "paused" ? "playing" : s));
 
   let view: ReplayView | null = null;
   if (status !== "idle" && frames.length > 0) {
@@ -89,5 +92,5 @@ export function useReplay(frames: Frame[], roster: (ReplayPlayer & { jersey?: st
       offense: frame.offense,
     };
   }
-  return { status, start, reset, view };
+  return { status, start, reset, pause, resume, view };
 }

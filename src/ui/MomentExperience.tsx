@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 
 import { buildFrames, type ReplayPlayer } from "@/animation/frames";
 import { useReplay } from "@/animation/useReplay";
@@ -32,7 +32,7 @@ function newSeed() {
   return Math.random().toString(36).slice(2, 10);
 }
 
-export function MomentExperience({ moment }: { moment: Moment & MomentFile }) {
+export function MomentExperience({ moment, header }: { moment: Moment & MomentFile; header: ReactNode }) {
   const starters: Roster = useMemo(
     () =>
       (["home", "away"] as Side[]).flatMap((side) =>
@@ -148,137 +148,176 @@ export function MomentExperience({ moment }: { moment: Moment & MomentFile }) {
   const realWinner = moment.realFinal.winner;
   const ended = replay.status === "done";
 
-  return (
-    <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_380px]">
-      <div className="flex min-w-0 flex-col gap-5">
-        <ScoreBug moment={moment} live={view?.live ?? undefined} />
+  const pauseButton = (
+    <button
+      type="button"
+      onClick={replay.status === "paused" ? replay.resume : replay.pause}
+      className="flex items-center gap-2 rounded-xl bg-foreground px-5 py-3 text-sm font-semibold text-background"
+    >
+      {replay.status === "paused" ? "▶ Resume" : "❚❚ Pause"}
+    </button>
+  );
 
-        <section className="flex flex-col gap-4 rounded-2xl border border-border bg-surface p-4 sm:p-5">
-          <OnCourtStrip
-            players={stripPlayers}
-            selectedOut={outId}
-            replacement={replacement}
-            onSelect={(id) => {
-              setOutId(id === outId ? null : id);
-              setChoice(null);
+  // All playback controls live at the top right, so they're on screen without scrolling.
+  const replaying = replay.status === "playing" || replay.status === "paused";
+  const primaryAction = replaying ? (
+    pauseButton
+  ) : swapReady ? (
+    <button
+      type="button"
+      onClick={runSimulation}
+      disabled={running}
+      className="flex items-center gap-2 rounded-xl bg-foreground px-5 py-3 text-sm font-semibold text-background disabled:opacity-60"
+    >
+      ▶ {running ? "Simulating…" : tally ? "Run Again" : "Run Simulation"}
+    </button>
+  ) : (
+    <button
+      type="button"
+      onClick={() => {
+        setFeatured(null);
+        replay.start();
+      }}
+      className="flex items-center gap-2 rounded-xl bg-foreground px-5 py-3 text-sm font-semibold text-background"
+    >
+      ▶ {replay.status === "idle" ? "Watch What Really Happened" : "Replay"}
+    </button>
+  );
+  const secondaryButton = "flex items-center gap-2 rounded-xl border border-border px-4 py-3 text-sm";
+  const secondaryActions = (
+    <>
+      {featured && ended ? (
+        <button type="button" onClick={replay.start} className={secondaryButton}>
+          ▶ Replay
+        </button>
+      ) : null}
+      {replay.status !== "idle" ? (
+        <button type="button" onClick={replay.reset} className={secondaryButton}>
+          ↺ Reset
+        </button>
+      ) : null}
+    </>
+  );
+
+  return (
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        {header}
+        <div className="flex shrink-0 flex-wrap items-center gap-3 self-start">
+          <span className="flex items-center gap-2 rounded-xl border border-border px-4 py-2.5 text-sm">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+              <path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3" />
+            </svg>
+            {moment.game}
+          </span>
+          {primaryAction}
+          {secondaryActions}
+        </div>
+      </div>
+      <div className="grid gap-5 xl:grid-cols-[minmax(0,1fr)_380px]">
+        <div className="flex min-w-0 flex-col gap-5">
+          <ScoreBug moment={moment} live={view?.live ?? undefined} />
+
+          <section className="flex flex-col gap-4 rounded-2xl border border-border bg-surface p-4 sm:p-5">
+            <OnCourtStrip
+              players={stripPlayers}
+              selectedOut={outId}
+              replacement={replacement}
+              onSelect={(id) => {
+                setOutId(id === outId ? null : id);
+                setChoice(null);
+                setFiles(null);
+                resetResults();
+              }}
+            />
+            <Court
+              players={view?.players ?? starters}
+              offense={view ? view.offense : moment.state.possession}
+              ball={view?.ball ?? null}
+              flash={view?.flash ?? null}
+              animateIn={replay.status === "idle"}
+            />
+            <div className="min-h-11 rounded-lg bg-surface-raised px-4 py-3 text-sm" aria-live="polite">
+              {error ? `Couldn't run the simulation: ${error}` : (view?.caption ?? moment.hook)}
+            </div>
+
+            {ended ? (
+              <div className="rounded-xl border border-foreground/40 px-4 py-3 text-center animate-pop-in">
+                <div className="text-sm font-bold tracking-[0.25em]">
+                  {featured ? (featured.timeline.historyChanged ? "HISTORY CHANGED" : "HISTORY HOLDS") : "WHAT REALLY HAPPENED"}
+                </div>
+                <div className="mt-1 text-xs text-muted">
+                  {moment.teams.home.tricode} {replaySource.timeline.final.home} – {replaySource.timeline.final.away} {moment.teams.away.tricode}
+                  {replaySource.timeline.periods > 4 ? ` (${replaySource.timeline.periods - 4 === 1 ? "OT" : `${replaySource.timeline.periods - 4}OT`})` : ""}
+                  {featured ? ` · really: ${moment.teams[realWinner].name} won` : " · swap a player to see if history changes"}
+                </div>
+              </div>
+            ) : null}
+
+            <div className="flex flex-wrap items-center gap-3 border-t border-border pt-4">
+              <label className="flex items-center gap-2 text-sm text-muted">
+                Simulations
+                <select
+                  value={runs}
+                  onChange={(e) => setRuns(Number(e.target.value) as (typeof RUN_OPTIONS)[number])}
+                  className="rounded-lg border border-border bg-surface-raised px-3 py-2 text-foreground"
+                >
+                  {RUN_OPTIONS.map((n) => (
+                    <option key={n} value={n}>
+                      {n.toLocaleString()}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <div className="ml-auto flex items-center gap-1 text-sm text-muted">
+                Speed
+                {SPEEDS.map((s) => (
+                  <button
+                    key={s}
+                    type="button"
+                    onClick={() => setSpeed(s)}
+                    className={`rounded-lg border px-3 py-1.5 ${speed === s ? "border-foreground text-foreground" : "border-border"}`}
+                  >
+                    {s}x
+                  </button>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {swapReady && files && outPlayer ? (
+            <PlayerComparison
+              out={{ file: files.out, season: moment.season, label: `${moment.teams[outPlayer.side].name} (original)`, detail: `#${outPlayer.jersey ?? ""}` }}
+              swapIn={{ file: files.in, season: choice.season, label: `${choice.team} ${choice.season} (swapped in)`, detail: "Hypothetical" }}
+            />
+          ) : null}
+        </div>
+
+        <aside className="flex flex-col gap-5">
+          <SwapCard
+            outName={outPlayer?.name ?? null}
+            choice={choice}
+            onChoose={(c) => {
+              setChoice(c);
               setFiles(null);
               resetResults();
             }}
           />
-          <Court
-            players={view?.players ?? starters}
-            offense={view ? view.offense : moment.state.possession}
-            ball={view?.ball ?? null}
-            flash={view?.flash ?? null}
-            animateIn={replay.status === "idle"}
+          <MomentDetails moment={moment} />
+          <SimulationResults
+            tally={tally}
+            baseline={baseline}
+            target={runs}
+            teams={{ home: moment.teams.home, away: moment.teams.away }}
+            offense={moment.state.possession}
+            realWinner={realWinner}
+            swapName={choice?.name ?? null}
+            swapId={choice?.playerId ?? null}
+            running={running}
           />
-          <div className="min-h-11 rounded-lg bg-surface-raised px-4 py-3 text-sm" aria-live="polite">
-            {error ? `Couldn't run the simulation: ${error}` : (view?.caption ?? moment.hook)}
-          </div>
-
-          {ended ? (
-            <div className="rounded-xl border border-foreground/40 px-4 py-3 text-center animate-pop-in">
-              <div className="text-sm font-bold tracking-[0.25em]">
-                {featured ? (featured.timeline.historyChanged ? "HISTORY CHANGED" : "HISTORY HOLDS") : "WHAT REALLY HAPPENED"}
-              </div>
-              <div className="mt-1 text-xs text-muted">
-                {moment.teams.home.tricode} {replaySource.timeline.final.home} – {replaySource.timeline.final.away} {moment.teams.away.tricode}
-                {replaySource.timeline.periods > 4 ? ` (${replaySource.timeline.periods - 4 === 1 ? "OT" : `${replaySource.timeline.periods - 4}OT`})` : ""}
-                {featured ? ` · really: ${moment.teams[realWinner].name} won` : " · swap a player to see if history changes"}
-              </div>
-            </div>
-          ) : null}
-
-          <div className="flex flex-wrap items-center gap-3 border-t border-border pt-4">
-            {swapReady ? (
-              <button
-                type="button"
-                onClick={runSimulation}
-                disabled={running}
-                className="flex items-center gap-2 rounded-xl bg-foreground px-5 py-3 text-sm font-semibold text-background disabled:opacity-60"
-              >
-                ▶ {running ? "Simulating…" : tally ? "Run Again" : "Run Simulation"}
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={() => {
-                  setFeatured(null);
-                  replay.start();
-                }}
-                disabled={replay.status === "playing"}
-                className="flex items-center gap-2 rounded-xl bg-foreground px-5 py-3 text-sm font-semibold text-background disabled:opacity-60"
-              >
-                ▶ {replay.status === "idle" ? "Watch What Really Happened" : "Replay"}
-              </button>
-            )}
-            {featured && ended ? (
-              <button type="button" onClick={replay.start} className="rounded-xl border border-border px-4 py-3 text-sm">
-                Replay
-              </button>
-            ) : null}
-            <label className="flex items-center gap-2 text-sm text-muted">
-              Simulations
-              <select
-                value={runs}
-                onChange={(e) => setRuns(Number(e.target.value) as (typeof RUN_OPTIONS)[number])}
-                className="rounded-lg border border-border bg-surface-raised px-3 py-2 text-foreground"
-              >
-                {RUN_OPTIONS.map((n) => (
-                  <option key={n} value={n}>
-                    {n.toLocaleString()}
-                  </option>
-                ))}
-              </select>
-            </label>
-            <div className="ml-auto flex items-center gap-1 text-sm text-muted">
-              Speed
-              {SPEEDS.map((s) => (
-                <button
-                  key={s}
-                  type="button"
-                  onClick={() => setSpeed(s)}
-                  className={`rounded-lg border px-3 py-1.5 ${speed === s ? "border-foreground text-foreground" : "border-border"}`}
-                >
-                  {s}x
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {swapReady && files && outPlayer ? (
-          <PlayerComparison
-            out={{ file: files.out, season: moment.season, label: `${moment.teams[outPlayer.side].name} (original)`, detail: `#${outPlayer.jersey ?? ""}` }}
-            swapIn={{ file: files.in, season: choice.season, label: `${choice.team} ${choice.season} (swapped in)`, detail: "Hypothetical" }}
-          />
-        ) : null}
+          <HowItWorks />
+        </aside>
       </div>
-
-      <aside className="flex flex-col gap-5">
-        <SwapCard
-          outName={outPlayer?.name ?? null}
-          choice={choice}
-          onChoose={(c) => {
-            setChoice(c);
-            setFiles(null);
-            resetResults();
-          }}
-        />
-        <MomentDetails moment={moment} />
-        <SimulationResults
-          tally={tally}
-          baseline={baseline}
-          target={runs}
-          teams={{ home: moment.teams.home, away: moment.teams.away }}
-          offense={moment.state.possession}
-          realWinner={realWinner}
-          swapName={choice?.name ?? null}
-          swapId={choice?.playerId ?? null}
-          running={running}
-        />
-        <HowItWorks />
-      </aside>
     </div>
   );
 }
