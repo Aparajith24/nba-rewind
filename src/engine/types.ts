@@ -60,6 +60,7 @@ export type MomentFile = {
   teams: Record<Side, { teamId: number; tricode: string }>;
   lineups: Record<Side, { playerId: number; name: string; season: string; x: number; y: number }[]>;
   inGame: Record<string, InGameShooting>;
+  realTimeline: RealTimeline;
 };
 
 /** A player as the sim sees him: one season's playoff profile, ready to roll dice with. */
@@ -111,11 +112,14 @@ export type SimEvent = Stamp &
     | { type: "freeThrow"; team: Side; player: number; made: boolean; n: number; of: number }
     | { type: "rebound"; team: Side; player: number; offensive: boolean }
     | { type: "turnover"; team: Side; player: number; stolenBy: number | null }
-    | { type: "foul"; team: Side; player: number; on: number; kind: "intentional" | "shooting" }
+    | { type: "foul"; team: Side; player: number; on: number; kind: "intentional" | "shooting" | "personal" }
     | { type: "periodEnd" }
-    | { type: "periodStart" }
+    | { type: "periodStart"; lineups?: Record<Side, number[]> }
+    /** Real games only: the sim keeps the same ten players. */
+    | { type: "substitution"; team: Side; out: number; in: number }
   );
 
+/** In a rebound or turnover, player 0 means the team (a team rebound, a shot-clock violation). */
 export type Timeline = {
   seed: string;
   events: SimEvent[];
@@ -124,6 +128,9 @@ export type Timeline = {
   winner: Side;
   historyChanged: boolean;
 };
+
+/** What really happened after the moment's start (public/data/moments/{id}.json realTimeline). */
+export type RealTimeline = Timeline & { players: Record<string, { name: string; side: Side }> };
 
 export type Summary = {
   timelines: number;

@@ -41,6 +41,7 @@ function describeEvent(e: SimEvent, names: Map<number, string>): string {
     case "foul": return head + `${who(e.player)} ${e.kind} foul on ${who(e.on)}`;
     case "periodEnd": return head + "— end of period —";
     case "periodStart": return head + "— overtime —";
+    case "substitution": return head + `${who(e.in)} in for ${who(e.out)}`;
   }
 }
 
