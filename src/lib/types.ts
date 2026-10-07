@@ -22,6 +22,9 @@ export type Side = "home" | "away";
 export type LineupPlayer = {
   playerId: number;
   name: string;
+  jersey: string;
+  /** Listed position on that season's roster, e.g. "G", "F-C". */
+  position: string;
   season: string;
   /** Feet from the offense's own baseline (0) to the basket it attacks (94). */
   x: number;
@@ -34,6 +37,8 @@ export type Moment = {
   id: string;
   number: number;
   title: string;
+  /** e.g. "2013 NBA Finals · Game 6" */
+  game: string;
   season: string;
   rulesSeason: string;
   hook: string;
@@ -47,6 +52,6 @@ export type Moment = {
     possession: Side;
   };
   realEnd: { period: number; score: Record<Side, number> };
-  teams: Record<Side, { teamId: number; tricode: string }>;
+  teams: Record<Side, { teamId: number; tricode: string; name: string; city: string }>;
   lineups: Record<Side, LineupPlayer[]>;
 };

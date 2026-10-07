@@ -38,3 +38,11 @@ export async function loadLeagues(seasons: string[]): Promise<Record<string, Lea
   const files = await Promise.all(unique.map(loadLeague));
   return Object.fromEntries(files.map((f) => [f.season, f]));
 }
+
+/** One entry of public/data/index.json. */
+export type IndexPlayer = { id: number; name: string; seasons: { season: string; team: string; playoffs: boolean }[] };
+
+/** The search index (~90 KB compressed), loaded once when the swap search is first used. */
+export function loadIndex(): Promise<IndexPlayer[]> {
+  return getJson<IndexPlayer[]>("/data/index.json");
+}
