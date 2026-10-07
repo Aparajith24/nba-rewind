@@ -54,11 +54,13 @@ def requests_for_season(season: str):
             )
 
 
-def ingest_season(season: str) -> None:
+def ingest_season(season: str, quiet: bool = False) -> None:
+    """quiet: don't print requests that were already cached."""
     for endpoint_cls, params in requests_for_season(season):
         label = f"{season} {params['season_type_all_star']:<14} {endpoint_cls.__name__} {params.get('measure_type_detailed_defense', '')}"
         if is_cached(endpoint_cls, **params):
-            print(f"  cached   {label}")
+            if not quiet:
+                print(f"  cached   {label}")
             continue
         response = fetch_cached(endpoint_cls, **params)
         print(f"  fetched  {label} ({row_count(response)} rows)")

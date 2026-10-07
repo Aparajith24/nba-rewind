@@ -83,10 +83,10 @@ def _lineup(content: dict, state: MomentState, team: TeamState) -> list[dict]:
     return lineup
 
 
-def main() -> None:
+def main(args: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--id", help="export one moment (default: all)")
-    args = parser.parse_args()
+    args = parser.parse_args(args)
 
     paths = [CONTENT_DIR / f"{args.id}.json"] if args.id else sorted(CONTENT_DIR.glob("*.json"))
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
