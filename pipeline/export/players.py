@@ -8,7 +8,9 @@ public/data/players/{playerId}.json
     Everything we have on one player, every season, loaded only when he's
     picked. Each season has a "playoffs" and a "regularSeason" profile (either
     can be missing). All stats from data/processed/player_seasons are
-    included; which ones the sim uses is up to the engine.
+    included; which ones the sim uses is up to the engine. Seasons with both
+    profiles also get "stepUp": how much he changed in the playoffs beyond the
+    league's own change (1.0 = same as the league), plus his playoff minutes.
 
     uv run python -m export.players
 """
@@ -37,7 +39,8 @@ def clean(value):
     return value.item() if hasattr(value, "item") else value
 
 
-def player_file(rows: pd.DataFrame) -> dict:
+def player_file(rows: pd.DataFrame, step_up: pd.DataFrame | None = None) -> dict:
+    """step_up: this player's rows from player_step_up.parquet, indexed by season."""
     rows = rows.sort_values("season")
     stat_columns = [c for c in rows.columns if c not in IDENTITY and c not in SEASON_FIELDS]
     seasons = {}
@@ -47,6 +50,8 @@ def player_file(rows: pd.DataFrame) -> dict:
         entry = {field: clean(ordered.iloc[0][field]) for field in SEASON_FIELDS}
         for _, row in season_rows.iterrows():
             entry[PROFILE_KEYS[row["season_type"]]] = {c: clean(row[c]) for c in stat_columns}
+        if step_up is not None and season in step_up.index:
+            entry["stepUp"] = {c: clean(v) for c, v in step_up.loc[season].items() if c != "player_id"}
         seasons[season] = entry
     # The most recent spelling of his name (e.g. Ron Artest became Metta World Peace).
     return {"id": clean(rows.iloc[0]["player_id"]), "name": rows.iloc[-1]["player_name"], "seasons": seasons}
@@ -65,12 +70,14 @@ def index_entry(player: dict) -> dict:
 
 def main() -> None:
     table = pd.read_parquet(PROCESSED_DIR / "player_seasons.parquet")
+    step_up = pd.read_parquet(PROCESSED_DIR / "player_step_up.parquet")
+    step_up_by_player = {pid: rows.set_index("season") for pid, rows in step_up.groupby("player_id")}
     players_dir = OUTPUT_DIR / "players"
     players_dir.mkdir(parents=True, exist_ok=True)
 
     index = []
-    for _, rows in table.groupby("player_id"):
-        player = player_file(rows)
+    for player_id, rows in table.groupby("player_id"):
+        player = player_file(rows, step_up_by_player.get(player_id))
         (players_dir / f"{player['id']}.json").write_text(json.dumps(player, separators=(",", ":")))
         index.append(index_entry(player))
 

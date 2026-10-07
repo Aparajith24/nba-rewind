@@ -5,6 +5,8 @@ public/data/leagues/{season}.json
     data/processed/league_seasons (the baseline for the era toggle).
     "rules": which rule changes were in effect that season. These are facts
     about the rulebook only; how the sim uses them is the engine's job.
+    "playoffAdjustment": how the same playoff teams changed from their own
+    regular season to the playoffs (1.0 = no change), from transform.playoff_step_up.
 
     uv run python -m export.leagues
 """
@@ -38,11 +40,16 @@ def rules_for(season: str) -> dict:
 
 def main() -> None:
     table = pd.read_parquet(PROCESSED_DIR / "league_seasons.parquet")
+    adjustment = pd.read_parquet(PROCESSED_DIR / "league_playoff_adjustment.parquet").set_index("season")
     leagues_dir = OUTPUT_DIR / "leagues"
     leagues_dir.mkdir(parents=True, exist_ok=True)
 
     for season, rows in table.groupby("season"):
-        league = {"season": season, "rules": rules_for(season)}
+        league = {
+            "season": season,
+            "rules": rules_for(season),
+            "playoffAdjustment": {c: clean(v) for c, v in adjustment.loc[season].items()},
+        }
         for _, row in rows.iterrows():
             league[PROFILE_KEYS[row["season_type"]]] = {c: clean(row[c]) for c in rows.columns if c not in ("season", "season_type")}
         (leagues_dir / f"{season}.json").write_text(json.dumps(league, indent=2) + "\n")
