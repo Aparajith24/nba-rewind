@@ -104,6 +104,19 @@ def test_technical_on_bench_player_is_not_evidence():
     assert 6 not in {p.person_id for p in starters}
 
 
+def test_ambiguous_silent_starter_picked_by_minutes_and_flagged():
+    # 1997 Finals G5 shape: four starters show up, and two players from last period's
+    # lineup (Caffey, Kerr) never touch the ball. The one with more game minutes gets the spot.
+    r = roster(*[(i, "P", f"Player{i}") for i in range(1, 7)])
+    r.minutes = {5: 12.0, 6: 30.0}
+    actions = [action(TEAM, i, "Rebound") for i in (1, 2, 3, 4)]
+    carried = [r.players[i] for i in (1, 2, 5, 6, 3)]
+    notes = []
+    starters = _infer_starters(actions, r, carried_over=carried, period=4, notes=notes)
+    assert {p.person_id for p in starters} == {1, 2, 3, 4, 6}
+    assert len(notes) == 1 and "by game minutes" in notes[0]
+
+
 def test_too_few_starters_raises_instead_of_guessing():
     r = roster(*[(i, "P", f"Player{i}") for i in range(1, 7)])
     actions = [action(TEAM, i, "Rebound") for i in (1, 2, 3)]

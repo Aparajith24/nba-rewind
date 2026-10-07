@@ -50,35 +50,44 @@ class MomentState:
     away: TeamState
     possession_tricode: str | None  # inferred from the next action; moment files can override
     next_action: str | None
+    notes: list[str]  # guesses made while rebuilding the state, for a human to check
 
 
 class Roster:
     """One team's players, findable by the names play-by-play descriptions use.
 
     Descriptions like "SUB: Allen FOR Miller" name players by last name only, and
-    the spelling can differ from the box score (accents, "Jr.", nicknames). So each
-    player is indexed under several normalized aliases: box score family name, with
-    and without suffix, full name, and the play-by-play's own spelling of him.
+    the spelling can differ from the box score (accents, "Jr.", "Ty. Thomas" vs
+    "Ti. Thomas", old names). So each player is indexed under several aliases. An
+    exact alias match wins; dropping suffixes ("Williams III" -> "Williams") is a
+    fallback, so "Williams" means Grant Williams, not Robert Williams III.
     """
 
     def __init__(self, team: dict, actions: list[dict]):
         self.team_id = team["teamId"]
         self.tricode = team["teamTricode"]
         self.players = {p["personId"]: Player(p["personId"], p["nameI"]) for p in team["players"]}
-        self._aliases: dict[str, set[int]] = {}
+        self.minutes = {p["personId"]: _minutes(p.get("statistics", {}).get("minutes")) for p in team["players"]}
+        self._exact: dict[str, set[int]] = {}
+        self._loose: dict[str, set[int]] = {}
         for p in team["players"]:
-            for alias in (p["familyName"], f"{p['firstName']} {p['familyName']}"):
+            first, family = p["firstName"], p["familyName"]
+            # nameI ("A. Davis") and longer initials ("Ty. Thomas", "Jal. Williams") are how
+            # play-by-play tells apart teammates who share a last name.
+            aliases = [family, f"{first} {family}", p["nameI"]] + [f"{first[:k]}. {family}" for k in range(2, 5)]
+            aliases += FORMER_NAMES.get(family, [])
+            for alias in aliases:
                 self._add_alias(alias, p["personId"])
         for a in actions:
             if a["teamId"] == self.team_id and a["personId"] in self.players and a["playerName"]:
                 self._add_alias(a["playerName"], a["personId"])
 
     def _add_alias(self, name: str, person_id: int) -> None:
-        for key in {normalize_name(name), normalize_name(name, drop_suffix=True)}:
-            self._aliases.setdefault(key, set()).add(person_id)
+        self._exact.setdefault(normalize_name(name), set()).add(person_id)
+        self._loose.setdefault(normalize_name(name, drop_suffix=True), set()).add(person_id)
 
     def candidates(self, name: str) -> list[Player]:
-        ids = self._aliases.get(normalize_name(name)) or self._aliases.get(normalize_name(name, drop_suffix=True), set())
+        ids = self._exact.get(normalize_name(name)) or self._loose.get(normalize_name(name, drop_suffix=True), set())
         return [self.players[i] for i in sorted(ids)]
 
     def resolve(self, name: str, context: str, exclude: set[int] = frozenset()) -> Player:
@@ -90,7 +99,27 @@ class Roster:
         return matches[0]
 
 
+# Players who changed names. Play-by-play uses the current name for a player's own actions,
+# but substitution text keeps the name he had at the time. Keyed by current family name.
+FORMER_NAMES = {
+    "World Peace": ["Artest"],
+    "Sandiford-Artest": ["Artest", "World Peace"],
+    "Freedom": ["Kanter"],
+}
+
+
 NAME_SUFFIXES = {"jr", "sr", "ii", "iii", "iv"}
+
+
+def _minutes(value) -> float:
+    """Box-score minutes as a number: "41:29" or "PT41M29.00S" -> 41.48."""
+    if not value:
+        return 0.0
+    if value.startswith("PT"):
+        m, sec = CLOCK_PATTERN.fullmatch(value).groups()
+        return int(m) + float(sec) / 60
+    m, _, sec = value.partition(":")
+    return int(m) + (float(sec) / 60 if sec else 0)
 
 
 def normalize_name(name: str, drop_suffix: bool = False) -> str:
@@ -107,23 +136,36 @@ def clock_seconds(clock: str) -> float:
     return int(minutes) * 60 + float(seconds)
 
 
-def state_at(game_id: str, period: int, clock: float) -> MomentState:
+def state_at(game_id: str, period: int, clock: float, through_action: int | None = None) -> MomentState:
+    """through_action: if set, only actions up to and including this actionNumber count as
+    "happened" at the given clock. Needed when the moment starts mid-way through events that
+    share a clock (e.g. after a foul but before the free throws it led to)."""
     actions = fetch_play_by_play(game_id)
     box = fetch_game_box(game_id)
     rosters = {r.team_id: r for r in (Roster(box["homeTeam"], actions), Roster(box["awayTeam"], actions))}
+    cutoff = None
+    if through_action is not None:
+        cutoff = next(i for i, a in enumerate(actions) if a["actionNumber"] == through_action)
+    order = {id(a): i for i, a in enumerate(actions)}
 
     def happened(a: dict) -> bool:
-        return a["period"] < period or (a["period"] == period and clock_seconds(a["clock"]) >= clock)
+        if a["period"] != period:
+            return a["period"] < period
+        t = clock_seconds(a["clock"])
+        if t != clock or cutoff is None:
+            return t >= clock
+        return order[id(a)] <= cutoff
 
     past = [a for a in actions if happened(a)]
     future = [a for a in actions if not happened(a)]
 
     on_floor: dict[int, list[Player]] = {}
+    notes: list[str] = []
     for p in range(1, period + 1):
         period_actions = [a for a in actions if a["period"] == p]
         for team_id, roster in rosters.items():
             carried_over = on_floor.get(team_id, [])
-            on_floor[team_id] = _infer_starters(period_actions, roster, carried_over, p)
+            on_floor[team_id] = _infer_starters(period_actions, roster, carried_over, p, notes)
         for a in period_actions:
             if happened(a) and a["actionType"] == "Substitution":
                 _apply_substitution(on_floor[a["teamId"]], rosters[a["teamId"]], a)
@@ -139,10 +181,12 @@ def state_at(game_id: str, period: int, clock: float) -> MomentState:
         away=TeamState(away.team_id, away.tricode, away_score, on_floor[away.team_id]),
         possession_tricode=possession,
         next_action=next_action,
+        notes=notes,
     )
 
 
-def _infer_starters(period_actions: list[dict], roster: Roster, carried_over: list[Player], period: int) -> list[Player]:
+def _infer_starters(period_actions: list[dict], roster: Roster, carried_over: list[Player], period: int,
+                    notes: list[str] | None = None) -> list[Player]:
     first_seen: dict[int, str] = {}  # person_id -> "started" or "checked_in"
     for a in period_actions:
         if a["teamId"] != roster.team_id or _is_off_court_action(a):
@@ -172,6 +216,14 @@ def _infer_starters(period_actions: list[dict], roster: Roster, carried_over: li
         missing = LINEUP_SIZE - len(starters)
         if len(silent) == missing:
             starters += silent
+        elif len(silent) > missing:
+            # More silent candidates than open spots: the ones who played more of the game are
+            # likelier to have played the whole period without touching the ball. Flag it.
+            picked = sorted(silent, key=lambda p: -roster.minutes.get(p.person_id, 0))[:missing]
+            starters += picked
+            if notes is not None:
+                notes.append(f"{roster.tricode} period {period}: guessed {[p.name for p in picked]} "
+                             f"from {[p.name for p in silent]} by game minutes")
     if len(starters) != LINEUP_SIZE:
         raise ValueError(f"{roster.tricode} period {period}: inferred {len(starters)} starters: {[p.name for p in starters]}")
     return starters
