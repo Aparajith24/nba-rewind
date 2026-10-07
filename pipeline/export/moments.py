@@ -1,6 +1,6 @@
 """Build the moment files the app loads.
 
-Each hand-written file in content/moments/ (title, hook, start time, player
+Each hand-written file in content/moments/ (title, game label, hook, start time, player
 positions) is combined with the state rebuilt from play-by-play (score,
 possession, who's on the floor) and written to public/data/moments/.
 Positions must cover exactly the ten players the play-by-play says were on
@@ -25,6 +25,7 @@ import json
 
 from ingest.cache import REPO_ROOT
 from ingest.moment_games import fetch_game_box, fetch_play_by_play
+from ingest.rosters import team_roster
 from transform.game_context import final_score, in_game_shooting, timeouts_left, timeouts_used
 from transform.moment_state import MomentState, TeamState, happened_by, state_at
 from transform.real_timeline import build_real_timeline
@@ -51,6 +52,10 @@ def export_moment(content: dict) -> dict:
     box = fetch_game_box(game_id)
     team_names = {"home": box["homeTeam"]["teamName"], "away": box["awayTeam"]["teamName"]}
     final_home, final_away, periods = final_score(actions)
+    # Jersey numbers and positions from the season rosters (box scores leave them blank for older games).
+    roster_info = {**team_roster(start.home.team_id, content["season"]), **team_roster(start.away.team_id, content["season"])}
+    jerseys = {pid: info["jersey"] for pid, info in roster_info.items()}
+    positions_listed = {pid: info["position"] for pid, info in roster_info.items()}
     offense_side = "home" if start.possession_tricode == start.home.tricode else "away"
 
     return {
@@ -78,7 +83,7 @@ def export_moment(content: dict) -> dict:
             "score": {"home": final_home, "away": final_away},
             "winner": "home" if final_home > final_away else "away",
         },
-        "realTimeline": build_real_timeline(
+        "realTimeline": build_real_timeline(jerseys,
             game_id, period, clock, content.get("throughAction"), actions, box, offense_side,
             # The offense starts in the frontcourt if it's lined up past half court.
             sum(p["x"] for p in content["positions"][start.home.tricode if offense_side == "home" else start.away.tricode]) / 5 > 47,
@@ -92,18 +97,19 @@ def export_moment(content: dict) -> dict:
             for team in (start.home, start.away)
             for p in team.on_floor
         },
+        "game": content["game"],
         "teams": {
-            "home": {"teamId": start.home.team_id, "tricode": start.home.tricode},
-            "away": {"teamId": start.away.team_id, "tricode": start.away.tricode},
+            side: {"teamId": t.team_id, "tricode": t.tricode, "name": box[f"{side}Team"]["teamName"], "city": box[f"{side}Team"]["teamCity"]}
+            for side, t in (("home", start.home), ("away", start.away))
         },
         "lineups": {
-            "home": _lineup(content, start, start.home),
-            "away": _lineup(content, start, start.away),
+            "home": _lineup(content, start, start.home, jerseys, positions_listed),
+            "away": _lineup(content, start, start.away, jerseys, positions_listed),
         },
     }
 
 
-def _lineup(content: dict, state: MomentState, team: TeamState) -> list[dict]:
+def _lineup(content: dict, state: MomentState, team: TeamState, jerseys: dict[int, str], listed: dict[int, str]) -> list[dict]:
     positions = {p["playerId"]: p for p in content["positions"][team.tricode]}
     on_floor = {p.person_id: p for p in team.on_floor}
     if positions.keys() != on_floor.keys():
@@ -117,7 +123,8 @@ def _lineup(content: dict, state: MomentState, team: TeamState) -> list[dict]:
         if not (-OUT_OF_BOUNDS_MARGIN_FT <= x <= COURT_LENGTH_FT + OUT_OF_BOUNDS_MARGIN_FT
                 and -OUT_OF_BOUNDS_MARGIN_FT <= y <= COURT_WIDTH_FT + OUT_OF_BOUNDS_MARGIN_FT):
             raise ValueError(f"{content['id']}: {player.name} at ({x}, {y}) is off the court")
-        lineup.append({"playerId": player.person_id, "name": player.name, "season": content["season"], "x": x, "y": y})
+        lineup.append({"playerId": player.person_id, "name": player.name, "jersey": jerseys.get(player.person_id, ""),
+                       "position": listed.get(player.person_id, ""), "season": content["season"], "x": x, "y": y})
     return lineup
 
 

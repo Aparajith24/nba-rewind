@@ -51,14 +51,14 @@ def _zone(action: dict) -> tuple[str, float, float]:
     return zone, round(x, 1), round(y, 1)
 
 
-def build_real_timeline(game_id: str, start_period: int, start_clock: float, through_action: int | None,
+def build_real_timeline(jerseys: dict[int, str], game_id: str, start_period: int, start_clock: float, through_action: int | None,
                         actions: list[dict], box: dict, starting_possession: str, starting_frontcourt: bool) -> dict:
     home_id, away_id = box["homeTeam"]["teamId"], box["awayTeam"]["teamId"]
     side_of_team = {home_id: "home", away_id: "away"}
     roster = {}
     for side, team in (("home", box["homeTeam"]), ("away", box["awayTeam"])):
         for p in team["players"]:
-            roster[p["personId"]] = {"name": p["nameI"], "side": side}
+            roster[p["personId"]] = {"name": p["nameI"], "side": side, "jersey": jerseys.get(p["personId"]) or p.get("jerseyNum") or ""}
 
     happened = happened_by(actions, start_period, start_clock, through_action)
     future = [a for a in actions if not happened(a)]
