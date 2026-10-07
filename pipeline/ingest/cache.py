@@ -50,6 +50,14 @@ def fetch_cached(endpoint_cls, **params) -> dict:
     return response
 
 
+def read_cached(endpoint_cls, **params) -> dict:
+    """Like fetch_cached, but never touches the network. For transform steps, which only read what ingest saved."""
+    path = cache_path(endpoint_cls.__name__.lower(), params)
+    if not path.exists():
+        raise FileNotFoundError(f"{path.relative_to(REPO_ROOT)} isn't cached; run the ingest step first")
+    return json.loads(path.read_text())["response"]
+
+
 def is_cached(endpoint_cls, **params) -> bool:
     return cache_path(endpoint_cls.__name__.lower(), params).exists()
 
