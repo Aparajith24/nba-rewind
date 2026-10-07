@@ -10,6 +10,17 @@
   "hook": "Down 3. 19 seconds. They're already roping off the floor.",
   "intro": "Game 6, Miami. The Spurs lead by three and are one stop from the title. Security is stretching yellow rope along the sideline. The trophy is in the hallway. Fans are heading for the exits. The Heat inbound under their own basket with 19.4 seconds left.",
   "realOutcome": "LeBron misses a three. Bosh grabs the offensive rebound and kicks it to Ray Allen, who backpedals behind the line and ties it 95-95 with 5.2 seconds left. Miami wins in overtime, then wins Game 7.",
+  "playCorrections": [
+    {
+      "clock": 5.2,
+      "player": 951,
+      "type": "shot",
+      "x": 86.5,
+      "y": 47.6,
+      "zone": "right_corner3",
+      "note": "Play-by-play puts Allen's tying three at 25 ft on the right wing; video shows him in the right corner."
+    }
+  ],
   "positionsNote": "Placeholder positions for the inbound after Leonard's free throw. To be adjusted by hand.",
   "positions": {
     "MIA": [

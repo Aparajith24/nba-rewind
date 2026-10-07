@@ -52,7 +52,10 @@ def _zone(action: dict) -> tuple[str, float, float]:
 
 
 def build_real_timeline(jerseys: dict[int, str], game_id: str, start_period: int, start_clock: float, through_action: int | None,
-                        actions: list[dict], box: dict, starting_possession: str, starting_frontcourt: bool) -> dict:
+                        actions: list[dict], box: dict, starting_possession: str, starting_frontcourt: bool,
+                        corrections: list[dict] = ()) -> dict:
+    """corrections: hand-checked fixes from the moment's content file, e.g. a shot location the
+    play-by-play got wrong. Each matches a shot by clock and player and overrides x, y and zone."""
     home_id, away_id = box["homeTeam"]["teamId"], box["awayTeam"]["teamId"]
     side_of_team = {home_id: "home", away_id: "away"}
     roster = {}
@@ -123,6 +126,10 @@ def build_real_timeline(jerseys: dict[int, str], game_id: str, start_period: int
                     events.append({**stamp(a), "type": "pass", "team": side, "from": passers[0], "to": a["personId"]})
             if made:
                 score[side] += value
+            fix = next((c for c in corrections if c["type"] == "shot" and c["player"] == a["personId"]
+                        and abs(c["clock"] - clock_seconds(a["clock"])) < 0.05), None)
+            if fix:
+                zone, x, y = fix["zone"], fix["x"], fix["y"]
             events.append({**stamp(a), "type": "shot", "team": side, "player": a["personId"], "zone": zone,
                            "value": value, "made": made, "x": x, "y": y, "fouled": fouled})
             if made and not fouled:

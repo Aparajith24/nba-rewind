@@ -87,6 +87,7 @@ def export_moment(content: dict) -> dict:
             game_id, period, clock, content.get("throughAction"), actions, box, offense_side,
             # The offense starts in the frontcourt if it's lined up past half court.
             sum(p["x"] for p in content["positions"][start.home.tricode if offense_side == "home" else start.away.tricode]) / 5 > 47,
+            content.get("playCorrections", []),
         ),
         "timeoutsLeft": {
             side: timeouts_left(content["season"], period, clock, timeouts_used(past, team_names[side]))
