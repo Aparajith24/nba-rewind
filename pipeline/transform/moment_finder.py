@@ -1,8 +1,8 @@
 """Find and verify every moment in content/moment-catalog.json.
 
 For each moment: look up the game, find the famous play in the play-by-play,
-walk back to the last dead ball before it (the owner's rule for where a
-moment starts), and rebuild the full state there. Takeovers give an explicit
+walk back to the last dead ball before it (where a moment starts; see
+docs/simulation-rules.md), and rebuild the full state there. Takeovers give an explicit
 start clock instead of a famous play.
 
 Writes a review report to data/processed/moment_verification.{json,md}. It

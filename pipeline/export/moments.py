@@ -6,6 +6,11 @@ possession, who's on the floor) and written to public/data/moments/.
 Positions must cover exactly the ten players the play-by-play says were on
 the floor, so a typo or a wrong start time fails loudly.
 
+Also added for the sim: each player's shooting in that game before the moment
+(hot hand), each team's timeouts left, and the real final score and winner
+(timelines play to the end of the game, overtime included; history changed
+means the real loser won).
+
 Court coordinates are in feet, from the offense's point of view:
 x runs 0 (the offense's own baseline) to 94 (the baseline it attacks),
 y runs 0 to 50 across the floor. The basket being attacked is at (88.75, 25).
@@ -18,7 +23,9 @@ import argparse
 import json
 
 from ingest.cache import REPO_ROOT
-from transform.moment_state import MomentState, TeamState, state_at
+from ingest.moment_games import fetch_game_box, fetch_play_by_play
+from transform.game_context import final_score, in_game_shooting, timeouts_left, timeouts_used
+from transform.moment_state import MomentState, TeamState, happened_by, state_at
 
 CONTENT_DIR = REPO_ROOT / "content" / "moments"
 OUTPUT_DIR = REPO_ROOT / "public" / "data" / "moments"
@@ -29,10 +36,19 @@ OUT_OF_BOUNDS_MARGIN_FT = 4.0  # room for an inbounder standing off the floor
 
 
 def export_moment(content: dict) -> dict:
-    start = state_at(content["gameId"], content["period"], content["clockSeconds"], content.get("throughAction"))
-    end = state_at(content["gameId"], content["period"], 0)
+    game_id, period, clock = content["gameId"], content["period"], content["clockSeconds"]
+    start = state_at(game_id, period, clock, content.get("throughAction"))
+    end = state_at(game_id, period, 0)
     if start.possession_tricode is None:
         raise ValueError(f"{content['id']}: couldn't infer possession")
+
+    actions = fetch_play_by_play(game_id)
+    happened = happened_by(actions, period, clock, content.get("throughAction"))
+    past = [a for a in actions if happened(a)]
+    shooting = in_game_shooting(past)
+    box = fetch_game_box(game_id)
+    team_names = {"home": box["homeTeam"]["teamName"], "away": box["awayTeam"]["teamName"]}
+    final_home, final_away, periods = final_score(actions)
 
     return {
         "id": content["id"],
@@ -53,6 +69,20 @@ def export_moment(content: dict) -> dict:
         "realEnd": {
             "period": end.period,
             "score": {"home": end.home.score, "away": end.away.score},
+        },
+        "realFinal": {
+            "periods": periods,
+            "score": {"home": final_home, "away": final_away},
+            "winner": "home" if final_home > final_away else "away",
+        },
+        "timeoutsLeft": {
+            side: timeouts_left(content["season"], period, clock, timeouts_used(past, team_names[side]))
+            for side in ("home", "away")
+        },
+        "inGame": {
+            str(p.person_id): shooting.get(p.person_id, {"fgm": 0, "fga": 0, "fg3m": 0, "fg3a": 0, "ftm": 0, "fta": 0, "pts": 0})
+            for team in (start.home, start.away)
+            for p in team.on_floor
         },
         "teams": {
             "home": {"teamId": start.home.team_id, "tricode": start.home.tricode},

@@ -143,19 +143,7 @@ def state_at(game_id: str, period: int, clock: float, through_action: int | None
     actions = fetch_play_by_play(game_id)
     box = fetch_game_box(game_id)
     rosters = {r.team_id: r for r in (Roster(box["homeTeam"], actions), Roster(box["awayTeam"], actions))}
-    cutoff = None
-    if through_action is not None:
-        cutoff = next(i for i, a in enumerate(actions) if a["actionNumber"] == through_action)
-    order = {id(a): i for i, a in enumerate(actions)}
-
-    def happened(a: dict) -> bool:
-        if a["period"] != period:
-            return a["period"] < period
-        t = clock_seconds(a["clock"])
-        if t != clock or cutoff is None:
-            return t >= clock
-        return order[id(a)] <= cutoff
-
+    happened = happened_by(actions, period, clock, through_action)
     past = [a for a in actions if happened(a)]
     future = [a for a in actions if not happened(a)]
 
@@ -183,6 +171,24 @@ def state_at(game_id: str, period: int, clock: float, through_action: int | None
         next_action=next_action,
         notes=notes,
     )
+
+
+def happened_by(actions: list[dict], period: int, clock: float, through_action: int | None = None):
+    """A predicate: has this action happened by (period, clock[, through_action])?"""
+    cutoff = None
+    if through_action is not None:
+        cutoff = next(i for i, a in enumerate(actions) if a["actionNumber"] == through_action)
+    order = {id(a): i for i, a in enumerate(actions)}
+
+    def happened(a: dict) -> bool:
+        if a["period"] != period:
+            return a["period"] < period
+        t = clock_seconds(a["clock"])
+        if t != clock or cutoff is None:
+            return t >= clock
+        return order[id(a)] <= cutoff
+
+    return happened
 
 
 def _infer_starters(period_actions: list[dict], roster: Roster, carried_over: list[Player], period: int,
