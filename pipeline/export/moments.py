@@ -6,7 +6,8 @@ possession, who's on the floor) and written to public/data/moments/.
 Positions must cover exactly the ten players the play-by-play says were on
 the floor, so a typo or a wrong start time fails loudly.
 
-Also added for the sim: each player's shooting in that game before the moment
+Also added: the real ending as a replayable event log (what plays with no
+swap), and for the sim: each player's shooting in that game before the moment
 (hot hand), each team's timeouts left, and the real final score and winner
 (timelines play to the end of the game, overtime included; history changed
 means the real loser won).
@@ -26,6 +27,7 @@ from ingest.cache import REPO_ROOT
 from ingest.moment_games import fetch_game_box, fetch_play_by_play
 from transform.game_context import final_score, in_game_shooting, timeouts_left, timeouts_used
 from transform.moment_state import MomentState, TeamState, happened_by, state_at
+from transform.real_timeline import build_real_timeline
 
 CONTENT_DIR = REPO_ROOT / "content" / "moments"
 OUTPUT_DIR = REPO_ROOT / "public" / "data" / "moments"
@@ -49,6 +51,7 @@ def export_moment(content: dict) -> dict:
     box = fetch_game_box(game_id)
     team_names = {"home": box["homeTeam"]["teamName"], "away": box["awayTeam"]["teamName"]}
     final_home, final_away, periods = final_score(actions)
+    offense_side = "home" if start.possession_tricode == start.home.tricode else "away"
 
     return {
         "id": content["id"],
@@ -75,6 +78,11 @@ def export_moment(content: dict) -> dict:
             "score": {"home": final_home, "away": final_away},
             "winner": "home" if final_home > final_away else "away",
         },
+        "realTimeline": build_real_timeline(
+            game_id, period, clock, content.get("throughAction"), actions, box, offense_side,
+            # The offense starts in the frontcourt if it's lined up past half court.
+            sum(p["x"] for p in content["positions"][start.home.tricode if offense_side == "home" else start.away.tricode]) / 5 > 47,
+        ),
         "timeoutsLeft": {
             side: timeouts_left(content["season"], period, clock, timeouts_used(past, team_names[side]))
             for side in ("home", "away")

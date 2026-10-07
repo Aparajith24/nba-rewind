@@ -5,8 +5,8 @@ The basketball rules the simulation follows, and why. The code in `src/engine/` 
 ## The moment
 
 - **A moment starts at the last dead ball before the famous play**: after the free throws, timeout or substitutions, not at the instant of the shot. The sim plays out the whole sequence, so a swap can change who shoots, who rebounds and who's open. (How the start is found automatically is in the README.)
-- **Timelines play to the end of the game**, overtime included.
-- **History changed means the real loser wins the game.** For Ray Allen's corner three, any Spurs win (regulation or overtime) changes history; any Heat win keeps it.
+- **No swap means no change: you watch what really happened.** The real play-by-play from the moment's start to the end of the game is replayed on the court, substitutions and overtime included. History can only change if you change something.
+- **With a swap, the sim plays the moment out**, to the end of the game, overtime included. **History changed means the real loser wins the game.** For Ray Allen's corner three, any Spurs win (regulation or overtime) changes history; any Heat win keeps it.
 
 ## The players
 
