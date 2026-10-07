@@ -29,7 +29,7 @@ OUT_OF_BOUNDS_MARGIN_FT = 4.0  # room for an inbounder standing off the floor
 
 
 def export_moment(content: dict) -> dict:
-    start = state_at(content["gameId"], content["period"], content["clockSeconds"])
+    start = state_at(content["gameId"], content["period"], content["clockSeconds"], content.get("throughAction"))
     end = state_at(content["gameId"], content["period"], 0)
     if start.possession_tricode is None:
         raise ValueError(f"{content['id']}: couldn't infer possession")
