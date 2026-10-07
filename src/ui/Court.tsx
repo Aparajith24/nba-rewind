@@ -19,7 +19,7 @@ const ARC_START = Math.sqrt(THREE_RADIUS ** 2 - (WIDTH / 2 - CORNER_THREE_Y) ** 
 const DOT_RADIUS = 2.2;
 const HEADSHOT_ASPECT = 260 / 190;
 
-export type CourtPlayer = { playerId: number; name: string; side: Side; x: number; y: number };
+export type CourtPlayer = { playerId: number; name: string; side: Side; x: number; y: number; jersey?: string };
 export type CourtBall = { x: number; y: number; inAir: boolean };
 
 function HalfCourtLines({ mirrored }: { mirrored: boolean }) {
@@ -33,7 +33,7 @@ function HalfCourtLines({ mirrored }: { mirrored: boolean }) {
       <path d={`M ${LENGTH} ${CORNER_THREE_Y} L ${arcX} ${CORNER_THREE_Y} A ${THREE_RADIUS} ${THREE_RADIUS} 0 0 0 ${arcX} ${WIDTH - CORNER_THREE_Y} L ${LENGTH} ${WIDTH - CORNER_THREE_Y}`} />
       <path d={`M ${hoopX} 21 A 4 4 0 0 0 ${hoopX} 29`} />
       <line x1={LENGTH - 4} y1={22} x2={LENGTH - 4} y2={28} />
-      <circle cx={hoopX} cy={25} r={0.75} className="stroke-accent" />
+      <circle cx={hoopX} cy={25} r={0.75} stroke="var(--ball)" />
     </g>
   );
 }
@@ -44,7 +44,7 @@ function Basketball({ x, y, radius, inAir }: { x: number; y: number; radius: num
   const seam = { fill: "none", stroke: "#1a1206", strokeWidth: r * 0.12, strokeLinecap: "round" as const };
   return (
     <g transform={`translate(${x} ${y})`} style={{ filter: inAir ? "drop-shadow(0 0.8px 0.8px rgba(0,0,0,0.6))" : undefined }}>
-      <circle r={r} fill="#e8762b" stroke="#1a1206" strokeWidth={r * 0.1} />
+      <circle r={r} fill="var(--ball)" stroke="#1a1206" strokeWidth={r * 0.1} />
       <line x1={-r} y1={0} x2={r} y2={0} {...seam} />
       <line x1={0} y1={-r} x2={0} y2={r} {...seam} />
       <path d={`M ${-r * 0.7} ${-r * 0.7} Q ${-r * 0.25} 0 ${-r * 0.7} ${r * 0.7}`} {...seam} />
@@ -79,6 +79,11 @@ function PlayerDot({ player, onOffense, index, animateIn }: { player: CourtPlaye
         </image>
         <circle r={DOT_RADIUS} fill="none" stroke={player.side === "home" ? "var(--home)" : "var(--away)"} strokeWidth={0.35} />
         {onOffense ? <circle r={DOT_RADIUS + 0.45} fill="none" stroke="var(--accent)" strokeWidth={0.18} /> : null}
+        {player.jersey ? (
+          <text y={DOT_RADIUS + 1.9} textAnchor="middle" fontSize={1.5} fontWeight={600} fill="var(--foreground)" fontFamily="var(--font-geist-sans)">
+            {player.jersey}
+          </text>
+        ) : null}
       </g>
     </g>
   );
@@ -100,7 +105,7 @@ export function Court({
 }) {
   const rimX = ball && ball.x < LENGTH / 2 ? HOOP_FROM_BASELINE : LENGTH - HOOP_FROM_BASELINE;
   return (
-    <svg viewBox={`-2 -2 ${LENGTH + 4} ${WIDTH + 4}`} className="w-full rounded-xl bg-court" role="img" aria-label="Court with player positions">
+    <svg viewBox={`-2 -2 ${LENGTH + 4} ${WIDTH + 4}`} className="w-full rounded-xl border border-border bg-court" role="img" aria-label="Court with player positions">
       <g fill="none" stroke="var(--court-line)" strokeWidth={0.25}>
         <rect x={0} y={0} width={LENGTH} height={WIDTH} />
         <line x1={LENGTH / 2} y1={0} x2={LENGTH / 2} y2={WIDTH} />
@@ -115,7 +120,7 @@ export function Court({
           cy={25}
           r={flash === "make" ? 3.2 : 1.6}
           fill="none"
-          stroke={flash === "make" ? "var(--accent)" : "var(--muted)"}
+          stroke={flash === "make" ? "var(--foreground)" : "var(--muted)"}
           strokeWidth={0.4}
           className="animate-pop-in"
         />
