@@ -69,6 +69,21 @@ All three data folders are gitignored. To deploy, build locally and upload `publ
 
 ---
 
+## Running the app
+
+The app is a Next.js static site at the repo root. Build the data first (above), then:
+
+```bash
+npm install
+npm run dev        # http://localhost:3000
+```
+
+To produce the deployable site: `npm run build` writes everything to `out/`, including `out/data/` copied from `public/data/`. Upload `out/` to any static host.
+
+Team logos and player headshots load from the NBA's image server at runtime and are never stored in this repo. If an image can't load, the app falls back to the team's abbreviation or a generated silhouette.
+
+---
+
 ## How the data is calculated, and why
 
 The app asks one question over and over: *if this player had been on the floor at this moment, what would he have done?* To answer it, the simulation needs three things: the exact situation, a profile of the player as he was in the playoffs, and how the game itself differed between eras. Here's how each is built.
@@ -99,6 +114,31 @@ Edge cases it handles:
 **Example: 2013 Finals Game 6.** In the last 30 seconds Popovich swaps Duncan and Diaw at every stoppage: `SUB: Diaw FOR Duncan` at 28.2 s, `SUB: Duncan FOR Diaw` at 20.1 s, `SUB: Diaw FOR Duncan` again at 19.4 s. Replaying those in order, the rebuilt Spurs lineup at 19.4 s is Parker, Green, Leonard, Diaw, Ginobili, with **Duncan on the bench** when Chris Bosh grabs the rebound that leads to Ray Allen's corner three. That's what really happened.
 
 **Where a moment starts:** at the **last dead ball before the famous play**, not at the shot itself. Ray Allen's moment starts at 19.4 s (Heat down 95-92, Heat ball after Leonard's free throws), not at 5.2 s when the shot went in. That way the simulation plays the whole sequence (LeBron's miss, the rebound, the kick-out), and a swap can change who shoots, who rebounds and who's open.
+
+**Finding the start automatically.** Every moment is listed in `content/moment-catalog.json` with its two teams, the game number in the series, and the famous play (who, and roughly when). `pipeline/transform/moment_finder.py` then:
+
+```
+1. game ID   = the Nth game between the two teams that postseason (from the league's game list)
+2. key play  = that player's play closest to the given clock
+               (at the same clock, the first one: an and-one's shot, not its free throw)
+3. start     = walk backward from the key play to the last dead ball:
+                 dead:  timeout, substitution, made basket, foul, violation, start of a period,
+                        a free throw (unless it's the last one and missed: that's a live rebound),
+                        a turnover without a steal (out of bounds)
+                 live:  missed shot, rebound, block, a turnover with a steal
+4. state     = rebuild score, possession and lineups at that exact point
+```
+
+| Moment | Famous play found | Walks back past | Starts at |
+|---|---|---|---|
+| Ray Allen, 2013 | Allen three, 5.2 s | Bosh rebound, LeBron's missed three | **19.4 s**, Leonard's free throw (Heat down 95-92) |
+| Steve Kerr, 1997 | Kerr jumper, 5.0 s | | **28.0 s**, Bulls timeout (tied 86-86) |
+| Larry Johnson, 1999 | Johnson three, 5.7 s | | **11.9 s**, Knicks down 91-88, before the four-point play |
+| Anunoby, 2026 | Anunoby block, 11.1 s | Fox rebound, Brunson's miss | **30.3 s**, Castle's free throws (Knicks down 106-105) |
+
+It writes a review report to `data/processed/moment_verification.md`. Anything it had to guess is flagged. For example, in the 1997 Flu Game one Bulls player played the entire 4th quarter without appearing in the play-by-play; the two candidates were Kerr and Caffey, and it picked the one with more minutes (Kerr) and flagged it for review.
+
+Names need care across 30 years: play-by-play writes "SUB: A. Davis FOR Smits" when a team has two Davises, "Ty. Thomas" vs "Ti. Thomas", and uses a player's *current* name for his own plays but his name *at the time* in substitutions ("World Peace" vs "Artest", "Freedom" vs "Kanter"). The lineup code matches all of these, prefers exact matches ("Williams" is Grant Williams, not Robert Williams III), and settles the rest by who's already on the floor.
 
 **Court coordinates** are in feet, from the offense's point of view: `x` runs 0 (the offense's own baseline) to 94 (the baseline it attacks), `y` runs 0 to 50 across. The basket being attacked is at (88.75, 25). Full court, because many moments start with an inbound in the backcourt.
 
@@ -245,4 +285,4 @@ The exact weighting and the size of the randomness will be tuned once the simula
 
 ## Data source and credits
 
-All statistics come from [stats.nba.com](https://www.nba.com/stats) via the open-source [nba_api](https://github.com/swar/nba_api) client. This project is not affiliated with or endorsed by the NBA. It uses no NBA or team logos, team colors, player photos or footage. Review NBA.com's terms of use before any public deployment.
+All statistics come from [stats.nba.com](https://www.nba.com/stats) via the open-source [nba_api](https://github.com/swar/nba_api) client. This project is not affiliated with or endorsed by the NBA. Team logos and player headshots are displayed from the NBA's own image servers and are the property of the NBA and its teams; none are stored in this repository. Review NBA.com's terms of use before any public deployment.
