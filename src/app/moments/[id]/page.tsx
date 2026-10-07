@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 
 import type { MomentFile } from "@/engine/types";
 import { getBuiltMomentIds, getMoment } from "@/lib/moments";
-import type { Moment, Side } from "@/lib/types";
-import { PlayerHeadshot } from "@/ui/PlayerHeadshot";
-import { ReplayPanel } from "@/ui/ReplayPanel";
+import type { Moment } from "@/lib/types";
+import { MomentExperience } from "@/ui/MomentExperience";
 
 // Static export: one page per built moment, and nothing else.
 export const dynamicParams = false;
@@ -21,43 +21,30 @@ export async function generateMetadata({ params }: PageProps<"/moments/[id]">): 
 
 export default async function MomentPage({ params }: PageProps<"/moments/[id]">) {
   const { id } = await params;
-  const moment = getMoment(id);
-  const { teams, lineups } = moment;
-  const sides: Side[] = ["away", "home"];
+  const moment = getMoment(id) as Moment & MomentFile;
+  const series = moment.game.split(" · ")[0]; // "2013 NBA Finals"
 
   return (
-    <div className="mx-auto flex max-w-5xl flex-col gap-6 px-4 py-8 sm:px-8">
-      <div className="flex flex-col gap-1">
-        <span className="font-mono text-xs tracking-[0.3em] text-muted">
-          #{moment.number} · {moment.season} PLAYOFFS
+    <div className="mx-auto flex max-w-[1400px] flex-col gap-6 px-4 py-6 sm:px-8">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+        <div className="flex flex-col gap-3">
+          <Link href="/" className="text-sm text-muted hover:text-foreground">
+            ← Back to moments
+          </Link>
+          <h1 className="text-3xl font-bold tracking-tight sm:text-5xl">
+            {moment.title} <span className="text-muted">({series})</span>
+          </h1>
+          <p className="max-w-2xl text-foreground/85">{moment.intro} What happens if we swap in a different player?</p>
+        </div>
+        <span className="flex shrink-0 items-center gap-2 self-start rounded-xl border border-border px-4 py-2 text-sm">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+            <path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v2a3 3 0 0 0 3 3M17 6h3v2a3 3 0 0 1-3 3" />
+          </svg>
+          {moment.game}
         </span>
-        <h1 className="text-3xl font-bold sm:text-4xl">{moment.title}</h1>
-        <p className="text-muted">{moment.hook}</p>
       </div>
 
-      <ReplayPanel moment={moment as Moment & MomentFile} />
-
-      <p className="max-w-2xl leading-relaxed text-foreground/90">{moment.intro}</p>
-
-      <div className="grid gap-4 sm:grid-cols-2">
-        {sides.map((side) => (
-          <section key={side} className="flex flex-col gap-2 rounded-xl border border-border bg-surface p-4">
-            <h2 className="font-mono text-xs tracking-[0.3em] text-muted">{teams[side].tricode} ON THE FLOOR</h2>
-            <ul className="flex flex-col gap-2">
-              {lineups[side].map((p) => (
-                <li key={p.playerId} className="flex items-center gap-3">
-                  <PlayerHeadshot playerId={p.playerId} name={p.name} side={side} size={40} />
-                  <span className="text-sm">{p.name}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))}
-      </div>
-
-      <div className="rounded-xl border border-dashed border-border p-4 text-center font-mono text-xs tracking-widest text-muted">
-        SWAP A PLAYER · COMING NEXT
-      </div>
+      <MomentExperience moment={moment} />
     </div>
   );
 }
