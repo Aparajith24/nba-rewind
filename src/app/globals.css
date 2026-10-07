@@ -1,0 +1,77 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens. Art direction isn't decided yet (retro arcade vs. sleek
+ * broadcast), so every color lives here; restyling the app means changing
+ * these, not the components. Team colors are our own, never official ones.
+ */
+:root {
+  --background: #0b0d12;
+  --surface: #151923;
+  --surface-raised: #1d2230;
+  --border: #2a3142;
+  --foreground: #eef1f7;
+  --muted: #8a93a8;
+  --accent: #ffb547;
+  --home: #4cc9f0;
+  --away: #f25f5c;
+  --court: #1a1f2b;
+  --court-line: #3a4357;
+  /* Score bug: a light card so team logos read clearly. */
+  --scorebug: #f4f2ec;
+  --scorebug-ink: #12151c;
+  --scorebug-muted: #6b6f7a;
+  --clock: #b45309;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
+  --color-border: var(--border);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-home: var(--home);
+  --color-away: var(--away);
+  --color-court: var(--court);
+  --color-court-line: var(--court-line);
+  --color-scorebug: var(--scorebug);
+  --color-scorebug-ink: var(--scorebug-ink);
+  --color-scorebug-muted: var(--scorebug-muted);
+  --color-clock: var(--clock);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/*
+ * Entrance animations are plain CSS so content is visible before (or without) JavaScript.
+ * Framer Motion is for interactive motion (hover, swaps, transitions).
+ */
+@keyframes pop-in {
+  from { opacity: 0; transform: scale(0.4); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+.animate-pop-in {
+  animation: pop-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.animate-rise-in {
+  animation: rise-in 0.4s ease-out both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-pop-in,
+  .animate-rise-in {
+    animation: none;
+  }
+}
