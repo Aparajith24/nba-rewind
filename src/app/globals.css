@@ -1,27 +1,31 @@
 @import "tailwindcss";
 
 /*
- * Design tokens. Art direction isn't decided yet (retro arcade vs. sleek
- * broadcast), so every color lives here; restyling the app means changing
- * these, not the components. Team colors are our own, never official ones.
+ * Design tokens: OLED black and white. Pure black background, white type and
+ * accent; teams are told apart by white (home) and gray (away); the ball is the
+ * only color. Every color lives here, so restyling means changing these, not the
+ * components. Never official team colors.
  */
 :root {
-  --background: #0b0d12;
-  --surface: #151923;
-  --surface-raised: #1d2230;
-  --border: #2a3142;
-  --foreground: #eef1f7;
-  --muted: #8a93a8;
-  --accent: #ffb547;
-  --home: #4cc9f0;
-  --away: #f25f5c;
-  --court: #1a1f2b;
-  --court-line: #3a4357;
-  /* Score bug: a light card so team logos read clearly. */
-  --scorebug: #f4f2ec;
-  --scorebug-ink: #12151c;
-  --scorebug-muted: #6b6f7a;
-  --clock: #b45309;
+  --background: #000000;
+  --surface: #0a0a0a;
+  --surface-raised: #141414;
+  --border: #222222;
+  --foreground: #f5f5f5;
+  --muted: #8c8c8c;
+  --accent: #ffffff;
+  --accent-strong: #ffffff;
+  --win: #ffffff;
+  --warn: #b5b5b5;
+  --home: #ffffff;
+  --away: #7d7d7d;
+  --court: #050505;
+  --court-line: #2a2a2a;
+  --ball: #e8762b;
+  /* The scoreboard is the one light card, so every team logo reads clearly. */
+  --scorebug: #f4f4f2;
+  --scorebug-ink: #0a0a0a;
+  --scorebug-muted: #6b6b6b;
 }
 
 @theme inline {
@@ -32,6 +36,9 @@
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-win: var(--win);
+  --color-warn: var(--warn);
   --color-home: var(--home);
   --color-away: var(--away);
   --color-court: var(--court);
@@ -39,7 +46,6 @@
   --color-scorebug: var(--scorebug);
   --color-scorebug-ink: var(--scorebug-ink);
   --color-scorebug-muted: var(--scorebug-muted);
-  --color-clock: var(--clock);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
