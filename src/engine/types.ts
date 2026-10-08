@@ -33,6 +33,17 @@ export type PlayerSeason = {
   playoffs?: SeasonProfile;
   regularSeason?: SeasonProfile;
   stepUp?: StepUp;
+  impact?: Impact;
+};
+
+/** Crunch-time usage and on/off offensive lift (pipeline transform.player_impact). */
+export type Impact = {
+  /** Share of team plays in the last 5 minutes with the score within 5. */
+  clutchUsage: number | null;
+  clutchMinutes: number;
+  /** Points per 100 possessions his team scored with him on vs. off the floor (estimated before 2007-08). */
+  offensiveLift: number | null;
+  liftSource: "on/off" | "estimated";
 };
 
 /** public/data/players/{id}.json */
@@ -90,6 +101,12 @@ export type SimPlayer = {
   projected: number;
   /** Playoff field goal attempts behind his profile (drives the surprise element). */
   playoffShots: number;
+  /** His share of the offense in crunch time (last 5 minutes, within 5); his regular usage when there's no clutch data. */
+  clutchUsage: number;
+  /** Points per 100 his team scores with him on vs. off the floor. */
+  offensiveLift: number;
+  /** Share of his made shots that were assisted: how much he relies on someone setting him up. */
+  assistedShare: number;
 };
 
 export type SimInput = {
@@ -99,6 +116,13 @@ export type SimInput = {
   /** The moment's season: defense baseline. */
   league: LeagueFile;
   seed: string;
+  /**
+   * Playmaking change from the swap, per team: (sum of the five's offensive lift now −
+   * with the real five) ÷ league points per 100. 0 for both teams with no swap.
+   */
+  playmakingChange: Record<Side, number>;
+  /** The swapped-in player, whose own shooting already reflects his own game. */
+  swappedIn: number | null;
 };
 
 type Stamp = { period: number; clock: number; score: Record<Side, number> };

@@ -10,7 +10,7 @@
  */
 
 import { TUNING } from "./tuning";
-import type { InGameShooting, LeagueFile, PlayerFile, SeasonProfile, Side, SimPlayer, StepUp, Zone } from "./types";
+import type { Impact, InGameShooting, LeagueFile, PlayerFile, SeasonProfile, Side, SimPlayer, StepUp, Zone } from "./types";
 import { THREE_ZONES, ZONES } from "./types";
 
 const FT_TRIP = 0.44; // free throw attempts per "trip": converts FTA into possessions used
@@ -167,6 +167,25 @@ function project(rs: Rates, file: PlayerFile, season: string, ownLeague: LeagueF
   };
 }
 
+/**
+ * Crunch-time usage: his clutch usage, trusted by his clutch minutes, else his regular-season
+ * usage (clutch samples are small; the regular season is the steadier fallback).
+ */
+export function clutchUsage(impact: Impact | undefined, regularUsage: number): number {
+  if (!impact || impact.clutchUsage == null || impact.clutchMinutes <= 0) return regularUsage;
+  const trust = impact.clutchMinutes / (impact.clutchMinutes + TUNING.clutch.trustMinutes);
+  return trust * impact.clutchUsage + (1 - trust) * regularUsage;
+}
+
+/** Share of his made shots that were assisted, playoffs and regular season blended like the rest of his profile. */
+function assistedShare(playoffs: SeasonProfile | undefined, regular: SeasonProfile | undefined, w: number): number {
+  const fallback = TUNING.playmaking.typicalAssistedShare;
+  const share = (p: SeasonProfile | undefined) => (p?.pct_fgm_unassisted == null ? null : 1 - (p.pct_fgm_unassisted as number));
+  const po = share(playoffs);
+  const rs = share(regular) ?? fallback;
+  return po == null ? rs : w * po + (1 - w) * rs;
+}
+
 /** The hot hand shifts who gets the ball. Neutral (1) for a swapped-in player. */
 export function hotHandBoost(inGame: InGameShooting | null | undefined, seasonFgPct: number): number {
   const h = TUNING.hotHand;
@@ -221,5 +240,8 @@ export function buildSimPlayer(args: {
     defensiveRating: mix(playoff.defensiveRating, projected.defensiveRating),
     projected: 1 - w,
     playoffShots: num(entry.playoffs, "fga"),
+    clutchUsage: clutchUsage(entry.impact, regular.usage),
+    offensiveLift: entry.impact?.offensiveLift ?? 0,
+    assistedShare: assistedShare(entry.playoffs, entry.regularSeason, w),
   };
 }

@@ -3,7 +3,8 @@
  * (overtime included). Pure and seeded: same input + seed = same timeline.
  *
  * Late-game rules (docs/simulation-rules.md):
- * - Who shoots: usage × hot hand (swapped-in player neutral).
+ * - Who shoots: usage × hot hand (swapped-in player neutral); in crunch time, clutch usage.
+ * - Playmaking: swapping a creator in or out moves teammates' make %, more for players who rely on assists.
  * - Fouling: what NBA teams do. Up 3: never with >10 s left, sometimes at 6-10 s, often at ≤6 s.
  *   Trailing late: foul to stop the clock when the game clock is under the shot clock.
  * - Offensive rebounds: the score decides (need 3 → kick out; otherwise a big puts it back).
@@ -115,11 +116,30 @@ function shotLocation(rng: Rng, zone: Zone): [number, number] {
 // ---------------------------------------------------------------- decisions
 
 /** Usage × hot hand decides who takes the shot. */
+/** Crunch time, by the NBA's clutch definition: last 5 minutes of the 4th or OT, within 5. */
+function isClutch(g: Game) {
+  return g.period >= REGULATION_PERIODS && g.clock <= TUNING.clutch.seconds && Math.abs(g.score.home - g.score.away) <= TUNING.clutch.margin;
+}
+
+/** Usage × hot hand decides who takes the shot; in crunch time, clutch usage (stars take over). */
 function pickShooter(g: Game, side: Side, needThree: boolean): SimPlayer {
+  const clutch = isClutch(g);
   return g.rng.weighted(five(g, side), (p) => {
     const threes = THREE_ZONES.reduce((s, z) => s + p.zoneShare[z], 0);
-    return p.usage * p.hotHand * (needThree ? Math.max(threes, 0.02) : 1);
+    return (clutch ? p.clutchUsage : p.usage) * p.hotHand * (needThree ? Math.max(threes, 0.02) : 1);
   });
+}
+
+/**
+ * Playmaking: if the swap took a creator off this team (or added one), teammates find it
+ * harder (or easier) to score, more so the more they rely on being set up.
+ */
+function playmakingFactor(g: Game, shooter: SimPlayer): number {
+  const change = g.input.playmakingChange?.[shooter.side] ?? 0;
+  if (change === 0 || shooter.playerId === g.input.swappedIn) return 1;
+  const p = TUNING.playmaking;
+  const reliance = shooter.assistedShare / p.typicalAssistedShare;
+  return clamp(1 + p.strength * change * reliance, p.clamp[0], p.clamp[1]);
 }
 
 function pickZone(g: Game, shooter: SimPlayer, needThree: boolean): Zone {
@@ -223,7 +243,11 @@ function shoot(g: Game, shooter: SimPlayer, zone: Zone) {
     pMake = 0.03;
   } else {
     const hot = (shooter.hotHand - 1) * TUNING.hotHand.makeBump;
-    pMake = clamp(shooter.zonePct[zone] * defenseFactor(g, defense) + hot + (g.surprise.get(shooter.playerId) ?? 0), 0.01, 0.95);
+    pMake = clamp(
+      shooter.zonePct[zone] * defenseFactor(g, defense) * playmakingFactor(g, shooter) + hot + (g.surprise.get(shooter.playerId) ?? 0),
+      0.01,
+      0.95,
+    );
   }
   const foulChance = zone === "backcourt" ? 0 : shooter.shootingFoulRate * (value === 3 ? TUNING.threeFoulFactor : 1);
   const fouled = g.rng.chance(foulChance);

@@ -34,6 +34,24 @@ export const TUNING = {
     makeBump: 0.03,
   },
 
+  /** Crunch time (the NBA's clutch definition): last 5 minutes of the 4th or OT, score within 5. */
+  clutch: {
+    seconds: 300,
+    margin: 5,
+    /** Clutch minutes at which his clutch usage and his regular-season usage count equally. START */
+    trustMinutes: 60,
+  },
+
+  /** Playmaking: losing (or adding) a creator changes how easily teammates score. START */
+  playmaking: {
+    /** How strongly the change in the lineup's offensive lift moves teammates' make %. */
+    strength: 1,
+    /** League-typical share of made shots that are assisted; players above it rely more on creators. */
+    typicalAssistedShare: 0.6,
+    /** Limits on the multiplier on a teammate's make %. */
+    clamp: [0.85, 1.15] as const,
+  },
+
   /** Defense on the floor: make% × (defenders' defensive rating / league), clamped. START */
   defenseClamp: [0.9, 1.1] as const,
 

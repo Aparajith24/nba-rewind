@@ -49,5 +49,12 @@ export function buildSimInput(args: {
       );
     }
   }
-  return { moment, players, league, seed };
+  // Playmaking: how the swap changes each lineup's offensive lift (0 with no swap).
+  const lift = (id: number, season: string) => playerFiles[id]?.seasons[season]?.impact?.offensiveLift ?? 0;
+  const playmakingChange = { home: 0, away: 0 };
+  for (const side of ["home", "away"] as Side[]) {
+    const out = moment.lineups[side].find((p) => p.playerId === swap?.out);
+    if (swap && out) playmakingChange[side] = (lift(swap.in, swap.season) - lift(out.playerId, out.season)) / league.playoffs.pts_per_100;
+  }
+  return { moment, players, league, seed, playmakingChange, swappedIn: swap?.in ?? null };
 }

@@ -21,9 +21,11 @@ Each swap picks a player and a season. The sim needs that player's *playoff* ver
 ## Who shoots
 
 - **Usage first, with a hot hand.** Stars get the ball, and a player who's shooting well *that game* (from play-by-play, up to the moment) gets it somewhat more often. The boost grows with the number of shots behind it, so 8 of 10 counts more than 2 of 2. Research on whether shooters actually stay hot is mixed, so the hot hand mostly decides who gets the ball; whether it goes in is mostly his normal ability with only a small bump.
+- **Stars take over in crunch time.** In the last 5 minutes of the 4th quarter or overtime with the score within 5 (the NBA's "clutch" definition), a player's share of the offense comes from his real clutch usage that season, trusted by how many clutch minutes back it up. With little or no clutch data, it falls back to his regular-season usage. LeBron James in 2015–16: 31% of the Cavs' plays normally, 43% in the clutch; Tristan Thompson fell to 9%.
 - **A swapped-in player comes in neutral.** He didn't play in that game, so he has no hot hand either way.
 - **From where:** his own mix of shots by zone. When only a three will do (down 3 with one possession left, or down 4+ at the very end), only threes.
 - **Does it go in:** his playoff make rate from that zone, adjusted for the defenders on the floor.
+- **Playmaking: losing a creator makes everyone's shots harder.** When a player leaves, the defense stops focusing on him and teammates lose the shots he created. Each player-season has an **offensive lift**: how many more points per 100 possessions his team scored with him on the floor than off it (the NBA's on/off splits, from 2007–08; estimated from his own usage, efficiency and passing before that). A swap changes the lineup's total lift, and that change moves teammates' make rate, more for players who rely on being set up (a high share of assisted makes) and less for self-creators. With no swap nothing changes. LeBron James in 2015–16: the Cavs scored 114.0 per 100 with him and 98.6 without, a lift of +15.4.
 
 ## Late-game decisions
 

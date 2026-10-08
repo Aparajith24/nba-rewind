@@ -14,9 +14,9 @@
 import json
 
 from export import draft_moments, leagues, moment_previews, moments, players
-from ingest import moment_games, season_stats
+from ingest import moment_games, season_stats, team_onoff
 from ingest.season_stats import FIRST_SEASON, LAST_SEASON, season_label
-from transform import moment_finder, playoff_step_up, season_tables
+from transform import moment_finder, player_impact, playoff_step_up, season_tables
 
 
 def step(title: str) -> None:
@@ -29,6 +29,9 @@ def main() -> None:
         season_stats.ingest_season(season_label(year), quiet=True)
     print(f"  {season_label(FIRST_SEASON)} through {season_label(LAST_SEASON)} ready")
 
+    step("Ingest: on/off splits")
+    team_onoff.main()
+
     step("Ingest: moment games")
     for path in sorted(moments.CONTENT_DIR.glob("*.json")):
         moment_games.ingest_game(json.loads(path.read_text())["gameId"])
@@ -36,6 +39,7 @@ def main() -> None:
     step("Transform")
     season_tables.main()
     playoff_step_up.main()
+    player_impact.main()
     moment_finder.main(args=[])
 
     step("Export")

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import type { ReactNode } from "react";
 
-import { hotHandBoost } from "@/engine/profile";
+import { clutchUsage, hotHandBoost } from "@/engine/profile";
 import { TUNING } from "@/engine/tuning";
 import { getHomeData, searchItems } from "@/lib/home";
 import { ExpandAll, OpenOnHash } from "@/ui/Collapsibles";
@@ -102,6 +102,11 @@ export default function HowItWorksPage() {
   const hotCold = hotHandBoost({ fgm: 1, fga: 5, fg3m: 0, fg3a: 0, ftm: 0, fta: 0, pts: 2 }, 0.45);
   const swing = (shots: number) => (T.surpriseMaxPoints * T.surpriseHalfShots) / (T.surpriseHalfShots + shots);
   const zoneBlend = (made: number, att: number, prior: number) => (made + prior * T.zoneTrustAttempts) / (att + T.zoneTrustAttempts);
+  const lebronClutch = clutchUsage({ clutchUsage: 0.43, clutchMinutes: 126, offensiveLift: 15.4, liftSource: "on/off" }, 0.31);
+  const pm = T.playmaking;
+  // LeBron 2015-16 (+15.4 per 100) out for a player whose team scored 2 per 100 worse with him (−2), league ~105 per 100.
+  const change = (-2 - 15.4) / 105;
+  const playmaking = (assisted: number) => Math.min(pm.clamp[1], Math.max(pm.clamp[0], 1 + pm.strength * change * (assisted / pm.typicalAssistedShare)));
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -240,11 +245,23 @@ trust = his playoff minutes ÷ (his playoff minutes + ${T.playoffTrustMinutes})`
 hot hand = 1 + ${h.strength} × (his shooting this game − his usual shooting) × (shots ÷ (shots + ${h.halfShots}))
            kept between ${h.minBoost}× and ${h.maxBoost}×`}
               </Formula>
+              <strong>In crunch time, stars take over.</strong> In the last {T.clutch.seconds / 60} minutes of the 4th quarter or overtime with the
+              score within {T.clutch.margin} (the NBA&apos;s &quot;clutch&quot; definition), &quot;his usage&quot; becomes his real clutch usage that
+              season, trusted by his clutch minutes, and his regular-season usage when there isn&apos;t enough:
+              <Formula>
+                {`crunch-time usage = trust × his clutch usage + (1 − trust) × his regular-season usage
+
+trust = his clutch minutes ÷ (his clutch minutes + ${T.clutch.trustMinutes})`}
+              </Formula>
               <Example>
                 For a 45% shooter: 2 for 2 tonight → ×{hotSmall.toFixed(2)}. 8 for 10 → ×{hotBig.toFixed(2)} (more shots, more trust). 1 for 5 → ×
                 {hotCold.toFixed(2)}. The player you swap in comes in neutral (×1.00), since he didn&apos;t play in that game. Research on whether
                 shooters actually stay hot is mixed, so the hot hand mostly decides who gets the ball; it only nudges whether it goes in (by{" "}
                 {h.makeBump} × the boost above 1).
+              </Example>
+              <Example>
+                LeBron James in 2015–16 used 31% of the Cavs&apos; plays normally and 43% in 126 clutch minutes, so in crunch time the sim gives him{" "}
+                {pct(lebronClutch, 1)}. Tristan Thompson fell from his usual share to 9% in the clutch.
               </Example>
             </li>
             <li>
@@ -260,6 +277,23 @@ defense on the floor = the five defenders' points allowed per 100 ÷ the league'
               </Formula>
               Good defenses push the make chance down by up to {pct(1 - T.defenseClamp[0])}; bad ones push it up by up to{" "}
               {pct(T.defenseClamp[1] - 1)}.
+              <p className="pt-3">
+                <strong>Playmaking.</strong> Take a creator off the floor and two things happen: the team scores less, and everyone else&apos;s shots
+                get harder because the defense isn&apos;t focused on him anymore. Every player-season has an <em>offensive lift</em>: how many more
+                points per 100 possessions his team scored with him on the floor than off it (the NBA&apos;s on/off splits, from 2007–08; estimated
+                from his own usage, efficiency and passing before that). With no swap, nothing changes.
+              </p>
+              <Formula>
+                {`change = (lift of the player coming in − lift of the player going out) ÷ the league's points per 100
+
+teammate's make chance × (1 + ${pm.strength} × change × (his share of assisted makes ÷ ${pm.typicalAssistedShare}))
+                         kept between ${pm.clamp[0]}× and ${pm.clamp[1]}×`}
+              </Formula>
+              <Example>
+                Swap out LeBron James 2015–16 (the Cavs scored 114.0 per 100 with him, 98.6 without: +15.4) for a player at −2. A spot-up shooter
+                with 90% of his makes assisted shoots ×{playmaking(0.9).toFixed(2)}; a self-creator at 40% assisted shoots ×
+                {playmaking(0.4).toFixed(2)}. The player you swap in keeps his own shooting.
+              </Example>
             </li>
             <li>
               <strong>Fouls and turnovers.</strong> A shot draws a foul based on how often he gets to the line; threes draw fouls far less (×
@@ -319,7 +353,7 @@ defense on the floor = the five defenders' points allowed per 100 ÷ the league'
           </p>
         </Section>
 
-        <Section id="settings" title="Every setting" summary="All 29 adjustable numbers, explained.">
+        <Section id="settings" title="Every setting" summary="Every adjustable number, explained.">
           <p>
             Every adjustable number the simulation uses. The ones marked <span className="rounded border border-border px-1.5 py-0.5 text-[10px] tracking-wider text-muted">STARTING VALUE</span>{" "}
             are first guesses that will be tuned by checking no-swap simulations against how real games ended.
@@ -336,6 +370,11 @@ defense on the floor = the five defenders' points allowed per 100 ÷ the league'
               { name: "Hot-hand half-point", value: `${h.halfShots} shots`, does: "Shots tonight at which the hot-hand signal is half-trusted.", start: true },
               { name: "Hot-hand limits", value: `${h.minBoost}×–${h.maxBoost}×`, does: "A nudge, so stars still lead.", start: true },
               { name: "Hot-hand make nudge", value: `${h.makeBump}`, does: "How much the hot hand shifts whether it goes in.", start: true },
+              { name: "Crunch time", value: `${T.clutch.seconds / 60} min, within ${T.clutch.margin}`, does: "When clutch usage takes over (the NBA's clutch definition)." },
+              { name: "Clutch trust", value: `${T.clutch.trustMinutes} min`, does: "Clutch minutes at which his clutch usage and his regular-season usage count equally.", start: true },
+              { name: "Playmaking strength", value: `${pm.strength}`, does: "How strongly a change in the lineup's offensive lift moves teammates' shooting.", start: true },
+              { name: "Typical assisted share", value: pct(pm.typicalAssistedShare), does: "Players assisted more often than this rely more on creators.", start: true },
+              { name: "Playmaking limits", value: `${pm.clamp[0]}×–${pm.clamp[1]}×`, does: "Most a teammate's shooting can move from a swap.", start: true },
               { name: "Defense limits", value: `${T.defenseClamp[0]}–${T.defenseClamp[1]}`, does: "Most the defense on the floor can move make chances.", start: true },
               { name: "Late game", value: `${T.lateGameSeconds}s`, does: "When late-game rules (fouling, timeouts, clock management) kick in." },
               { name: "Heave", value: `${T.heaveSeconds}s`, does: "Below this, with no time to cross half court, it's a heave." },
