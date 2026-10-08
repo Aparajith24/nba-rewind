@@ -3,23 +3,14 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
+import { Logo } from "@/ui/Logo";
+
 /** Top navigation for the homepage, with a search across all moments. */
 
 export type SearchItem = { number: number; id: string | null; title: string; gameLabel: string; search: string };
 
 const MAX_RESULTS = 6;
 
-export function Logo() {
-  return (
-    <Link href="/" className="flex items-center gap-2.5 text-lg font-bold tracking-tight">
-      <svg width="28" height="28" viewBox="0 0 26 26" aria-hidden>
-        <circle cx="13" cy="13" r="12" fill="none" stroke="currentColor" strokeWidth="1.6" />
-        <path d="M1 13h24M13 1v24M4.5 4.5c5 4 5 13 0 17M21.5 4.5c-5 4-5 13 0 17" stroke="currentColor" strokeWidth="1.4" fill="none" />
-      </svg>
-      NBA Rewind
-    </Link>
-  );
-}
 
 function Search({ items }: { items: SearchItem[] }) {
   const [query, setQuery] = useState("");

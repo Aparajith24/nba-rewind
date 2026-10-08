@@ -1,19 +1,10 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 
+import { Logo } from "@/ui/Logo";
+
 /** Left sidebar on wide screens, a top bar on phones. */
 
-function Logo() {
-  return (
-    <Link href="/" className="flex items-center gap-2.5 text-lg font-bold tracking-tight">
-      <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden>
-        <circle cx="13" cy="13" r="12" fill="var(--accent)" />
-        <path d="M1 13h24M13 1v24M4.5 4.5c5 4 5 13 0 17M21.5 4.5c-5 4-5 13 0 17" stroke="var(--background)" strokeWidth="1.6" fill="none" />
-      </svg>
-      NBA Rewind
-    </Link>
-  );
-}
 
 function NavItem({ href, label, icon }: { href: string; label: string; icon: ReactNode }) {
   return (
