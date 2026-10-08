@@ -136,11 +136,19 @@ def main(args: list[str] | None = None) -> None:
 
     paths = [CONTENT_DIR / f"{args.id}.json"] if args.id else sorted(CONTENT_DIR.glob("*.json"))
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    failed = []
     for path in paths:
-        moment = export_moment(json.loads(path.read_text()))
+        try:
+            moment = export_moment(json.loads(path.read_text()))
+        except Exception as exc:  # report every broken moment, not just the first
+            failed.append(path.stem)
+            print(f"{path.stem}: FAILED {exc}")
+            continue
         out = OUTPUT_DIR / f"{moment['id']}.json"
         out.write_text(json.dumps(moment, indent=2) + "\n")
         print(f"{moment['id']}: wrote {out.relative_to(REPO_ROOT)}")
+    if failed:
+        raise SystemExit(f"{len(failed)} moment(s) failed: {', '.join(failed)}")
 
 
 if __name__ == "__main__":

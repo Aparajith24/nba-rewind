@@ -95,7 +95,8 @@ def verify(entry: dict) -> dict:
             key = entry["key"]
             start_clock, through_action, play = find_start(game_id, entry["period"], key["player"], key["clock"])
             play_clock = clock_seconds(play["clock"])
-            result["keyPlay"] = {"clock": play_clock, "description": play["description"]}
+            result["keyPlay"] = {"clock": play_clock, "description": play["description"],
+                                 "playerId": play["personId"], "playerName": play["playerNameI"]}
             if abs(play_clock - key["clock"]) > KEY_CLOCK_TOLERANCE:
                 warnings.append(f"key play found at {play_clock}s, catalog said ~{key['clock']}s")
 
