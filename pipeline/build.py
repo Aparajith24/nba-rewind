@@ -7,12 +7,13 @@
    first run takes ~20 minutes and later runs take seconds.
 2. Transform: raw responses -> tables in data/processed/, and a verification
    report for every moment in content/moment-catalog.json.
-3. Export: tables + moment content -> JSON in public/data/ for the app.
+3. Export: tables + moment content -> JSON in public/data/ for the app. Catalog moments
+   without a hand-written content file get a generated draft first.
 """
 
 import json
 
-from export import leagues, moments, players
+from export import draft_moments, leagues, moment_previews, moments, players
 from ingest import moment_games, season_stats
 from ingest.season_stats import FIRST_SEASON, LAST_SEASON, season_label
 from transform import moment_finder, playoff_step_up, season_tables
@@ -40,7 +41,9 @@ def main() -> None:
     step("Export")
     players.main()
     leagues.main()
+    draft_moments.main()
     moments.main(args=[])
+    moment_previews.main()
 
 
 if __name__ == "__main__":

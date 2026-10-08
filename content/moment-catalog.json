@@ -1,71 +1,1040 @@
 {
-  "_about": "Machine-readable moment list, matching content/moments/candidates.md by number. Kept outside content/moments/ because every .json there is a playable moment. 'teams' are the two teams' abbreviations at the time; 'game' is the game number in that playoff series. 'key' is the famous play (player last name, or initial + last name when both teams share it, + approximate clock in the period); the moment starts at the last dead ball before it. Takeovers use 'startClock' instead. Resolved and checked by pipeline/transform/moment_finder.py.",
+  "_about": "Machine-readable moment list (id = URL slug, title = short card name), matching content/moments/candidates.md by number. Kept outside content/moments/ because every .json there is a playable moment. 'teams' are the two teams' abbreviations at the time; 'game' is the game number in that playoff series. 'key' is the famous play (player last name, or initial + last name when both teams share it, + approximate clock in the period); the moment starts at the last dead ball before it. Takeovers use 'startClock' instead. Resolved and checked by pipeline/transform/moment_finder.py.",
   "moments": [
-    { "number": 1, "season": "1996-97", "teams": ["UTA", "HOU"], "game": 6, "period": 4, "key": { "player": "Stockton", "clock": 0 } },
-    { "number": 2, "season": "1996-97", "teams": ["CHI", "UTA"], "game": 1, "period": 4, "key": { "player": "Jordan", "clock": 0 } },
-    { "number": 3, "season": "1996-97", "teams": ["CHI", "UTA"], "game": 5, "period": 4, "key": { "player": "Jordan", "clock": 25 } },
-    { "number": 4, "season": "1996-97", "teams": ["CHI", "UTA"], "game": 6, "period": 4, "key": { "player": "Kerr", "clock": 5 } },
-    { "number": 5, "season": "1997-98", "teams": ["IND", "CHI"], "game": 4, "period": 4, "key": { "player": "Miller", "clock": 1 } },
-    { "number": 6, "season": "1997-98", "teams": ["CHI", "UTA"], "game": 6, "period": 4, "key": { "player": "Jordan", "clock": 19 } },
-    { "number": 7, "season": "1998-99", "teams": ["NYK", "MIA"], "game": 5, "period": 4, "key": { "player": "Houston", "clock": 1 } },
-    { "number": 8, "season": "1998-99", "teams": ["NYK", "IND"], "game": 3, "period": 4, "key": { "player": "L. Johnson", "clock": 6 } },
-    { "number": 9, "season": "1998-99", "teams": ["SAS", "NYK"], "game": 5, "period": 4, "key": { "player": "A. Johnson", "clock": 47 } },
-    { "number": 10, "season": "1999-00", "teams": ["LAL", "POR"], "game": 7, "period": 4, "startClock": 720 },
-    { "number": 11, "season": "1999-00", "teams": ["LAL", "IND"], "game": 4, "period": 5, "startClock": 300 },
-    { "number": 12, "season": "2000-01", "teams": ["TOR", "PHI"], "game": 7, "period": 4, "key": { "player": "Carter", "clock": 0 } },
-    { "number": 13, "season": "2000-01", "teams": ["PHI", "LAL"], "game": 1, "period": 5, "startClock": 300 },
-    { "number": 14, "season": "2001-02", "teams": ["LAL", "SAC"], "game": 4, "period": 4, "key": { "player": "Horry", "clock": 0 } },
-    { "number": 15, "season": "2003-04", "teams": ["LAL", "SAS"], "game": 5, "period": 4, "key": { "player": "Fisher", "clock": 0 } },
-    { "number": 16, "season": "2003-04", "teams": ["LAL", "DET"], "game": 2, "period": 4, "key": { "player": "Bryant", "clock": 2 } },
-    { "number": 17, "season": "2004-05", "teams": ["PHX", "DAL"], "game": 6, "period": 4, "key": { "player": "Nash", "clock": 6 } },
-    { "number": 18, "season": "2004-05", "teams": ["SAS", "DET"], "game": 5, "period": 5, "key": { "player": "Horry", "clock": 6 } },
-    { "number": 19, "season": "2005-06", "teams": ["LAL", "PHX"], "game": 4, "period": 5, "key": { "player": "Bryant", "clock": 0 } },
-    { "number": 20, "season": "2005-06", "teams": ["DAL", "SAS"], "game": 7, "period": 4, "key": { "player": "Nowitzki", "clock": 22 } },
-    { "number": 21, "season": "2005-06", "teams": ["MIA", "DAL"], "game": 5, "period": 5, "key": { "player": "Wade", "clock": 2 } },
-    { "number": 22, "season": "2006-07", "teams": ["CLE", "DET"], "game": 5, "period": 4, "startClock": 360 },
-    { "number": 23, "season": "2008-09", "teams": ["CLE", "ORL"], "game": 2, "period": 4, "key": { "player": "James", "clock": 0 } },
-    { "number": 24, "season": "2008-09", "teams": ["LAL", "ORL"], "game": 4, "period": 4, "key": { "player": "Fisher", "clock": 5 } },
-    { "number": 25, "season": "2009-10", "teams": ["LAL", "OKC"], "game": 6, "period": 4, "key": { "player": "Gasol", "clock": 1 } },
-    { "number": 26, "season": "2009-10", "teams": ["LAL", "PHX"], "game": 5, "period": 4, "key": { "player": "World Peace", "clock": 0 } },
-    { "number": 27, "season": "2009-10", "teams": ["LAL", "BOS"], "game": 7, "period": 4, "key": { "player": "World Peace", "clock": 61 } },
-    { "number": 28, "season": "2010-11", "teams": ["POR", "DAL"], "game": 4, "period": 4, "startClock": 720 },
-    { "number": 29, "season": "2010-11", "teams": ["DAL", "MIA"], "game": 2, "period": 4, "key": { "player": "Nowitzki", "clock": 4 } },
-    { "number": 30, "season": "2011-12", "teams": ["OKC", "DAL"], "game": 1, "period": 4, "key": { "player": "Durant", "clock": 2 } },
-    { "number": 31, "season": "2012-13", "teams": ["MIA", "IND"], "game": 1, "period": 5, "key": { "player": "James", "clock": 0 } },
-    { "number": 32, "season": "2012-13", "teams": ["MIA", "SAS"], "game": 6, "period": 4, "key": { "player": "Allen", "clock": 5 } },
-    { "number": 33, "season": "2012-13", "teams": ["MIA", "SAS"], "game": 7, "period": 4, "key": { "player": "Duncan", "clock": 50 } },
-    { "number": 34, "season": "2013-14", "teams": ["POR", "HOU"], "game": 6, "period": 4, "key": { "player": "Lillard", "clock": 0 } },
-    { "number": 35, "season": "2014-15", "teams": ["LAC", "SAS"], "game": 7, "period": 4, "key": { "player": "Paul", "clock": 1 } },
-    { "number": 36, "season": "2014-15", "teams": ["CHI", "CLE"], "game": 3, "period": 4, "key": { "player": "Rose", "clock": 0 } },
-    { "number": 37, "season": "2014-15", "teams": ["CHI", "CLE"], "game": 4, "period": 4, "key": { "player": "James", "clock": 0 } },
-    { "number": 38, "season": "2015-16", "teams": ["CLE", "GSW"], "game": 7, "period": 4, "key": { "player": "James", "clock": 110 } },
-    { "number": 39, "season": "2015-16", "teams": ["CLE", "GSW"], "game": 7, "period": 4, "key": { "player": "Irving", "clock": 53 } },
-    { "number": 40, "season": "2008-09", "teams": ["CHI", "BOS"], "game": 6, "period": 7, "startClock": 300 },
-    { "number": 41, "season": "2016-17", "teams": ["GSW", "CLE"], "game": 3, "period": 4, "key": { "player": "Durant", "clock": 45 } },
-    { "number": 42, "season": "2017-18", "teams": ["CLE", "IND"], "game": 5, "period": 4, "key": { "player": "James", "clock": 0 } },
-    { "number": 43, "season": "2017-18", "teams": ["CLE", "TOR"], "game": 3, "period": 4, "key": { "player": "James", "clock": 0 } },
-    { "number": 44, "season": "2017-18", "teams": ["CLE", "GSW"], "game": 1, "period": 4, "key": { "player": "Hill", "clock": 5 } },
-    { "number": 45, "season": "2018-19", "teams": ["POR", "OKC"], "game": 5, "period": 4, "key": { "player": "Lillard", "clock": 0 } },
-    { "number": 46, "season": "2018-19", "teams": ["TOR", "PHI"], "game": 7, "period": 4, "key": { "player": "Leonard", "clock": 0 } },
-    { "number": 47, "season": "2018-19", "teams": ["GSW", "TOR"], "game": 6, "period": 4, "key": { "player": "Curry", "clock": 9 } },
-    { "number": 48, "season": "2019-20", "teams": ["DAL", "LAC"], "game": 4, "period": 5, "key": { "player": "Doncic", "clock": 0 } },
-    { "number": 49, "season": "2019-20", "teams": ["LAL", "DEN"], "game": 2, "period": 4, "key": { "player": "Davis", "clock": 0 } },
-    { "number": 50, "season": "2019-20", "teams": ["LAL", "MIA"], "game": 5, "period": 4, "key": { "player": "Green", "clock": 7 } },
-    { "number": 51, "season": "2020-21", "teams": ["ATL", "NYK"], "game": 1, "period": 4, "key": { "player": "Young", "clock": 1 } },
-    { "number": 52, "season": "2020-21", "teams": ["BKN", "MIL"], "game": 7, "period": 4, "key": { "player": "Durant", "clock": 1 } },
-    { "number": 53, "season": "2020-21", "teams": ["PHX", "LAC"], "game": 2, "period": 4, "key": { "player": "Ayton", "clock": 1 } },
-    { "number": 54, "season": "2020-21", "teams": ["MIL", "PHX"], "game": 5, "period": 4, "key": { "player": "Holiday", "clock": 16 } },
-    { "number": 55, "season": "2021-22", "teams": ["MIA", "BOS"], "game": 7, "period": 4, "key": { "player": "Butler", "clock": 17 } },
-    { "number": 56, "season": "2022-23", "teams": ["BOS", "MIA"], "game": 6, "period": 4, "key": { "player": "White", "clock": 0 } },
-    { "number": 57, "season": "2023-24", "teams": ["BOS", "IND"], "game": 1, "period": 4, "key": { "player": "Brown", "clock": 6 } },
-    { "number": 58, "season": "2023-24", "teams": ["DAL", "MIN"], "game": 2, "period": 4, "key": { "player": "Doncic", "clock": 3 } },
-    { "number": 59, "season": "2024-25", "teams": ["IND", "NYK"], "game": 1, "period": 4, "key": { "player": "Haliburton", "clock": 0 } },
-    { "number": 60, "season": "2024-25", "teams": ["IND", "OKC"], "game": 1, "period": 4, "key": { "player": "Haliburton", "clock": 0 } },
-    { "number": 61, "season": "2025-26", "teams": ["NYK", "SAS"], "game": 4, "period": 4, "key": { "player": "Anunoby", "clock": 11 } },
-    { "number": 62, "season": "2025-26", "teams": ["NYK", "SAS"], "game": 2, "period": 4, "key": { "player": "Wembanyama", "clock": 2 } },
-    { "number": 63, "season": "2025-26", "teams": ["NYK", "SAS"], "game": 5, "period": 4, "key": { "player": "Brunson", "clock": 66 } },
-    { "number": 64, "season": "2025-26", "teams": ["NYK", "CLE"], "game": 1, "period": 4, "startClock": 480 },
-    { "number": 65, "season": "2025-26", "teams": ["NYK", "SAS"], "game": 3, "period": 4, "key": { "player": "Bridges", "clock": 3 } },
-    { "number": 66, "season": "2025-26", "teams": ["SAS", "OKC"], "game": 1, "period": 4, "key": { "player": "Holmgren", "clock": 0 } }
+    {
+      "number": 1,
+      "id": "1997-wcf-g6-stockton",
+      "title": "Stockton Sends Utah to the Finals",
+      "season": "1996-97",
+      "teams": [
+        "UTA",
+        "HOU"
+      ],
+      "game": 6,
+      "period": 4,
+      "key": {
+        "player": "Stockton",
+        "clock": 0
+      }
+    },
+    {
+      "number": 2,
+      "id": "1997-finals-g1-jordan",
+      "title": "Jordan's Game 1 Buzzer-Beater",
+      "season": "1996-97",
+      "teams": [
+        "CHI",
+        "UTA"
+      ],
+      "game": 1,
+      "period": 4,
+      "key": {
+        "player": "Jordan",
+        "clock": 0
+      }
+    },
+    {
+      "number": 3,
+      "id": "1997-finals-g5-jordan",
+      "title": "The Flu Game",
+      "season": "1996-97",
+      "teams": [
+        "CHI",
+        "UTA"
+      ],
+      "game": 5,
+      "period": 4,
+      "key": {
+        "player": "Jordan",
+        "clock": 25
+      }
+    },
+    {
+      "number": 4,
+      "id": "1997-finals-g6-kerr",
+      "title": "Kerr's Title Shot",
+      "season": "1996-97",
+      "teams": [
+        "CHI",
+        "UTA"
+      ],
+      "game": 6,
+      "period": 4,
+      "key": {
+        "player": "Kerr",
+        "clock": 5
+      }
+    },
+    {
+      "number": 5,
+      "id": "1998-ecf-g4-miller",
+      "title": "Reggie's Push-Off Three",
+      "season": "1997-98",
+      "teams": [
+        "IND",
+        "CHI"
+      ],
+      "game": 4,
+      "period": 4,
+      "key": {
+        "player": "Miller",
+        "clock": 1
+      }
+    },
+    {
+      "number": 6,
+      "id": "1998-finals-g6-jordan",
+      "title": "Jordan's Last Shot",
+      "season": "1997-98",
+      "teams": [
+        "CHI",
+        "UTA"
+      ],
+      "game": 6,
+      "period": 4,
+      "key": {
+        "player": "Jordan",
+        "clock": 19
+      }
+    },
+    {
+      "number": 7,
+      "id": "1999-ecr1-g5-houston",
+      "title": "Houston's Runner",
+      "season": "1998-99",
+      "teams": [
+        "NYK",
+        "MIA"
+      ],
+      "game": 5,
+      "period": 4,
+      "key": {
+        "player": "Houston",
+        "clock": 1
+      }
+    },
+    {
+      "number": 8,
+      "id": "1999-ecf-g3-johnson",
+      "title": "Larry Johnson's Four-Point Play",
+      "season": "1998-99",
+      "teams": [
+        "NYK",
+        "IND"
+      ],
+      "game": 3,
+      "period": 4,
+      "key": {
+        "player": "L. Johnson",
+        "clock": 6
+      }
+    },
+    {
+      "number": 9,
+      "id": "1999-finals-g5-johnson",
+      "title": "Avery Johnson's Title Jumper",
+      "season": "1998-99",
+      "teams": [
+        "SAS",
+        "NYK"
+      ],
+      "game": 5,
+      "period": 4,
+      "key": {
+        "player": "A. Johnson",
+        "clock": 47
+      }
+    },
+    {
+      "number": 10,
+      "id": "2000-wcf-g7-lakers-comeback",
+      "title": "The Lakers' 4th-Quarter Comeback",
+      "season": "1999-00",
+      "teams": [
+        "LAL",
+        "POR"
+      ],
+      "game": 7,
+      "period": 4,
+      "startClock": 720
+    },
+    {
+      "number": 11,
+      "id": "2000-finals-g4-bryant-ot",
+      "title": "Kobe Owns Overtime",
+      "season": "1999-00",
+      "teams": [
+        "LAL",
+        "IND"
+      ],
+      "game": 4,
+      "period": 5,
+      "startClock": 300
+    },
+    {
+      "number": 12,
+      "id": "2001-ecsf-g7-carter",
+      "title": "Carter's Buzzer Miss",
+      "season": "2000-01",
+      "teams": [
+        "TOR",
+        "PHI"
+      ],
+      "game": 7,
+      "period": 4,
+      "key": {
+        "player": "Carter",
+        "clock": 0
+      }
+    },
+    {
+      "number": 13,
+      "id": "2001-finals-g1-iverson-ot",
+      "title": "Iverson's Overtime",
+      "season": "2000-01",
+      "teams": [
+        "PHI",
+        "LAL"
+      ],
+      "game": 1,
+      "period": 5,
+      "startClock": 300
+    },
+    {
+      "number": 14,
+      "id": "2002-wcf-g4-horry",
+      "title": "Horry's Tap-Out Three",
+      "season": "2001-02",
+      "teams": [
+        "LAL",
+        "SAC"
+      ],
+      "game": 4,
+      "period": 4,
+      "key": {
+        "player": "Horry",
+        "clock": 0
+      }
+    },
+    {
+      "number": 15,
+      "id": "2004-wcsf-g5-fisher",
+      "title": "Fisher's 0.4",
+      "season": "2003-04",
+      "teams": [
+        "LAL",
+        "SAS"
+      ],
+      "game": 5,
+      "period": 4,
+      "key": {
+        "player": "Fisher",
+        "clock": 0
+      }
+    },
+    {
+      "number": 16,
+      "id": "2004-finals-g2-bryant",
+      "title": "Kobe's Three to Force OT",
+      "season": "2003-04",
+      "teams": [
+        "LAL",
+        "DET"
+      ],
+      "game": 2,
+      "period": 4,
+      "key": {
+        "player": "Bryant",
+        "clock": 2
+      }
+    },
+    {
+      "number": 17,
+      "id": "2005-wcsf-g6-nash",
+      "title": "Nash Forces Overtime",
+      "season": "2004-05",
+      "teams": [
+        "PHX",
+        "DAL"
+      ],
+      "game": 6,
+      "period": 4,
+      "key": {
+        "player": "Nash",
+        "clock": 6
+      }
+    },
+    {
+      "number": 18,
+      "id": "2005-finals-g5-horry",
+      "title": "Horry's Overtime Three",
+      "season": "2004-05",
+      "teams": [
+        "SAS",
+        "DET"
+      ],
+      "game": 5,
+      "period": 5,
+      "key": {
+        "player": "Horry",
+        "clock": 6
+      }
+    },
+    {
+      "number": 19,
+      "id": "2006-wcr1-g4-bryant",
+      "title": "Kobe's OT Buzzer-Beater",
+      "season": "2005-06",
+      "teams": [
+        "LAL",
+        "PHX"
+      ],
+      "game": 4,
+      "period": 5,
+      "key": {
+        "player": "Bryant",
+        "clock": 0
+      }
+    },
+    {
+      "number": 20,
+      "id": "2006-wcsf-g7-nowitzki",
+      "title": "Dirk's And-One",
+      "season": "2005-06",
+      "teams": [
+        "DAL",
+        "SAS"
+      ],
+      "game": 7,
+      "period": 4,
+      "key": {
+        "player": "Nowitzki",
+        "clock": 22
+      }
+    },
+    {
+      "number": 21,
+      "id": "2006-finals-g5-wade",
+      "title": "Wade at the Line",
+      "season": "2005-06",
+      "teams": [
+        "MIA",
+        "DAL"
+      ],
+      "game": 5,
+      "period": 5,
+      "key": {
+        "player": "Wade",
+        "clock": 2
+      }
+    },
+    {
+      "number": 22,
+      "id": "2007-ecf-g5-james",
+      "title": "LeBron Takes Over Detroit",
+      "season": "2006-07",
+      "teams": [
+        "CLE",
+        "DET"
+      ],
+      "game": 5,
+      "period": 4,
+      "startClock": 360
+    },
+    {
+      "number": 23,
+      "id": "2009-ecf-g2-james",
+      "title": "LeBron's Buzzer Three",
+      "season": "2008-09",
+      "teams": [
+        "CLE",
+        "ORL"
+      ],
+      "game": 2,
+      "period": 4,
+      "key": {
+        "player": "James",
+        "clock": 0
+      }
+    },
+    {
+      "number": 24,
+      "id": "2009-finals-g4-fisher",
+      "title": "Fisher Ties It in Orlando",
+      "season": "2008-09",
+      "teams": [
+        "LAL",
+        "ORL"
+      ],
+      "game": 4,
+      "period": 4,
+      "key": {
+        "player": "Fisher",
+        "clock": 5
+      }
+    },
+    {
+      "number": 25,
+      "id": "2010-wcr1-g6-gasol",
+      "title": "Pau's Tip-In",
+      "season": "2009-10",
+      "teams": [
+        "LAL",
+        "OKC"
+      ],
+      "game": 6,
+      "period": 4,
+      "key": {
+        "player": "Gasol",
+        "clock": 1
+      }
+    },
+    {
+      "number": 26,
+      "id": "2010-wcf-g5-artest",
+      "title": "Artest's Putback",
+      "season": "2009-10",
+      "teams": [
+        "LAL",
+        "PHX"
+      ],
+      "game": 5,
+      "period": 4,
+      "key": {
+        "player": "World Peace",
+        "clock": 0
+      }
+    },
+    {
+      "number": 27,
+      "id": "2010-finals-g7-artest",
+      "title": "Artest's Dagger",
+      "season": "2009-10",
+      "teams": [
+        "LAL",
+        "BOS"
+      ],
+      "game": 7,
+      "period": 4,
+      "key": {
+        "player": "World Peace",
+        "clock": 61
+      }
+    },
+    {
+      "number": 28,
+      "id": "2011-wcr1-g4-roy",
+      "title": "Brandon Roy's Comeback",
+      "season": "2010-11",
+      "teams": [
+        "POR",
+        "DAL"
+      ],
+      "game": 4,
+      "period": 4,
+      "startClock": 720
+    },
+    {
+      "number": 29,
+      "id": "2011-finals-g2-nowitzki",
+      "title": "Dirk's Left-Hand Layup",
+      "season": "2010-11",
+      "teams": [
+        "DAL",
+        "MIA"
+      ],
+      "game": 2,
+      "period": 4,
+      "key": {
+        "player": "Nowitzki",
+        "clock": 4
+      }
+    },
+    {
+      "number": 30,
+      "id": "2012-wcr1-g1-durant",
+      "title": "Durant's Bank Shot",
+      "season": "2011-12",
+      "teams": [
+        "OKC",
+        "DAL"
+      ],
+      "game": 1,
+      "period": 4,
+      "key": {
+        "player": "Durant",
+        "clock": 2
+      }
+    },
+    {
+      "number": 31,
+      "id": "2013-ecf-g1-james",
+      "title": "LeBron's Overtime Layup",
+      "season": "2012-13",
+      "teams": [
+        "MIA",
+        "IND"
+      ],
+      "game": 1,
+      "period": 5,
+      "key": {
+        "player": "James",
+        "clock": 0
+      }
+    },
+    {
+      "number": 32,
+      "id": "2013-finals-g6-allen",
+      "title": "The Corner",
+      "season": "2012-13",
+      "teams": [
+        "MIA",
+        "SAS"
+      ],
+      "game": 6,
+      "period": 4,
+      "key": {
+        "player": "Allen",
+        "clock": 5
+      }
+    },
+    {
+      "number": 33,
+      "id": "2013-finals-g7-duncan",
+      "title": "Duncan's Hook",
+      "season": "2012-13",
+      "teams": [
+        "MIA",
+        "SAS"
+      ],
+      "game": 7,
+      "period": 4,
+      "key": {
+        "player": "Duncan",
+        "clock": 50
+      }
+    },
+    {
+      "number": 34,
+      "id": "2014-wcr1-g6-lillard",
+      "title": "Lillard's 0.9",
+      "season": "2013-14",
+      "teams": [
+        "POR",
+        "HOU"
+      ],
+      "game": 6,
+      "period": 4,
+      "key": {
+        "player": "Lillard",
+        "clock": 0
+      }
+    },
+    {
+      "number": 35,
+      "id": "2015-wcr1-g7-paul",
+      "title": "Chris Paul's Bank Shot",
+      "season": "2014-15",
+      "teams": [
+        "LAC",
+        "SAS"
+      ],
+      "game": 7,
+      "period": 4,
+      "key": {
+        "player": "Paul",
+        "clock": 1
+      }
+    },
+    {
+      "number": 36,
+      "id": "2015-ecsf-g3-rose",
+      "title": "Rose's Bank Three",
+      "season": "2014-15",
+      "teams": [
+        "CHI",
+        "CLE"
+      ],
+      "game": 3,
+      "period": 4,
+      "key": {
+        "player": "Rose",
+        "clock": 0
+      }
+    },
+    {
+      "number": 37,
+      "id": "2015-ecsf-g4-james",
+      "title": "LeBron Waves Off the Play",
+      "season": "2014-15",
+      "teams": [
+        "CHI",
+        "CLE"
+      ],
+      "game": 4,
+      "period": 4,
+      "key": {
+        "player": "James",
+        "clock": 0
+      }
+    },
+    {
+      "number": 38,
+      "id": "2016-finals-g7-james",
+      "title": "The Block",
+      "season": "2015-16",
+      "teams": [
+        "CLE",
+        "GSW"
+      ],
+      "game": 7,
+      "period": 4,
+      "key": {
+        "player": "James",
+        "clock": 110
+      }
+    },
+    {
+      "number": 39,
+      "id": "2016-finals-g7-irving",
+      "title": "Kyrie's Three",
+      "season": "2015-16",
+      "teams": [
+        "CLE",
+        "GSW"
+      ],
+      "game": 7,
+      "period": 4,
+      "key": {
+        "player": "Irving",
+        "clock": 53
+      }
+    },
+    {
+      "number": 40,
+      "id": "2009-ecr1-g6-triple-ot",
+      "title": "Triple Overtime",
+      "season": "2008-09",
+      "teams": [
+        "CHI",
+        "BOS"
+      ],
+      "game": 6,
+      "period": 7,
+      "startClock": 300
+    },
+    {
+      "number": 41,
+      "id": "2017-finals-g3-durant",
+      "title": "KD Over LeBron",
+      "season": "2016-17",
+      "teams": [
+        "GSW",
+        "CLE"
+      ],
+      "game": 3,
+      "period": 4,
+      "key": {
+        "player": "Durant",
+        "clock": 45
+      }
+    },
+    {
+      "number": 42,
+      "id": "2018-ecr1-g5-james",
+      "title": "LeBron Beats the Buzzer",
+      "season": "2017-18",
+      "teams": [
+        "CLE",
+        "IND"
+      ],
+      "game": 5,
+      "period": 4,
+      "key": {
+        "player": "James",
+        "clock": 0
+      }
+    },
+    {
+      "number": 43,
+      "id": "2018-ecsf-g3-james",
+      "title": "LeBron's One-Handed Floater",
+      "season": "2017-18",
+      "teams": [
+        "CLE",
+        "TOR"
+      ],
+      "game": 3,
+      "period": 4,
+      "key": {
+        "player": "James",
+        "clock": 0
+      }
+    },
+    {
+      "number": 44,
+      "id": "2018-finals-g1-hill",
+      "title": "J.R. Smith's Dribble-Out",
+      "season": "2017-18",
+      "teams": [
+        "CLE",
+        "GSW"
+      ],
+      "game": 1,
+      "period": 4,
+      "key": {
+        "player": "Hill",
+        "clock": 5
+      }
+    },
+    {
+      "number": 45,
+      "id": "2019-wcr1-g5-lillard",
+      "title": "Lillard Waves Goodbye",
+      "season": "2018-19",
+      "teams": [
+        "POR",
+        "OKC"
+      ],
+      "game": 5,
+      "period": 4,
+      "key": {
+        "player": "Lillard",
+        "clock": 0
+      }
+    },
+    {
+      "number": 46,
+      "id": "2019-ecsf-g7-leonard",
+      "title": "Kawhi's Four Bounces",
+      "season": "2018-19",
+      "teams": [
+        "TOR",
+        "PHI"
+      ],
+      "game": 7,
+      "period": 4,
+      "key": {
+        "player": "Leonard",
+        "clock": 0
+      }
+    },
+    {
+      "number": 47,
+      "id": "2019-finals-g6-curry",
+      "title": "Curry's Last Three",
+      "season": "2018-19",
+      "teams": [
+        "GSW",
+        "TOR"
+      ],
+      "game": 6,
+      "period": 4,
+      "key": {
+        "player": "Curry",
+        "clock": 9
+      }
+    },
+    {
+      "number": 48,
+      "id": "2020-wcr1-g4-doncic",
+      "title": "Luka's Step-Back",
+      "season": "2019-20",
+      "teams": [
+        "DAL",
+        "LAC"
+      ],
+      "game": 4,
+      "period": 5,
+      "key": {
+        "player": "Doncic",
+        "clock": 0
+      }
+    },
+    {
+      "number": 49,
+      "id": "2020-wcf-g2-davis",
+      "title": "AD at the Buzzer",
+      "season": "2019-20",
+      "teams": [
+        "LAL",
+        "DEN"
+      ],
+      "game": 2,
+      "period": 4,
+      "key": {
+        "player": "Davis",
+        "clock": 0
+      }
+    },
+    {
+      "number": 50,
+      "id": "2020-finals-g5-green",
+      "title": "Danny Green's Open Three",
+      "season": "2019-20",
+      "teams": [
+        "LAL",
+        "MIA"
+      ],
+      "game": 5,
+      "period": 4,
+      "key": {
+        "player": "Green",
+        "clock": 7
+      }
+    },
+    {
+      "number": 51,
+      "id": "2021-ecr1-g1-young",
+      "title": "Trae at the Garden",
+      "season": "2020-21",
+      "teams": [
+        "ATL",
+        "NYK"
+      ],
+      "game": 1,
+      "period": 4,
+      "key": {
+        "player": "Young",
+        "clock": 1
+      }
+    },
+    {
+      "number": 52,
+      "id": "2021-ecsf-g7-durant",
+      "title": "KD's Toe on the Line",
+      "season": "2020-21",
+      "teams": [
+        "BKN",
+        "MIL"
+      ],
+      "game": 7,
+      "period": 4,
+      "key": {
+        "player": "Durant",
+        "clock": 1
+      }
+    },
+    {
+      "number": 53,
+      "id": "2021-wcf-g2-ayton",
+      "title": "The Valley-Oop",
+      "season": "2020-21",
+      "teams": [
+        "PHX",
+        "LAC"
+      ],
+      "game": 2,
+      "period": 4,
+      "key": {
+        "player": "Ayton",
+        "clock": 1
+      }
+    },
+    {
+      "number": 54,
+      "id": "2021-finals-g5-holiday",
+      "title": "Jrue's Steal",
+      "season": "2020-21",
+      "teams": [
+        "MIL",
+        "PHX"
+      ],
+      "game": 5,
+      "period": 4,
+      "key": {
+        "player": "Holiday",
+        "clock": 16
+      }
+    },
+    {
+      "number": 55,
+      "id": "2022-ecf-g7-butler",
+      "title": "Butler's Pull-Up",
+      "season": "2021-22",
+      "teams": [
+        "MIA",
+        "BOS"
+      ],
+      "game": 7,
+      "period": 4,
+      "key": {
+        "player": "Butler",
+        "clock": 17
+      }
+    },
+    {
+      "number": 56,
+      "id": "2023-ecf-g6-white",
+      "title": "Derrick White's Putback",
+      "season": "2022-23",
+      "teams": [
+        "BOS",
+        "MIA"
+      ],
+      "game": 6,
+      "period": 4,
+      "key": {
+        "player": "White",
+        "clock": 0
+      }
+    },
+    {
+      "number": 57,
+      "id": "2024-ecf-g1-brown",
+      "title": "Jaylen Brown Forces Overtime",
+      "season": "2023-24",
+      "teams": [
+        "BOS",
+        "IND"
+      ],
+      "game": 1,
+      "period": 4,
+      "key": {
+        "player": "Brown",
+        "clock": 6
+      }
+    },
+    {
+      "number": 58,
+      "id": "2024-wcf-g2-doncic",
+      "title": "Luka Over Gobert",
+      "season": "2023-24",
+      "teams": [
+        "DAL",
+        "MIN"
+      ],
+      "game": 2,
+      "period": 4,
+      "key": {
+        "player": "Doncic",
+        "clock": 3
+      }
+    },
+    {
+      "number": 59,
+      "id": "2025-ecf-g1-haliburton",
+      "title": "Haliburton at the Garden",
+      "season": "2024-25",
+      "teams": [
+        "IND",
+        "NYK"
+      ],
+      "game": 1,
+      "period": 4,
+      "key": {
+        "player": "Haliburton",
+        "clock": 0
+      }
+    },
+    {
+      "number": 60,
+      "id": "2025-finals-g1-haliburton",
+      "title": "Haliburton's 0.3",
+      "season": "2024-25",
+      "teams": [
+        "IND",
+        "OKC"
+      ],
+      "game": 1,
+      "period": 4,
+      "key": {
+        "player": "Haliburton",
+        "clock": 0
+      }
+    },
+    {
+      "number": 61,
+      "id": "2026-finals-g4-anunoby",
+      "title": "Anunoby's Tip-In",
+      "season": "2025-26",
+      "teams": [
+        "NYK",
+        "SAS"
+      ],
+      "game": 4,
+      "period": 4,
+      "key": {
+        "player": "Anunoby",
+        "clock": 11
+      }
+    },
+    {
+      "number": 62,
+      "id": "2026-finals-g2-wembanyama",
+      "title": "Wemby's Last Shot",
+      "season": "2025-26",
+      "teams": [
+        "NYK",
+        "SAS"
+      ],
+      "game": 2,
+      "period": 4,
+      "key": {
+        "player": "Wembanyama",
+        "clock": 2
+      }
+    },
+    {
+      "number": 63,
+      "id": "2026-finals-g5-brunson",
+      "title": "Brunson's Title Floater",
+      "season": "2025-26",
+      "teams": [
+        "NYK",
+        "SAS"
+      ],
+      "game": 5,
+      "period": 4,
+      "key": {
+        "player": "Brunson",
+        "clock": 66
+      }
+    },
+    {
+      "number": 64,
+      "id": "2026-ecf-g1-brunson",
+      "title": "Brunson's Comeback",
+      "season": "2025-26",
+      "teams": [
+        "NYK",
+        "CLE"
+      ],
+      "game": 1,
+      "period": 4,
+      "startClock": 480
+    },
+    {
+      "number": 65,
+      "id": "2026-finals-g3-bridges",
+      "title": "The Knicks' Last Rally",
+      "season": "2025-26",
+      "teams": [
+        "NYK",
+        "SAS"
+      ],
+      "game": 3,
+      "period": 4,
+      "key": {
+        "player": "Bridges",
+        "clock": 3
+      }
+    },
+    {
+      "number": 66,
+      "id": "2026-wcf-g1-holmgren",
+      "title": "Holmgren's Block",
+      "season": "2025-26",
+      "teams": [
+        "SAS",
+        "OKC"
+      ],
+      "game": 1,
+      "period": 4,
+      "key": {
+        "player": "Holmgren",
+        "clock": 0
+      }
+    }
   ]
 }
