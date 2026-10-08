@@ -53,11 +53,32 @@ function Basketball({ x, y, radius, inAir }: { x: number; y: number; radius: num
   );
 }
 
-function PlayerDot({ player, onOffense, index, animateIn }: { player: CourtPlayer; onOffense: boolean; index: number; animateIn: boolean }) {
+function PlayerDot({
+  player,
+  onOffense,
+  index,
+  animateIn,
+  selected,
+  onSelect,
+}: {
+  player: CourtPlayer;
+  onOffense: boolean;
+  index: number;
+  animateIn: boolean;
+  selected: boolean;
+  onSelect?: (playerId: number) => void;
+}) {
   const clipId = `headshot-${player.playerId}`;
   return (
     // Children are drawn around (0, 0) and the group is moved, so a moving player only changes one transform.
-    <g transform={`translate(${player.x} ${player.y})`}>
+    <g
+      transform={`translate(${player.x} ${player.y})`}
+      onClick={onSelect ? () => onSelect(player.playerId) : undefined}
+      className={onSelect ? "cursor-pointer" : undefined}
+      role={onSelect ? "button" : undefined}
+      aria-label={onSelect ? `Swap out ${player.name}` : undefined}
+    >
+      {selected ? <circle r={DOT_RADIUS + 1.1} fill="none" stroke="var(--foreground)" strokeWidth={0.3} strokeDasharray="0.8 0.6" /> : null}
       <g className={animateIn ? "animate-pop-in" : undefined} style={animateIn ? { animationDelay: `${150 + index * 50}ms` } : undefined}>
         <clipPath id={clipId}>
           <circle r={DOT_RADIUS} />
@@ -95,6 +116,8 @@ export function Court({
   ball = null,
   flash = null,
   animateIn = false,
+  selectedId = null,
+  onSelectPlayer,
 }: {
   players: CourtPlayer[];
   offense: Side | null;
@@ -102,6 +125,10 @@ export function Court({
   /** Brief highlight at the rim nearest the ball: a make or a miss. */
   flash?: "make" | "miss" | "whistle" | null;
   animateIn?: boolean;
+  /** A ring around this player (e.g. the one being swapped). */
+  selectedId?: number | null;
+  /** Makes the dots tappable. */
+  onSelectPlayer?: (playerId: number) => void;
 }) {
   const rimX = ball && ball.x < LENGTH / 2 ? HOOP_FROM_BASELINE : LENGTH - HOOP_FROM_BASELINE;
   return (
@@ -126,7 +153,15 @@ export function Court({
         />
       ) : null}
       {players.map((p, i) => (
-        <PlayerDot key={p.playerId} player={p} onOffense={p.side === offense} index={i} animateIn={animateIn} />
+        <PlayerDot
+          key={p.playerId}
+          player={p}
+          onOffense={p.side === offense}
+          index={i}
+          animateIn={animateIn}
+          selected={p.playerId === selectedId}
+          onSelect={onSelectPlayer}
+        />
       ))}
       {ball ? <Basketball x={ball.x} y={ball.y} radius={ball.inAir ? 1.25 : 0.95} inAir={ball.inAir} /> : null}
     </svg>
