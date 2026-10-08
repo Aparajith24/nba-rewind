@@ -16,7 +16,7 @@ import { PlayerComparison } from "./PlayerComparison";
 import { ScoreBug } from "./ScoreBug";
 import { HowItWorks, MomentDetails } from "./SideCards";
 import { SimulationResults } from "./SimulationResults";
-import { SwapCard, type SwapChoice } from "./SwapCard";
+import { SwapBar, type OnFloor, type SwapChoice } from "./SwapBar";
 
 /**
  * The whole moment page: pick a swap, run thousands of timelines in a Web Worker,
@@ -32,7 +32,16 @@ function newSeed() {
   return Math.random().toString(36).slice(2, 10);
 }
 
-export function MomentExperience({ moment, header }: { moment: Moment & MomentFile; header: ReactNode }) {
+export function MomentExperience({
+  moment,
+  header,
+  defaultOutId = null,
+}: {
+  moment: Moment & MomentFile;
+  header: ReactNode;
+  /** Who's preselected to go out: the moment's key player, so the swap search works right away. */
+  defaultOutId?: number | null;
+}) {
   const starters: Roster = useMemo(
     () =>
       (["home", "away"] as Side[]).flatMap((side) =>
@@ -41,7 +50,8 @@ export function MomentExperience({ moment, header }: { moment: Moment & MomentFi
     [moment],
   );
 
-  const [outId, setOutId] = useState<number | null>(null);
+  const initialOut = defaultOutId !== null && starters.some((p) => p.playerId === defaultOutId) ? defaultOutId : null;
+  const [outId, setOutId] = useState<number | null>(initialOut);
   const [choice, setChoice] = useState<SwapChoice | null>(null);
   const [runs, setRuns] = useState<(typeof RUN_OPTIONS)[number]>(10000);
   const [speed, setSpeed] = useState<(typeof SPEEDS)[number]>(1);
@@ -128,12 +138,42 @@ export function MomentExperience({ moment, header }: { moment: Moment & MomentFi
         setBaseline(e.data.baseline);
         if (e.data.kind === "done") setRunning(false);
       };
+      worker.current.onerror = (e) => {
+        if (runId.current !== id) return;
+        setError(e.message || "the simulation stopped unexpectedly");
+        setRunning(false);
+      };
       worker.current.postMessage({ id, input, baseline: base, runs });
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
       setRunning(false);
     }
   };
+
+  /**
+   * Change who goes out (from the swap bar, the roster strip, or a tap on the court).
+   * Choosing the selected player again, or null, unselects him.
+   */
+  const chooseOut = (id: number | null) => {
+    setOutId(id === outId ? null : id);
+    setChoice(null);
+    setFiles(null);
+    resetResults();
+  };
+  const chooseIn = (c: SwapChoice | null) => {
+    setChoice(c);
+    setFiles(null);
+    resetResults();
+  };
+  /** Back to how the page loads: no swap, the key player preselected, the real ten on the floor. */
+  const removeSwap = () => {
+    setOutId(initialOut);
+    setChoice(null);
+    setFiles(null);
+    setError(null);
+    resetResults();
+  };
+  const swapChanged = choice !== null || outId !== initialOut;
 
   // Start the featured replay once it's ready.
   const featuredTimeline = featured?.timeline;
@@ -143,6 +183,9 @@ export function MomentExperience({ moment, header }: { moment: Moment & MomentFi
   }, [featuredTimeline]);
 
   const view = replay.view;
+  const freezeFrame = starters.map((p) => (choice && p.playerId === outId ? { ...p, playerId: choice.playerId, name: choice.name, jersey: undefined } : p));
+  const onFloor: OnFloor[] = starters.map((p) => ({ playerId: p.playerId, name: p.name, side: p.side, tricode: moment.teams[p.side].tricode }));
+  const busy = running || replay.status === "playing";
   const stripPlayers: StripPlayer[] = starters.map((p) => ({ playerId: p.playerId, name: p.name, jersey: p.jersey ?? "", side: p.side }));
   const replacement: StripPlayer | null = choice && outPlayer ? { playerId: choice.playerId, name: choice.name, jersey: "", side: outPlayer.side } : null;
   const realWinner = moment.realFinal.winner;
@@ -219,23 +262,26 @@ export function MomentExperience({ moment, header }: { moment: Moment & MomentFi
           <ScoreBug moment={moment} live={view?.live ?? undefined} />
 
           <section className="flex flex-col gap-4 rounded-2xl border border-border bg-surface p-4 sm:p-5">
-            <OnCourtStrip
-              players={stripPlayers}
-              selectedOut={outId}
-              replacement={replacement}
-              onSelect={(id) => {
-                setOutId(id === outId ? null : id);
-                setChoice(null);
-                setFiles(null);
-                resetResults();
-              }}
+            <SwapBar
+              key={outId ?? "none"}
+              onFloor={onFloor}
+              outId={outId}
+              onOut={chooseOut}
+              choice={choice}
+              onChoose={chooseIn}
+              onRemove={swapChanged ? removeSwap : undefined}
+              disabled={busy}
             />
+            <OnCourtStrip players={stripPlayers} selectedOut={outId} replacement={replacement} onSelect={(id) => !busy && chooseOut(id)} />
             <Court
-              players={view?.players ?? starters}
+              players={view?.players ?? freezeFrame}
               offense={view ? view.offense : moment.state.possession}
               ball={view?.ball ?? null}
               flash={view?.flash ?? null}
               animateIn={replay.status === "idle"}
+              selectedId={view ? null : choice ? choice.playerId : outId}
+              // Tapping the swapped-in player (standing in the selected spot) unselects that spot too.
+              onSelectPlayer={view || busy ? undefined : (id) => chooseOut(id === choice?.playerId ? outId : id)}
             />
             <div className="min-h-11 rounded-lg bg-surface-raised px-4 py-3 text-sm" aria-live="polite">
               {error ? `Couldn't run the simulation: ${error}` : (view?.caption ?? moment.hook)}
@@ -294,15 +340,6 @@ export function MomentExperience({ moment, header }: { moment: Moment & MomentFi
         </div>
 
         <aside className="flex flex-col gap-5">
-          <SwapCard
-            outName={outPlayer?.name ?? null}
-            choice={choice}
-            onChoose={(c) => {
-              setChoice(c);
-              setFiles(null);
-              resetResults();
-            }}
-          />
           <MomentDetails moment={moment} />
           <SimulationResults
             tally={tally}

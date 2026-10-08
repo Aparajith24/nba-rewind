@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import type { MomentFile } from "@/engine/types";
+import { getPreview } from "@/lib/home";
 import { getBuiltMomentIds, getMoment } from "@/lib/moments";
 import type { Moment } from "@/lib/types";
 import { MomentExperience } from "@/ui/MomentExperience";
@@ -22,12 +23,14 @@ export async function generateMetadata({ params }: PageProps<"/moments/[id]">): 
 export default async function MomentPage({ params }: PageProps<"/moments/[id]">) {
   const { id } = await params;
   const moment = getMoment(id) as Moment & MomentFile;
+  const keyPlayer = getPreview(moment.number)?.keyPlayerId ?? null;
   const series = moment.game.split(" · ")[0]; // "2013 NBA Finals"
 
   return (
     <div className="mx-auto flex max-w-[1400px] flex-col gap-6 px-4 py-6 sm:px-8">
       <MomentExperience
         moment={moment}
+        defaultOutId={keyPlayer}
         header={
           <div className="flex flex-col gap-3">
             <Link href="/" className="text-sm text-muted hover:text-foreground">
