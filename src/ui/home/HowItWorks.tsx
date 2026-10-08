@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 /** Four steps, and a multiverse illustration: one dot per replay of the moment. */
 
 const STEPS: { title: string; text: string; icon: React.ReactNode }[] = [
@@ -53,7 +55,12 @@ export function HowItWorks() {
   return (
     <section className="grid gap-8 rounded-3xl border border-border bg-surface p-6 sm:p-8 lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)]">
       <div className="flex flex-col gap-6">
-        <h2 className="text-2xl font-bold">How it works</h2>
+        <div className="flex items-baseline justify-between gap-4">
+          <h2 className="text-2xl font-bold">How it works</h2>
+          <Link href="/how-it-works/" className="text-sm text-muted hover:text-foreground">
+            The full breakdown →
+          </Link>
+        </div>
         <ol className="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
           {STEPS.map((s, i) => (
             <li key={s.title} className="flex flex-col gap-2 xl:border-r xl:border-border xl:pr-5 xl:last:border-r-0">

@@ -39,6 +39,13 @@ const MomentsIcon = (
   </svg>
 );
 
+const HowIcon = (
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17.5h.01" />
+  </svg>
+);
+
 export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-screen flex-col lg:flex-row">
@@ -47,6 +54,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <nav className="hidden flex-col gap-1 lg:flex">
           <NavItem href="/" label="Home" icon={HomeIcon} />
           <NavItem href="/moments/" label="Moments" icon={MomentsIcon} />
+          <NavItem href="/how-it-works/" label="How it works" icon={HowIcon} />
         </nav>
         <div className="mt-auto hidden rounded-xl border border-border bg-surface p-4 lg:block">
           <p className="text-sm font-semibold leading-snug">

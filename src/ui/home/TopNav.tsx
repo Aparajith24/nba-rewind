@@ -73,7 +73,7 @@ function Search({ items }: { items: SearchItem[] }) {
   );
 }
 
-export function TopNav({ items, active }: { items: SearchItem[]; active: "home" | "moments" }) {
+export function TopNav({ items, active }: { items: SearchItem[]; active: "home" | "moments" | "how" }) {
   return (
     <header className="sticky top-0 z-20 border-b border-border bg-background/90 backdrop-blur">
       <div className="mx-auto flex max-w-[1400px] items-center gap-4 px-4 py-3 sm:gap-8 sm:px-8">
@@ -83,6 +83,7 @@ export function TopNav({ items, active }: { items: SearchItem[]; active: "home" 
             [
               ["home", "/", "Home"],
               ["moments", "/moments/", "Moments"],
+              ["how", "/how-it-works/", "How it works"],
             ] as const
           ).map(([key, href, label]) => (
             <Link key={key} href={href} className={`border-b-2 pb-1 ${active === key ? "border-foreground" : "border-transparent text-muted hover:text-foreground"}`}>
