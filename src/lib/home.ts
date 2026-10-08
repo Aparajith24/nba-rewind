@@ -53,6 +53,11 @@ function readJson<T>(...parts: string[]): T | null {
   return fs.existsSync(file) ? (JSON.parse(fs.readFileSync(file, "utf8")) as T) : null;
 }
 
+/** One moment's preview (real score, clock, key player), if the pipeline has written them. */
+export function getPreview(number: number): MomentPreview | null {
+  return readJson<Record<string, MomentPreview>>("public", "data", "moment-previews.json")?.[String(number)] ?? null;
+}
+
 /** Everything the top-nav search looks through. */
 export function searchItems(cards: HomeCard[]) {
   return cards.map((c) => ({
