@@ -281,6 +281,40 @@ each simulated timeline adds a little randomness, larger when the sample is smal
 
 The exact weighting and the size of the randomness will be tuned once the simulation runs and can be checked against real outcomes.
 
+### 5. Crunch time and playmaking
+
+**Why:** one player matters most late in close games. Stars take over, role players disappear, and when a creator leaves, everyone else's shots get harder because the defense no longer has to focus on him.
+
+**Crunch-time usage.** The NBA's "clutch" stats (last 5 minutes, score within 5) give each player-season's usage in crunch time. In those minutes the simulation uses it, trusted by how many clutch minutes back it up, and falls back to regular-season usage:
+
+```
+crunch-time usage = trust × clutch usage + (1 − trust) × regular-season usage
+trust             = clutch minutes ÷ (clutch minutes + 60)
+```
+
+**Example: 2015–16.** LeBron James used 31% of the Cavs' plays normally and 43% in 155 clutch minutes; Tristan Thompson fell to 9%.
+
+**Offensive lift.** The NBA's on/off splits give each team's offensive rating with every player on and off the floor, from 2007–08 on:
+
+```
+offensive lift = team points per 100 with him on − with him off
+```
+
+On/off is noisy when a player barely sat, so each observed value is blended with a prediction from his own stats (trusted by the smaller of his on and off minutes, half-trusted at 400). Before 2007–08 the prediction is all there is. The prediction is a minutes-weighted fit on 9,677 player-seasons with on/off data, using usage, scoring efficiency relative to the league, and assist rate (weighted R² 0.32: it captures the broad shape, not every player).
+
+**Example: LeBron James 2015–16:** +13.9 (observed +15.4: the Cavs scored 114.0 per 100 with him, 98.6 without).
+
+**Playmaking in the simulation.** A swap changes the lineup's total lift. That change moves teammates' make rate, more for players who rely on being set up (their share of assisted makes):
+
+```
+change              = (lift coming in − lift going out) ÷ league points per 100
+teammate make rate  × (1 + change × (his assisted share ÷ 0.6)),  kept between 0.85× and 1.15×
+```
+
+With no swap the change is 0. The swapped-in player keeps his own shooting.
+
+**Effect, 2016 Finals Game 7 (tied, 2:50 left), 5,000 timelines:** with the real lineup the Warriors win 37.8%. Swapping in Jeff Teague (2020–21) for LeBron James raises that to 49.8%, up from 43% before crunch time and playmaking were modeled.
+
 ---
 
 ## Data source and credits
