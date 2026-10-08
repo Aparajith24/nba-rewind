@@ -1,20 +1,71 @@
 # NBA Rewind
 
-Take one of the greatest NBA playoff moments since 1996–97, swap any player from any season into it, and watch what happens. The app replays the moment from its real game state (score, clock, possession, the ten players on the floor) thousands of times and shows how often history changes.
+**Rewrite basketball history.** Pick one of 66 of the greatest NBA playoff moments since 1996–97, swap any player from any season onto the floor, and watch what happens.
 
-> Work in progress. The data pipeline is done; the app and the simulation engine are next.
+**Live:** [rewind-moments.pages.dev](https://rewind-moments.pages.dev)
 
-This repo contains **code only**. No NBA data is committed. You build the data yourself with the pipeline below, which pulls it from the public stats.nba.com API.
+Every moment starts from its real game state, rebuilt from official play-by-play: the score, the clock, who has the ball, and the ten players on the floor. With no swap you watch what really happened. Make a swap and the engine plays the moment out thousands of times in your browser, to the final buzzer and through overtime, and tells you how often history changes.
 
 ---
 
-## Building the data
+## Features
+
+- **66 playable moments**, 1997 Finals to today: Jordan's flu game, Ray Allen's corner three, the Block, Kawhi's four-bouncer, and more. Browse by era or search.
+- **Any player, any season.** Every NBA player-season since 1996–97 can be swapped in. No minutes cutoff.
+- **The real ending, replayed.** Without a swap, the actual play-by-play plays back on a top-down court, with substitutions and overtime.
+- **Monte Carlo simulation in a Web Worker.** Thousands of possession-level timelines stream in live, compared side by side with the real lineup so you see what *your* swap changed.
+- **Playoff-aware player profiles.** Each player's playoff self is built from his real playoff stats, blended by sample size with a projection from his regular season and his career playoff step-up (or fade).
+- **Late-game basketball.** Hot hands, crunch-time usage, intentional fouls, timeouts, and putback-or-kick-out decisions on offensive rebounds.
+- **Reproducible.** Seeded randomness: the same moment, swap and seed always produce the same timeline.
+- **Static and serverless.** Everything runs in the browser. No accounts, no backend.
+
+## How it works
+
+```
+stats.nba.com ──► Python pipeline ──► static JSON ──► Next.js app ──► sim engine (Web Worker)
+                  ingest, transform,   players, leagues,  court, swap,     possession-level
+                  export (cached)      moments            replay, results  Monte Carlo
+```
+
+1. **Pipeline (Python).** Pulls every player and team season since 1996–97 and the play-by-play of each moment's game, caches every response, and builds player profiles, league baselines, playoff adjustments and moment states.
+2. **Engine (TypeScript).** A pure, seeded possession model: who uses the possession, shot zone, make or miss, turnover, foul, rebound, adjusted for the defense on the floor and the late-game situation.
+3. **App (Next.js).** Loads only what it needs (a small search index, then one player file at a time), runs the simulations off the main thread, and animates the featured timeline on the court.
+
+The basketball rules the simulation follows are in [`docs/simulation-rules.md`](docs/simulation-rules.md). Every calculation behind the data, with formulas and real examples, is [below](#how-the-data-is-calculated-and-why).
+
+## Tech stack
+
+| Layer | Tools |
+|---|---|
+| Frontend | Next.js 16 (static export), React 19, TypeScript, Tailwind CSS 4, Framer Motion |
+| Simulation | TypeScript in a Web Worker, seeded PRNG |
+| Data pipeline | Python 3.12, uv, nba_api, pandas, Parquet |
+| Tests | Vitest (engine, replay, every moment), pytest (pipeline) |
+| Hosting | Cloudflare Pages |
+
+## Project structure
+
+```
+pipeline/          Python data pipeline (ingest → transform → export)
+content/           hand-written moment content and the moment catalog
+src/app/           routes: home, moments, moment page, how it works
+src/ui/            screens and components
+src/engine/        simulation engine (pure TypeScript, no UI imports)
+src/animation/     turns event logs into court keyframes
+src/workers/       Web Worker that runs simulation batches
+docs/              simulation rules
+```
+
+## Getting started
+
+This repo contains **code only**. No NBA data is committed: you build it yourself with the pipeline, once.
 
 ### Requirements
-- [uv](https://docs.astral.sh/uv/) (`brew install uv` on macOS). It installs the right Python (3.12) and every dependency for you.
+- [uv](https://docs.astral.sh/uv/) (`brew install uv` on macOS). It installs Python 3.12 and every dependency.
+- Node.js 20+ and npm.
 - No API key or account. stats.nba.com is public.
 
-### One command
+### 1. Build the data
 ```bash
 cd pipeline
 uv sync                    # first time only: install dependencies
@@ -23,12 +74,35 @@ uv run python -m build     # run the whole pipeline
 
 The **first run takes about 20 minutes**, almost all of it waiting politely between API requests (~560 of them, 2 seconds apart). Every response is saved to disk and never requested again, so **every later run takes about 10 seconds**.
 
-### Run the tests
+### 2. Run the app
 ```bash
-cd pipeline
-uv run pytest
+npm install
+npm run dev        # http://localhost:3000
 ```
-Tests that need real game data skip themselves if you haven't built the data yet. The tests never call the API.
+
+### 3. Run the tests
+```bash
+npm test                          # engine, replay, and every moment
+cd pipeline && uv run pytest      # data pipeline
+```
+Pipeline tests that need real game data skip themselves if you haven't built it yet. No test ever calls the API.
+
+## Deployment
+
+`npm run build` writes the whole site to `out/`, including `out/data/` copied from `public/data/`. Upload `out/` to any static host. The live site runs on Cloudflare Pages:
+
+```bash
+npm run build
+cd out && npx wrangler pages deploy . --project-name <your-project> --branch main
+```
+
+Deploy from your machine, not from CI: the data is gitignored, and stats.nba.com is known to block cloud servers. Run the command from inside `out/` so Wrangler deploys the static files as they are instead of reconfiguring the project for a server build.
+
+Team logos and player headshots load from the NBA's image servers at runtime and are never stored in this repo. If an image can't load, the app falls back to the team's abbreviation or a generated silhouette.
+
+---
+
+## The data pipeline
 
 ### What gets built
 
@@ -52,7 +126,7 @@ public/data/         the JSON files the app loads (~30 MB)
 | `public/data/leagues/{season}.json` | League averages, the rules in force, and how the playoffs differed that year. |
 | `public/data/moments/{id}.json` | One moment: real score, clock, possession, both lineups, positions on the court. |
 
-All three data folders are gitignored. To deploy, build locally and upload `public/data/` with the site. Don't build data in CI: it would slow every deploy, and stats.nba.com is known to block cloud servers.
+All three data folders are gitignored.
 
 ### Pipeline layout
 
@@ -66,21 +140,6 @@ All three data folders are gitignored. To deploy, build locally and upload `publ
 | Transform | `pipeline/transform/moment_state.py` | The exact game state at any instant of a game. |
 | Export | `pipeline/export/*.py` | Tables → the app's JSON files. |
 | — | `pipeline/build.py` | Runs everything above in order. |
-
----
-
-## Running the app
-
-The app is a Next.js static site at the repo root. Build the data first (above), then:
-
-```bash
-npm install
-npm run dev        # http://localhost:3000
-```
-
-To produce the deployable site: `npm run build` writes everything to `out/`, including `out/data/` copied from `public/data/`. Upload `out/` to any static host.
-
-Team logos and player headshots load from the NBA's image server at runtime and are never stored in this repo. If an image can't load, the app falls back to the team's abbreviation or a generated silhouette.
 
 ---
 
@@ -319,4 +378,4 @@ With no swap the change is 0. The swapped-in player keeps his own shooting.
 
 ## Data source and credits
 
-All statistics come from [stats.nba.com](https://www.nba.com/stats) via the open-source [nba_api](https://github.com/swar/nba_api) client. This project is not affiliated with or endorsed by the NBA. Team logos and player headshots are displayed from the NBA's own image servers and are the property of the NBA and its teams; none are stored in this repository. Review NBA.com's terms of use before any public deployment.
+All statistics come from [stats.nba.com](https://www.nba.com/stats) via the open-source [nba_api](https://github.com/swar/nba_api) client. This project is not affiliated with or endorsed by the NBA. Team logos and player headshots are displayed from the NBA's own image servers and are the property of the NBA and its teams; none are stored in this repository. This is a free, non-commercial fan project.
