@@ -45,7 +45,8 @@ export type HomeCard = {
 type HomeConfig = {
   hero: { number: number; whatIf: string };
   featured: { number: number; title: string }[];
-  eraFaces: Record<Decade, number>;
+  /** A moment number (its key player's face) or a specific player. */
+  eraFaces: Record<Decade, number | { player: number }>;
 };
 
 function readJson<T>(...parts: string[]): T | null {
@@ -98,10 +99,11 @@ export function getHomeData() {
     whatIf: config.hero.whatIf,
   };
 
+  const faceOf = (f: number | { player: number }) => (typeof f === "number" ? (byNumber.get(f)?.preview?.keyPlayerId ?? null) : f.player);
   const eras = DECADES.map((decade) => ({
     decade,
     count: cards.filter((c) => c.decade === decade).length,
-    face: byNumber.get(config.eraFaces[decade])?.preview?.keyPlayerId ?? null,
+    face: faceOf(config.eraFaces[decade]),
   }));
 
   return {
