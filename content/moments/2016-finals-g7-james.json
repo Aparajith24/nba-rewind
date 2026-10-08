@@ -1,0 +1,82 @@
+{
+  "id": "2016-finals-g7-james",
+  "number": 38,
+  "title": "The Block",
+  "game": "2016 NBA Finals · Game 7",
+  "season": "2015-16",
+  "gameId": "0041500407",
+  "period": 4,
+  "clockSeconds": 170.0,
+  "throughAction": 463,
+  "hook": "Tied at 89. 2:50 left.",
+  "intro": "Game 7 of the 2016 NBA Finals, Cavaliers at Warriors. It's tied 89-89 with 2:50 left in the 4th quarter, and the Cavaliers have the ball.",
+  "realOutcome": "The Block on Iguodala.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (baseline layout). To be adjusted by hand.",
+  "positions": {
+    "GSW": [
+      {
+        "playerId": 201939,
+        "name": "S. Curry",
+        "x": 4.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 2738,
+        "name": "A. Iguodala",
+        "x": 21.0,
+        "y": 15.7
+      },
+      {
+        "playerId": 203084,
+        "name": "H. Barnes",
+        "x": 24.4,
+        "y": 31.8
+      },
+      {
+        "playerId": 202691,
+        "name": "K. Thompson",
+        "x": 45.6,
+        "y": 39.5
+      },
+      {
+        "playerId": 203110,
+        "name": "D. Green",
+        "x": 57.5,
+        "y": 9.7
+      }
+    ],
+    "CLE": [
+      {
+        "playerId": 202684,
+        "name": "T. Thompson",
+        "x": -1.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 2747,
+        "name": "J. Smith",
+        "x": 9.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 2544,
+        "name": "L. James",
+        "x": 13.0,
+        "y": 33.0
+      },
+      {
+        "playerId": 201567,
+        "name": "K. Love",
+        "x": 38.0,
+        "y": 42.0
+      },
+      {
+        "playerId": 202681,
+        "name": "K. Irving",
+        "x": 52.0,
+        "y": 7.0
+      }
+    ]
+  }
+}

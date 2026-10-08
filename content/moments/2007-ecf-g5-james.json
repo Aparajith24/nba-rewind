@@ -1,0 +1,81 @@
+{
+  "id": "2007-ecf-g5-james",
+  "number": 22,
+  "title": "LeBron Takes Over Detroit",
+  "game": "2007 Eastern Conference Finals · Game 5",
+  "season": "2006-07",
+  "gameId": "0040600305",
+  "period": 4,
+  "clockSeconds": 360.0,
+  "hook": "Down 3. 6:00 left.",
+  "intro": "Game 5 of the 2007 Eastern Conference Finals, Cavaliers at Pistons. The Pistons trail 81-78 with 6:00 left in the 4th quarter, and they have the ball.",
+  "realOutcome": "LeBron scores 29 of the last 30 vs. Detroit.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (halfcourt layout). To be adjusted by hand.",
+  "positions": {
+    "DET": [
+      {
+        "playerId": 185,
+        "name": "C. Webber",
+        "x": 47.0,
+        "y": -1.0
+      },
+      {
+        "playerId": 1888,
+        "name": "R. Hamilton",
+        "x": 40.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 2419,
+        "name": "T. Prince",
+        "x": 56.0,
+        "y": 25.0
+      },
+      {
+        "playerId": 1497,
+        "name": "C. Billups",
+        "x": 62.0,
+        "y": 41.0
+      },
+      {
+        "playerId": 739,
+        "name": "R. Wallace",
+        "x": 35.0,
+        "y": 38.0
+      }
+    ],
+    "CLE": [
+      {
+        "playerId": 200789,
+        "name": "D. Gibson",
+        "x": 50.0,
+        "y": 3.0
+      },
+      {
+        "playerId": 2760,
+        "name": "A. Varejao",
+        "x": 54.6,
+        "y": 17.3
+      },
+      {
+        "playerId": 980,
+        "name": "Z. Ilgauskas",
+        "x": 65.8,
+        "y": 25.0
+      },
+      {
+        "playerId": 2544,
+        "name": "L. James",
+        "x": 70.0,
+        "y": 36.2
+      },
+      {
+        "playerId": 2562,
+        "name": "S. Pavlovic",
+        "x": 51.1,
+        "y": 34.1
+      }
+    ]
+  }
+}

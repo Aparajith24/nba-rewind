@@ -1,0 +1,82 @@
+{
+  "id": "2004-wcsf-g5-fisher",
+  "number": 15,
+  "title": "Fisher's 0.4",
+  "game": "2004 West Semifinals · Game 5",
+  "season": "2003-04",
+  "gameId": "0040300235",
+  "period": 4,
+  "clockSeconds": 0.4,
+  "throughAction": 429,
+  "hook": "Down 1. 0.4 seconds left.",
+  "intro": "Game 5 of the 2004 West Semifinals, Lakers at Spurs. The Lakers trail 73-72 with 0.4 seconds left in the 4th quarter, and they have the ball.",
+  "realOutcome": "Fisher's 0.4 answers Duncan's fadeaway.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (sideline layout). To be adjusted by hand.",
+  "positions": {
+    "SAS": [
+      {
+        "playerId": 1495,
+        "name": "T. Duncan",
+        "x": 69.0,
+        "y": 3.0
+      },
+      {
+        "playerId": 109,
+        "name": "R. Horry",
+        "x": 77.0,
+        "y": 17.3
+      },
+      {
+        "playerId": 1938,
+        "name": "M. Ginobili",
+        "x": 81.2,
+        "y": 28.5
+      },
+      {
+        "playerId": 2484,
+        "name": "D. Brown",
+        "x": 86.8,
+        "y": 38.3
+      },
+      {
+        "playerId": 1725,
+        "name": "R. Nesterovic",
+        "x": 71.4,
+        "y": 35.5
+      }
+    ],
+    "LAL": [
+      {
+        "playerId": 406,
+        "name": "S. O'Neal",
+        "x": 66.0,
+        "y": -1.0
+      },
+      {
+        "playerId": 965,
+        "name": "D. Fisher",
+        "x": 72.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 252,
+        "name": "K. Malone",
+        "x": 78.0,
+        "y": 30.0
+      },
+      {
+        "playerId": 56,
+        "name": "G. Payton",
+        "x": 86.0,
+        "y": 44.0
+      },
+      {
+        "playerId": 977,
+        "name": "K. Bryant",
+        "x": 64.0,
+        "y": 40.0
+      }
+    ]
+  }
+}

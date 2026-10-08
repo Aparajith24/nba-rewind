@@ -1,0 +1,82 @@
+{
+  "id": "2021-wcf-g2-ayton",
+  "number": 53,
+  "title": "The Valley-Oop",
+  "game": "2021 Western Conference Finals · Game 2",
+  "season": "2020-21",
+  "gameId": "0042000312",
+  "period": 4,
+  "clockSeconds": 0.8,
+  "throughAction": 638,
+  "hook": "Down 1. 0.8 seconds left.",
+  "intro": "Game 2 of the 2021 Western Conference Finals, Clippers at Suns. The Suns trail 103-102 with 0.8 seconds left in the 4th quarter, and they have the ball.",
+  "realOutcome": "The Valley-Oop to Ayton.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (baseline layout). To be adjusted by hand.",
+  "positions": {
+    "PHX": [
+      {
+        "playerId": 1629028,
+        "name": "D. Ayton",
+        "x": -1.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 1626164,
+        "name": "D. Booker",
+        "x": 9.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 1629661,
+        "name": "C. Johnson",
+        "x": 13.0,
+        "y": 33.0
+      },
+      {
+        "playerId": 203109,
+        "name": "J. Crowder",
+        "x": 38.0,
+        "y": 42.0
+      },
+      {
+        "playerId": 1628969,
+        "name": "M. Bridges",
+        "x": 52.0,
+        "y": 7.0
+      }
+    ],
+    "LAC": [
+      {
+        "playerId": 1627826,
+        "name": "I. Zubac",
+        "x": 4.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 202331,
+        "name": "P. George",
+        "x": 21.0,
+        "y": 15.7
+      },
+      {
+        "playerId": 201976,
+        "name": "P. Beverley",
+        "x": 24.4,
+        "y": 31.8
+      },
+      {
+        "playerId": 202326,
+        "name": "D. Cousins",
+        "x": 45.6,
+        "y": 39.5
+      },
+      {
+        "playerId": 201587,
+        "name": "N. Batum",
+        "x": 57.5,
+        "y": 9.7
+      }
+    ]
+  }
+}

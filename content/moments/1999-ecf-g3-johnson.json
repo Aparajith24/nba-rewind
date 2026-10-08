@@ -1,0 +1,82 @@
+{
+  "id": "1999-ecf-g3-johnson",
+  "number": 8,
+  "title": "Larry Johnson's Four-Point Play",
+  "game": "1999 Eastern Conference Finals · Game 3",
+  "season": "1998-99",
+  "gameId": "0049800071",
+  "period": 4,
+  "clockSeconds": 11.9,
+  "throughAction": 464,
+  "hook": "Down 3. 11.9 seconds left.",
+  "intro": "Game 3 of the 1999 Eastern Conference Finals, Pacers at Knicks. The Knicks trail 91-88 with 11.9 seconds left in the 4th quarter, and they have the ball.",
+  "realOutcome": "Larry Johnson's four-point play.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (baseline layout). To be adjusted by hand.",
+  "positions": {
+    "NYK": [
+      {
+        "playerId": 913,
+        "name": "L. Johnson",
+        "x": -1.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 369,
+        "name": "C. Ward",
+        "x": 9.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 275,
+        "name": "A. Houston",
+        "x": 13.0,
+        "y": 33.0
+      },
+      {
+        "playerId": 164,
+        "name": "C. Childs",
+        "x": 38.0,
+        "y": 42.0
+      },
+      {
+        "playerId": 84,
+        "name": "L. Sprewell",
+        "x": 52.0,
+        "y": 7.0
+      }
+    ],
+    "IND": [
+      {
+        "playerId": 147,
+        "name": "J. Rose",
+        "x": 4.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 397,
+        "name": "R. Miller",
+        "x": 21.0,
+        "y": 15.7
+      },
+      {
+        "playerId": 365,
+        "name": "D. McKey",
+        "x": 24.4,
+        "y": 31.8
+      },
+      {
+        "playerId": 349,
+        "name": "M. Jackson",
+        "x": 45.6,
+        "y": 39.5
+      },
+      {
+        "playerId": 213,
+        "name": "A. Davis",
+        "x": 57.5,
+        "y": 9.7
+      }
+    ]
+  }
+}

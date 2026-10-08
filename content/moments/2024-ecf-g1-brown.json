@@ -1,0 +1,82 @@
+{
+  "id": "2024-ecf-g1-brown",
+  "number": 57,
+  "title": "Jaylen Brown Forces Overtime",
+  "game": "2024 Eastern Conference Finals · Game 1",
+  "season": "2023-24",
+  "gameId": "0042300301",
+  "period": 4,
+  "clockSeconds": 8.5,
+  "throughAction": 636,
+  "hook": "Down 3. 8.5 seconds left.",
+  "intro": "Game 1 of the 2024 Eastern Conference Finals, Pacers at Celtics. The Celtics trail 117-114 with 8.5 seconds left in the 4th quarter, and they have the ball.",
+  "realOutcome": "Jaylen Brown's corner three to force OT.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (baseline layout). To be adjusted by hand.",
+  "positions": {
+    "BOS": [
+      {
+        "playerId": 201143,
+        "name": "A. Horford",
+        "x": -1.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 1628401,
+        "name": "D. White",
+        "x": 9.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 1628369,
+        "name": "J. Tatum",
+        "x": 13.0,
+        "y": 33.0
+      },
+      {
+        "playerId": 201950,
+        "name": "J. Holiday",
+        "x": 38.0,
+        "y": 42.0
+      },
+      {
+        "playerId": 1627759,
+        "name": "J. Brown",
+        "x": 52.0,
+        "y": 7.0
+      }
+    ],
+    "IND": [
+      {
+        "playerId": 1630169,
+        "name": "T. Haliburton",
+        "x": 4.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 1629614,
+        "name": "A. Nembhard",
+        "x": 21.0,
+        "y": 15.7
+      },
+      {
+        "playerId": 1627783,
+        "name": "P. Siakam",
+        "x": 24.4,
+        "y": 31.8
+      },
+      {
+        "playerId": 1630174,
+        "name": "A. Nesmith",
+        "x": 45.6,
+        "y": 39.5
+      },
+      {
+        "playerId": 204456,
+        "name": "T. McConnell",
+        "x": 57.5,
+        "y": 9.7
+      }
+    ]
+  }
+}

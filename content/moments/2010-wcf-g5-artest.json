@@ -1,0 +1,82 @@
+{
+  "id": "2010-wcf-g5-artest",
+  "number": 26,
+  "title": "Artest's Putback",
+  "game": "2010 Western Conference Finals · Game 5",
+  "season": "2009-10",
+  "gameId": "0040900315",
+  "period": 4,
+  "clockSeconds": 3.5,
+  "throughAction": 550,
+  "hook": "Tied at 101. 3.5 seconds left.",
+  "intro": "Game 5 of the 2010 Western Conference Finals, Suns at Lakers. It's tied 101-101 with 3.5 seconds left in the 4th quarter, and the Lakers have the ball.",
+  "realOutcome": "Artest's putback off Kobe's airball.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (sideline layout). To be adjusted by hand.",
+  "positions": {
+    "LAL": [
+      {
+        "playerId": 2200,
+        "name": "P. Gasol",
+        "x": 66.0,
+        "y": -1.0
+      },
+      {
+        "playerId": 965,
+        "name": "D. Fisher",
+        "x": 72.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 1885,
+        "name": "L. Odom",
+        "x": 78.0,
+        "y": 30.0
+      },
+      {
+        "playerId": 977,
+        "name": "K. Bryant",
+        "x": 86.0,
+        "y": 44.0
+      },
+      {
+        "playerId": 1897,
+        "name": "M. World Peace",
+        "x": 64.0,
+        "y": 40.0
+      }
+    ],
+    "PHX": [
+      {
+        "playerId": 101112,
+        "name": "C. Frye",
+        "x": 69.0,
+        "y": 3.0
+      },
+      {
+        "playerId": 959,
+        "name": "S. Nash",
+        "x": 77.0,
+        "y": 17.3
+      },
+      {
+        "playerId": 255,
+        "name": "G. Hill",
+        "x": 81.2,
+        "y": 28.5
+      },
+      {
+        "playerId": 2202,
+        "name": "J. Richardson",
+        "x": 86.8,
+        "y": 38.3
+      },
+      {
+        "playerId": 2405,
+        "name": "A. Stoudemire",
+        "x": 71.4,
+        "y": 35.5
+      }
+    ]
+  }
+}

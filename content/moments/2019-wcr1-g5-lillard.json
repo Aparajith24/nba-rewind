@@ -1,0 +1,81 @@
+{
+  "id": "2019-wcr1-g5-lillard",
+  "number": 45,
+  "title": "Lillard Waves Goodbye",
+  "game": "2019 West First Round · Game 5",
+  "season": "2018-19",
+  "gameId": "0041800165",
+  "period": 4,
+  "clockSeconds": 32.8,
+  "hook": "Tied at 115. 32.8 seconds left.",
+  "intro": "Game 5 of the 2019 West First Round, Thunder at Trail Blazers. It's tied 115-115 with 32.8 seconds left in the 4th quarter, and the Thunder have the ball.",
+  "realOutcome": "Lillard's 37-footer and the wave goodbye.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (baseline layout). To be adjusted by hand.",
+  "positions": {
+    "POR": [
+      {
+        "playerId": 202329,
+        "name": "A. Aminu",
+        "x": 4.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 203090,
+        "name": "M. Harkless",
+        "x": 21.0,
+        "y": 15.7
+      },
+      {
+        "playerId": 203468,
+        "name": "C. McCollum",
+        "x": 24.4,
+        "y": 31.8
+      },
+      {
+        "playerId": 203081,
+        "name": "D. Lillard",
+        "x": 45.6,
+        "y": 39.5
+      },
+      {
+        "playerId": 203552,
+        "name": "S. Curry",
+        "x": 57.5,
+        "y": 9.7
+      }
+    ],
+    "OKC": [
+      {
+        "playerId": 202331,
+        "name": "P. George",
+        "x": -1.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 1628390,
+        "name": "T. Ferguson",
+        "x": 9.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 203924,
+        "name": "J. Grant",
+        "x": 13.0,
+        "y": 33.0
+      },
+      {
+        "playerId": 201566,
+        "name": "R. Westbrook",
+        "x": 38.0,
+        "y": 42.0
+      },
+      {
+        "playerId": 203471,
+        "name": "D. Schröder",
+        "x": 52.0,
+        "y": 7.0
+      }
+    ]
+  }
+}

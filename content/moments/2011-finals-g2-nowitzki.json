@@ -1,0 +1,82 @@
+{
+  "id": "2011-finals-g2-nowitzki",
+  "number": 29,
+  "title": "Dirk's Left-Hand Layup",
+  "game": "2011 NBA Finals · Game 2",
+  "season": "2010-11",
+  "gameId": "0041000402",
+  "period": 4,
+  "clockSeconds": 24.5,
+  "throughAction": 505,
+  "hook": "Tied at 93. 24.5 seconds left.",
+  "intro": "Game 2 of the 2011 NBA Finals, Mavericks at Heat. It's tied 93-93 with 24.5 seconds left in the 4th quarter, and the Mavericks have the ball.",
+  "realOutcome": "Dirk's left-hand layup completes a 15-point comeback.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (baseline layout). To be adjusted by hand.",
+  "positions": {
+    "MIA": [
+      {
+        "playerId": 2617,
+        "name": "U. Haslem",
+        "x": 4.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 2544,
+        "name": "L. James",
+        "x": 21.0,
+        "y": 15.7
+      },
+      {
+        "playerId": 2547,
+        "name": "C. Bosh",
+        "x": 24.4,
+        "y": 31.8
+      },
+      {
+        "playerId": 201596,
+        "name": "M. Chalmers",
+        "x": 45.6,
+        "y": 39.5
+      },
+      {
+        "playerId": 2548,
+        "name": "D. Wade",
+        "x": 57.5,
+        "y": 9.7
+      }
+    ],
+    "DAL": [
+      {
+        "playerId": 2199,
+        "name": "T. Chandler",
+        "x": -1.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 1891,
+        "name": "J. Terry",
+        "x": 9.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 1717,
+        "name": "D. Nowitzki",
+        "x": 13.0,
+        "y": 33.0
+      },
+      {
+        "playerId": 467,
+        "name": "J. Kidd",
+        "x": 38.0,
+        "y": 42.0
+      },
+      {
+        "playerId": 1890,
+        "name": "S. Marion",
+        "x": 52.0,
+        "y": 7.0
+      }
+    ]
+  }
+}

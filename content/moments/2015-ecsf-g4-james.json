@@ -1,0 +1,82 @@
+{
+  "id": "2015-ecsf-g4-james",
+  "number": 37,
+  "title": "LeBron Waves Off the Play",
+  "game": "2015 East Semifinals · Game 4",
+  "season": "2014-15",
+  "gameId": "0041400214",
+  "period": 4,
+  "clockSeconds": 1.5,
+  "throughAction": 507,
+  "hook": "Tied at 84. 1.5 seconds left.",
+  "intro": "Game 4 of the 2015 East Semifinals, Cavaliers at Bulls. It's tied 84-84 with 1.5 seconds left in the 4th quarter, and the Cavaliers have the ball.",
+  "realOutcome": "LeBron's corner buzzer-beater after waving off his coach's play.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (baseline layout). To be adjusted by hand.",
+  "positions": {
+    "CHI": [
+      {
+        "playerId": 202710,
+        "name": "J. Butler III",
+        "x": 4.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 201565,
+        "name": "D. Rose",
+        "x": 21.0,
+        "y": 15.7
+      },
+      {
+        "playerId": 201149,
+        "name": "J. Noah",
+        "x": 24.4,
+        "y": 31.8
+      },
+      {
+        "playerId": 2399,
+        "name": "M. Dunleavy",
+        "x": 45.6,
+        "y": 39.5
+      },
+      {
+        "playerId": 203503,
+        "name": "T. Snell",
+        "x": 57.5,
+        "y": 9.7
+      }
+    ],
+    "CLE": [
+      {
+        "playerId": 202684,
+        "name": "T. Thompson",
+        "x": -1.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 202681,
+        "name": "K. Irving",
+        "x": 9.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 2747,
+        "name": "J. Smith",
+        "x": 13.0,
+        "y": 33.0
+      },
+      {
+        "playerId": 2544,
+        "name": "L. James",
+        "x": 38.0,
+        "y": 42.0
+      },
+      {
+        "playerId": 203521,
+        "name": "M. Dellavedova",
+        "x": 52.0,
+        "y": 7.0
+      }
+    ]
+  }
+}

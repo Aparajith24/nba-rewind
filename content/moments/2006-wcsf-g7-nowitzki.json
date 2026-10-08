@@ -1,0 +1,81 @@
+{
+  "id": "2006-wcsf-g7-nowitzki",
+  "number": 20,
+  "title": "Dirk's And-One",
+  "game": "2006 West Semifinals · Game 7",
+  "season": "2005-06",
+  "gameId": "0040500227",
+  "period": 4,
+  "clockSeconds": 32.2,
+  "hook": "Down 3. 32.2 seconds left.",
+  "intro": "Game 7 of the 2006 West Semifinals, Mavericks at Spurs. The Mavericks trail 104-101 with 32.2 seconds left in the 4th quarter, and they have the ball.",
+  "realOutcome": "Dirk's and-one to force OT in San Antonio.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (sideline layout). To be adjusted by hand.",
+  "positions": {
+    "SAS": [
+      {
+        "playerId": 1938,
+        "name": "M. Ginobili",
+        "x": 69.0,
+        "y": 3.0
+      },
+      {
+        "playerId": 1477,
+        "name": "B. Bowen",
+        "x": 77.0,
+        "y": 17.3
+      },
+      {
+        "playerId": 1495,
+        "name": "T. Duncan",
+        "x": 81.2,
+        "y": 28.5
+      },
+      {
+        "playerId": 714,
+        "name": "M. Finley",
+        "x": 86.8,
+        "y": 38.3
+      },
+      {
+        "playerId": 2225,
+        "name": "T. Parker",
+        "x": 71.4,
+        "y": 35.5
+      }
+    ],
+    "DAL": [
+      {
+        "playerId": 711,
+        "name": "J. Stackhouse",
+        "x": 66.0,
+        "y": -1.0
+      },
+      {
+        "playerId": 1891,
+        "name": "J. Terry",
+        "x": 72.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 2734,
+        "name": "D. Harris",
+        "x": 78.0,
+        "y": 30.0
+      },
+      {
+        "playerId": 1717,
+        "name": "D. Nowitzki",
+        "x": 86.0,
+        "y": 44.0
+      },
+      {
+        "playerId": 2572,
+        "name": "J. Howard",
+        "x": 64.0,
+        "y": 40.0
+      }
+    ]
+  }
+}

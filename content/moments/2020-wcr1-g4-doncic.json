@@ -1,0 +1,82 @@
+{
+  "id": "2020-wcr1-g4-doncic",
+  "number": 48,
+  "title": "Luka's Step-Back",
+  "game": "2020 West First Round · Game 4",
+  "season": "2019-20",
+  "gameId": "0041900154",
+  "period": 5,
+  "clockSeconds": 3.7,
+  "throughAction": 750,
+  "hook": "Down 1. 3.7 seconds left.",
+  "intro": "Game 4 of the 2020 West First Round, Clippers at Mavericks. The Mavericks trail 133-132 with 3.7 seconds left in overtime, and they have the ball.",
+  "realOutcome": "Luka's OT step-back at the buzzer.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (sideline layout). To be adjusted by hand.",
+  "positions": {
+    "DAL": [
+      {
+        "playerId": 1628467,
+        "name": "M. Kleber",
+        "x": 66.0,
+        "y": -1.0
+      },
+      {
+        "playerId": 203552,
+        "name": "S. Curry",
+        "x": 72.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 1629029,
+        "name": "L. Dončić",
+        "x": 78.0,
+        "y": 30.0
+      },
+      {
+        "playerId": 1627827,
+        "name": "D. Finney-Smith",
+        "x": 86.0,
+        "y": 44.0
+      },
+      {
+        "playerId": 203501,
+        "name": "T. Hardaway Jr.",
+        "x": 64.0,
+        "y": 40.0
+      }
+    ],
+    "LAC": [
+      {
+        "playerId": 202695,
+        "name": "K. Leonard",
+        "x": 69.0,
+        "y": 3.0
+      },
+      {
+        "playerId": 202331,
+        "name": "P. George",
+        "x": 77.0,
+        "y": 17.3
+      },
+      {
+        "playerId": 1629013,
+        "name": "L. Shamet",
+        "x": 81.2,
+        "y": 28.5
+      },
+      {
+        "playerId": 202704,
+        "name": "R. Jackson",
+        "x": 86.8,
+        "y": 38.3
+      },
+      {
+        "playerId": 202694,
+        "name": "M. Morris Sr.",
+        "x": 71.4,
+        "y": 35.5
+      }
+    ]
+  }
+}

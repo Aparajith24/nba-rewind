@@ -1,0 +1,81 @@
+{
+  "id": "2000-finals-g4-bryant-ot",
+  "number": 11,
+  "title": "Kobe Owns Overtime",
+  "game": "2000 NBA Finals · Game 4",
+  "season": "1999-00",
+  "gameId": "0049900086",
+  "period": 5,
+  "clockSeconds": 300.0,
+  "hook": "Tied at 104. Start of overtime.",
+  "intro": "Game 4 of the 2000 NBA Finals, Lakers at Pacers. It's tied 104-104 at the start of overtime, and the Lakers have the ball.",
+  "realOutcome": "Shaq fouls out, 21-year-old Kobe owns overtime.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (jumpball layout). To be adjusted by hand.",
+  "positions": {
+    "IND": [
+      {
+        "playerId": 22,
+        "name": "R. Smits",
+        "x": 49.0,
+        "y": 25.0
+      },
+      {
+        "playerId": 397,
+        "name": "R. Miller",
+        "x": 54.0,
+        "y": 12.0
+      },
+      {
+        "playerId": 349,
+        "name": "M. Jackson",
+        "x": 54.0,
+        "y": 38.0
+      },
+      {
+        "playerId": 147,
+        "name": "J. Rose",
+        "x": 40.0,
+        "y": 12.0
+      },
+      {
+        "playerId": 1506,
+        "name": "A. Croshere",
+        "x": 40.0,
+        "y": 38.0
+      }
+    ],
+    "LAL": [
+      {
+        "playerId": 166,
+        "name": "R. Harper",
+        "x": 45.0,
+        "y": 25.0
+      },
+      {
+        "playerId": 977,
+        "name": "K. Bryant",
+        "x": 40.0,
+        "y": 12.0
+      },
+      {
+        "playerId": 109,
+        "name": "R. Horry",
+        "x": 40.0,
+        "y": 38.0
+      },
+      {
+        "playerId": 406,
+        "name": "S. O'Neal",
+        "x": 54.0,
+        "y": 12.0
+      },
+      {
+        "playerId": 779,
+        "name": "G. Rice",
+        "x": 54.0,
+        "y": 38.0
+      }
+    ]
+  }
+}

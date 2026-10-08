@@ -1,0 +1,82 @@
+{
+  "id": "2009-finals-g4-fisher",
+  "number": 24,
+  "title": "Fisher Ties It in Orlando",
+  "game": "2009 NBA Finals · Game 4",
+  "season": "2008-09",
+  "gameId": "0040800404",
+  "period": 4,
+  "clockSeconds": 10.8,
+  "throughAction": 530,
+  "hook": "Down 3. 10.8 seconds left.",
+  "intro": "Game 4 of the 2009 NBA Finals, Lakers at Magic. The Lakers trail 87-84 with 10.8 seconds left in the 4th quarter, and they have the ball.",
+  "realOutcome": "Fisher's three to tie vs. Orlando.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (sideline layout). To be adjusted by hand.",
+  "positions": {
+    "ORL": [
+      {
+        "playerId": 1740,
+        "name": "R. Lewis",
+        "x": 69.0,
+        "y": 3.0
+      },
+      {
+        "playerId": 2554,
+        "name": "M. Pietrus",
+        "x": 77.0,
+        "y": 17.3
+      },
+      {
+        "playerId": 2045,
+        "name": "H. Turkoglu",
+        "x": 81.2,
+        "y": 28.5
+      },
+      {
+        "playerId": 2730,
+        "name": "D. Howard",
+        "x": 86.8,
+        "y": 38.3
+      },
+      {
+        "playerId": 2749,
+        "name": "J. Nelson",
+        "x": 71.4,
+        "y": 35.5
+      }
+    ],
+    "LAL": [
+      {
+        "playerId": 2200,
+        "name": "P. Gasol",
+        "x": 66.0,
+        "y": -1.0
+      },
+      {
+        "playerId": 977,
+        "name": "K. Bryant",
+        "x": 72.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 1885,
+        "name": "L. Odom",
+        "x": 78.0,
+        "y": 30.0
+      },
+      {
+        "playerId": 965,
+        "name": "D. Fisher",
+        "x": 86.0,
+        "y": 44.0
+      },
+      {
+        "playerId": 2772,
+        "name": "T. Ariza",
+        "x": 64.0,
+        "y": 40.0
+      }
+    ]
+  }
+}

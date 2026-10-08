@@ -1,0 +1,81 @@
+{
+  "id": "2009-ecr1-g6-triple-ot",
+  "number": 40,
+  "title": "Triple Overtime",
+  "game": "2009 East First Round · Game 6",
+  "season": "2008-09",
+  "gameId": "0040800116",
+  "period": 7,
+  "clockSeconds": 300.0,
+  "hook": "Tied at 118. Start of triple overtime.",
+  "intro": "Game 6 of the 2009 East First Round, Celtics at Bulls. It's tied 118-118 at the start of triple overtime, and the Bulls have the ball.",
+  "realOutcome": "Bulls–Celtics triple overtime.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (jumpball layout). To be adjusted by hand.",
+  "positions": {
+    "CHI": [
+      {
+        "playerId": 201565,
+        "name": "D. Rose",
+        "x": 45.0,
+        "y": 25.0
+      },
+      {
+        "playerId": 2550,
+        "name": "K. Hinrich",
+        "x": 40.0,
+        "y": 12.0
+      },
+      {
+        "playerId": 201149,
+        "name": "J. Noah",
+        "x": 40.0,
+        "y": 38.0
+      },
+      {
+        "playerId": 1802,
+        "name": "B. Miller",
+        "x": 54.0,
+        "y": 12.0
+      },
+      {
+        "playerId": 2422,
+        "name": "J. Salmons",
+        "x": 54.0,
+        "y": 38.0
+      }
+    ],
+    "BOS": [
+      {
+        "playerId": 201175,
+        "name": "G. Davis",
+        "x": 49.0,
+        "y": 25.0
+      },
+      {
+        "playerId": 1718,
+        "name": "P. Pierce",
+        "x": 54.0,
+        "y": 12.0
+      },
+      {
+        "playerId": 951,
+        "name": "R. Allen",
+        "x": 54.0,
+        "y": 38.0
+      },
+      {
+        "playerId": 2243,
+        "name": "B. Scalabrine",
+        "x": 40.0,
+        "y": 12.0
+      },
+      {
+        "playerId": 200765,
+        "name": "R. Rondo",
+        "x": 40.0,
+        "y": 38.0
+      }
+    ]
+  }
+}

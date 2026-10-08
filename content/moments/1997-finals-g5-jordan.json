@@ -1,0 +1,82 @@
+{
+  "id": "1997-finals-g5-jordan",
+  "number": 3,
+  "title": "The Flu Game",
+  "game": "1997 NBA Finals · Game 5",
+  "season": "1996-97",
+  "gameId": "0049600087",
+  "period": 4,
+  "clockSeconds": 46.5,
+  "throughAction": 436,
+  "hook": "Tied at 85. 46.5 seconds left.",
+  "intro": "Game 5 of the 1997 NBA Finals, Bulls at Jazz. It's tied 85-85 with 46.5 seconds left in the 4th quarter, and the Bulls have the ball.",
+  "realOutcome": "Flu Game: Jordan's go-ahead three.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (baseline layout). To be adjusted by hand.",
+  "positions": {
+    "UTA": [
+      {
+        "playerId": 731,
+        "name": "G. Ostertag",
+        "x": 4.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 252,
+        "name": "K. Malone",
+        "x": 21.0,
+        "y": 15.7
+      },
+      {
+        "playerId": 935,
+        "name": "B. Russell",
+        "x": 24.4,
+        "y": 31.8
+      },
+      {
+        "playerId": 304,
+        "name": "J. Stockton",
+        "x": 45.6,
+        "y": 39.5
+      },
+      {
+        "playerId": 204,
+        "name": "J. Hornacek",
+        "x": 57.5,
+        "y": 9.7
+      }
+    ],
+    "CHI": [
+      {
+        "playerId": 26,
+        "name": "L. Longley",
+        "x": -1.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 893,
+        "name": "M. Jordan",
+        "x": 9.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 389,
+        "name": "T. Kukoc",
+        "x": 13.0,
+        "y": 33.0
+      },
+      {
+        "playerId": 937,
+        "name": "S. Pippen",
+        "x": 38.0,
+        "y": 42.0
+      },
+      {
+        "playerId": 70,
+        "name": "S. Kerr",
+        "x": 52.0,
+        "y": 7.0
+      }
+    ]
+  }
+}

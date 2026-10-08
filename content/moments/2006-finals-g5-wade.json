@@ -1,0 +1,82 @@
+{
+  "id": "2006-finals-g5-wade",
+  "number": 21,
+  "title": "Wade at the Line",
+  "game": "2006 NBA Finals · Game 5",
+  "season": "2005-06",
+  "gameId": "0040500405",
+  "period": 5,
+  "clockSeconds": 1.9,
+  "throughAction": 589,
+  "hook": "Down 1. 1.9 seconds left.",
+  "intro": "Game 5 of the 2006 NBA Finals, Mavericks at Heat. The Heat trail 100-99 with 1.9 seconds left in overtime, and they have the ball.",
+  "realOutcome": "Wade's OT free throws.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (sideline layout). To be adjusted by hand.",
+  "positions": {
+    "MIA": [
+      {
+        "playerId": 406,
+        "name": "S. O'Neal",
+        "x": 66.0,
+        "y": -1.0
+      },
+      {
+        "playerId": 2548,
+        "name": "D. Wade",
+        "x": 72.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 952,
+        "name": "A. Walker",
+        "x": 78.0,
+        "y": 30.0
+      },
+      {
+        "playerId": 1899,
+        "name": "J. Posey",
+        "x": 86.0,
+        "y": 44.0
+      },
+      {
+        "playerId": 56,
+        "name": "G. Payton",
+        "x": 64.0,
+        "y": 40.0
+      }
+    ],
+    "DAL": [
+      {
+        "playerId": 1717,
+        "name": "D. Nowitzki",
+        "x": 69.0,
+        "y": 3.0
+      },
+      {
+        "playerId": 1891,
+        "name": "J. Terry",
+        "x": 77.0,
+        "y": 17.3
+      },
+      {
+        "playerId": 2734,
+        "name": "D. Harris",
+        "x": 81.2,
+        "y": 28.5
+      },
+      {
+        "playerId": 2572,
+        "name": "J. Howard",
+        "x": 86.8,
+        "y": 38.3
+      },
+      {
+        "playerId": 956,
+        "name": "E. Dampier",
+        "x": 71.4,
+        "y": 35.5
+      }
+    ]
+  }
+}

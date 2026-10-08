@@ -1,0 +1,82 @@
+{
+  "id": "1999-finals-g5-johnson",
+  "number": 9,
+  "title": "Avery Johnson's Title Jumper",
+  "game": "1999 NBA Finals · Game 5",
+  "season": "1998-99",
+  "gameId": "0049800087",
+  "period": 4,
+  "clockSeconds": 113.0,
+  "throughAction": 417,
+  "hook": "Down 1. 1:53 left.",
+  "intro": "Game 5 of the 1999 NBA Finals, Spurs at Knicks. The Spurs trail 77-76 with 1:53 left in the 4th quarter, and they have the ball.",
+  "realOutcome": "Avery Johnson's title-clinching baseline jumper.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (sideline layout). To be adjusted by hand.",
+  "positions": {
+    "NYK": [
+      {
+        "playerId": 275,
+        "name": "A. Houston",
+        "x": 69.0,
+        "y": 3.0
+      },
+      {
+        "playerId": 84,
+        "name": "L. Sprewell",
+        "x": 77.0,
+        "y": 17.3
+      },
+      {
+        "playerId": 164,
+        "name": "C. Childs",
+        "x": 81.2,
+        "y": 28.5
+      },
+      {
+        "playerId": 913,
+        "name": "L. Johnson",
+        "x": 86.8,
+        "y": 38.3
+      },
+      {
+        "playerId": 948,
+        "name": "M. Camby",
+        "x": 71.4,
+        "y": 35.5
+      }
+    ],
+    "SAS": [
+      {
+        "playerId": 1495,
+        "name": "T. Duncan",
+        "x": 66.0,
+        "y": -1.0
+      },
+      {
+        "playerId": 422,
+        "name": "A. Johnson",
+        "x": 72.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 53,
+        "name": "M. Elie",
+        "x": 78.0,
+        "y": 30.0
+      },
+      {
+        "playerId": 764,
+        "name": "D. Robinson",
+        "x": 86.0,
+        "y": 44.0
+      },
+      {
+        "playerId": 251,
+        "name": "S. Elliott",
+        "x": 64.0,
+        "y": 40.0
+      }
+    ]
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "id": "2019-finals-g6-curry",
+  "number": 47,
+  "title": "Curry's Last Three",
+  "game": "2019 NBA Finals · Game 6",
+  "season": "2018-19",
+  "gameId": "0041800406",
+  "period": 4,
+  "clockSeconds": 9.6,
+  "throughAction": 658,
+  "hook": "Down 1. 9.6 seconds left.",
+  "intro": "Game 6 of the 2019 NBA Finals, Raptors at Warriors. The Warriors trail 111-110 with 9.6 seconds left in the 4th quarter, and they have the ball.",
+  "realOutcome": "Curry's final three for Game 7.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (baseline layout). To be adjusted by hand.",
+  "positions": {
+    "GSW": [
+      {
+        "playerId": 202326,
+        "name": "D. Cousins",
+        "x": -1.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 1626188,
+        "name": "Q. Cook",
+        "x": 9.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 203110,
+        "name": "D. Green",
+        "x": 13.0,
+        "y": 33.0
+      },
+      {
+        "playerId": 201939,
+        "name": "S. Curry",
+        "x": 38.0,
+        "y": 42.0
+      },
+      {
+        "playerId": 2733,
+        "name": "S. Livingston",
+        "x": 52.0,
+        "y": 7.0
+      }
+    ],
+    "TOR": [
+      {
+        "playerId": 201586,
+        "name": "S. Ibaka",
+        "x": 4.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 202695,
+        "name": "K. Leonard",
+        "x": 21.0,
+        "y": 15.7
+      },
+      {
+        "playerId": 200768,
+        "name": "K. Lowry",
+        "x": 24.4,
+        "y": 31.8
+      },
+      {
+        "playerId": 1627783,
+        "name": "P. Siakam",
+        "x": 45.6,
+        "y": 39.5
+      },
+      {
+        "playerId": 1627832,
+        "name": "F. VanVleet",
+        "x": 57.5,
+        "y": 9.7
+      }
+    ]
+  }
+}

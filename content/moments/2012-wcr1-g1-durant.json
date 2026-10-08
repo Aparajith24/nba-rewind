@@ -1,0 +1,82 @@
+{
+  "id": "2012-wcr1-g1-durant",
+  "number": 30,
+  "title": "Durant's Bank Shot",
+  "game": "2012 West First Round · Game 1",
+  "season": "2011-12",
+  "gameId": "0041100151",
+  "period": 4,
+  "clockSeconds": 9.0,
+  "throughAction": 519,
+  "hook": "Down 1. 9.0 seconds left.",
+  "intro": "Game 1 of the 2012 West First Round, Mavericks at Thunder. The Thunder trail 98-97 with 9.0 seconds left in the 4th quarter, and they have the ball.",
+  "realOutcome": "Durant's bank shot vs. Dallas.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (sideline layout). To be adjusted by hand.",
+  "positions": {
+    "OKC": [
+      {
+        "playerId": 201586,
+        "name": "S. Ibaka",
+        "x": 66.0,
+        "y": -1.0
+      },
+      {
+        "playerId": 201566,
+        "name": "R. Westbrook",
+        "x": 72.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 201142,
+        "name": "K. Durant",
+        "x": 78.0,
+        "y": 30.0
+      },
+      {
+        "playerId": 201935,
+        "name": "J. Harden",
+        "x": 86.0,
+        "y": 44.0
+      },
+      {
+        "playerId": 2570,
+        "name": "K. Perkins",
+        "x": 64.0,
+        "y": 40.0
+      }
+    ],
+    "DAL": [
+      {
+        "playerId": 1890,
+        "name": "S. Marion",
+        "x": 69.0,
+        "y": 3.0
+      },
+      {
+        "playerId": 1891,
+        "name": "J. Terry",
+        "x": 77.0,
+        "y": 17.3
+      },
+      {
+        "playerId": 467,
+        "name": "J. Kidd",
+        "x": 81.2,
+        "y": 28.5
+      },
+      {
+        "playerId": 1717,
+        "name": "D. Nowitzki",
+        "x": 86.8,
+        "y": 38.3
+      },
+      {
+        "playerId": 101133,
+        "name": "I. Mahinmi",
+        "x": 71.4,
+        "y": 35.5
+      }
+    ]
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "id": "2021-ecsf-g7-durant",
+  "number": 52,
+  "title": "KD's Toe on the Line",
+  "game": "2021 East Semifinals · Game 7",
+  "season": "2020-21",
+  "gameId": "0042000217",
+  "period": 4,
+  "clockSeconds": 6.0,
+  "hook": "Down 2. 6.0 seconds left.",
+  "intro": "Game 7 of the 2021 East Semifinals, Bucks at Nets. The Nets trail 109-107 with 6.0 seconds left in the 4th quarter, and they have the ball.",
+  "realOutcome": "KD's toe on the line: a two, not a three.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (baseline layout). To be adjusted by hand.",
+  "positions": {
+    "BKN": [
+      {
+        "playerId": 201142,
+        "name": "K. Durant",
+        "x": -1.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 201935,
+        "name": "J. Harden",
+        "x": 9.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 201933,
+        "name": "B. Griffin",
+        "x": 13.0,
+        "y": 33.0
+      },
+      {
+        "playerId": 203925,
+        "name": "J. Harris",
+        "x": 38.0,
+        "y": 42.0
+      },
+      {
+        "playerId": 201145,
+        "name": "J. Green",
+        "x": 52.0,
+        "y": 7.0
+      }
+    ],
+    "MIL": [
+      {
+        "playerId": 201950,
+        "name": "J. Holiday",
+        "x": 4.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 203114,
+        "name": "K. Middleton",
+        "x": 21.0,
+        "y": 15.7
+      },
+      {
+        "playerId": 200782,
+        "name": "P. Tucker",
+        "x": 24.4,
+        "y": 31.8
+      },
+      {
+        "playerId": 201572,
+        "name": "B. Lopez",
+        "x": 45.6,
+        "y": 39.5
+      },
+      {
+        "playerId": 203507,
+        "name": "G. Antetokounmpo",
+        "x": 57.5,
+        "y": 9.7
+      }
+    ]
+  }
+}

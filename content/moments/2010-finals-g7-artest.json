@@ -1,0 +1,81 @@
+{
+  "id": "2010-finals-g7-artest",
+  "number": 27,
+  "title": "Artest's Dagger",
+  "game": "2010 NBA Finals · Game 7",
+  "season": "2009-10",
+  "gameId": "0040900407",
+  "period": 4,
+  "clockSeconds": 83.0,
+  "hook": "Up 3. 1:23 left.",
+  "intro": "Game 7 of the 2010 NBA Finals, Celtics at Lakers. The Lakers lead 76-73 with 1:23 left in the 4th quarter, and they have the ball.",
+  "realOutcome": "Artest's dagger three vs. Boston.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (baseline layout). To be adjusted by hand.",
+  "positions": {
+    "LAL": [
+      {
+        "playerId": 2200,
+        "name": "P. Gasol",
+        "x": -1.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 977,
+        "name": "K. Bryant",
+        "x": 9.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 1897,
+        "name": "M. World Peace",
+        "x": 13.0,
+        "y": 33.0
+      },
+      {
+        "playerId": 1885,
+        "name": "L. Odom",
+        "x": 38.0,
+        "y": 42.0
+      },
+      {
+        "playerId": 965,
+        "name": "D. Fisher",
+        "x": 52.0,
+        "y": 7.0
+      }
+    ],
+    "BOS": [
+      {
+        "playerId": 739,
+        "name": "R. Wallace",
+        "x": 4.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 1718,
+        "name": "P. Pierce",
+        "x": 21.0,
+        "y": 15.7
+      },
+      {
+        "playerId": 951,
+        "name": "R. Allen",
+        "x": 24.4,
+        "y": 31.8
+      },
+      {
+        "playerId": 708,
+        "name": "K. Garnett",
+        "x": 45.6,
+        "y": 39.5
+      },
+      {
+        "playerId": 200765,
+        "name": "R. Rondo",
+        "x": 57.5,
+        "y": 9.7
+      }
+    ]
+  }
+}

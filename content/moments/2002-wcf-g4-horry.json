@@ -1,0 +1,82 @@
+{
+  "id": "2002-wcf-g4-horry",
+  "number": 14,
+  "title": "Horry's Tap-Out Three",
+  "game": "2002 Western Conference Finals · Game 4",
+  "season": "2001-02",
+  "gameId": "0040100314",
+  "period": 4,
+  "clockSeconds": 11.8,
+  "throughAction": 497,
+  "hook": "Down 2. 11.8 seconds left.",
+  "intro": "Game 4 of the 2002 Western Conference Finals, Kings at Lakers. The Lakers trail 99-97 with 11.8 seconds left in the 4th quarter, and they have the ball.",
+  "realOutcome": "Horry's buzzer three off Divac's tap-out.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (baseline layout). To be adjusted by hand.",
+  "positions": {
+    "LAL": [
+      {
+        "playerId": 406,
+        "name": "S. O'Neal",
+        "x": -1.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 965,
+        "name": "D. Fisher",
+        "x": 9.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 296,
+        "name": "R. Fox",
+        "x": 13.0,
+        "y": 33.0
+      },
+      {
+        "playerId": 109,
+        "name": "R. Horry",
+        "x": 38.0,
+        "y": 42.0
+      },
+      {
+        "playerId": 977,
+        "name": "K. Bryant",
+        "x": 52.0,
+        "y": 7.0
+      }
+    ],
+    "SAC": [
+      {
+        "playerId": 2045,
+        "name": "H. Turkoglu",
+        "x": 4.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 57,
+        "name": "D. Christie",
+        "x": 21.0,
+        "y": 15.7
+      },
+      {
+        "playerId": 124,
+        "name": "V. Divac",
+        "x": 24.4,
+        "y": 31.8
+      },
+      {
+        "playerId": 1710,
+        "name": "M. Bibby",
+        "x": 45.6,
+        "y": 39.5
+      },
+      {
+        "playerId": 185,
+        "name": "C. Webber",
+        "x": 57.5,
+        "y": 9.7
+      }
+    ]
+  }
+}

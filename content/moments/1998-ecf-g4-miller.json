@@ -1,0 +1,82 @@
+{
+  "id": "1998-ecf-g4-miller",
+  "number": 5,
+  "title": "Reggie's Push-Off Three",
+  "game": "1998 Eastern Conference Finals · Game 4",
+  "season": "1997-98",
+  "gameId": "0049700076",
+  "period": 4,
+  "clockSeconds": 2.9,
+  "throughAction": 411,
+  "hook": "Down 1. 2.9 seconds left.",
+  "intro": "Game 4 of the 1998 Eastern Conference Finals, Bulls at Pacers. The Pacers trail 94-93 with 2.9 seconds left in the 4th quarter, and they have the ball.",
+  "realOutcome": "Reggie Miller's three after shoving off Jordan.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (sideline layout). To be adjusted by hand.",
+  "positions": {
+    "IND": [
+      {
+        "playerId": 213,
+        "name": "A. Davis",
+        "x": 66.0,
+        "y": -1.0
+      },
+      {
+        "playerId": 397,
+        "name": "R. Miller",
+        "x": 72.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 22,
+        "name": "R. Smits",
+        "x": 78.0,
+        "y": 30.0
+      },
+      {
+        "playerId": 365,
+        "name": "D. McKey",
+        "x": 86.0,
+        "y": 44.0
+      },
+      {
+        "playerId": 696,
+        "name": "T. Best",
+        "x": 64.0,
+        "y": 40.0
+      }
+    ],
+    "CHI": [
+      {
+        "playerId": 166,
+        "name": "R. Harper",
+        "x": 69.0,
+        "y": 3.0
+      },
+      {
+        "playerId": 893,
+        "name": "M. Jordan",
+        "x": 77.0,
+        "y": 17.3
+      },
+      {
+        "playerId": 937,
+        "name": "S. Pippen",
+        "x": 81.2,
+        "y": 28.5
+      },
+      {
+        "playerId": 389,
+        "name": "T. Kukoc",
+        "x": 86.8,
+        "y": 38.3
+      },
+      {
+        "playerId": 23,
+        "name": "D. Rodman",
+        "x": 71.4,
+        "y": 35.5
+      }
+    ]
+  }
+}

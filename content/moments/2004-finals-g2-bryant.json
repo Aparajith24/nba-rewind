@@ -1,0 +1,81 @@
+{
+  "id": "2004-finals-g2-bryant",
+  "number": 16,
+  "title": "Kobe's Three to Force OT",
+  "game": "2004 NBA Finals · Game 2",
+  "season": "2003-04",
+  "gameId": "0040300402",
+  "period": 4,
+  "clockSeconds": 10.9,
+  "hook": "Down 3. 10.9 seconds left.",
+  "intro": "Game 2 of the 2004 NBA Finals, Pistons at Lakers. The Lakers trail 89-86 with 10.9 seconds left in the 4th quarter, and they have the ball.",
+  "realOutcome": "Kobe's three to force OT vs. Detroit.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (sideline layout). To be adjusted by hand.",
+  "positions": {
+    "LAL": [
+      {
+        "playerId": 406,
+        "name": "S. O'Neal",
+        "x": 66.0,
+        "y": -1.0
+      },
+      {
+        "playerId": 977,
+        "name": "K. Bryant",
+        "x": 72.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 2575,
+        "name": "L. Walton",
+        "x": 78.0,
+        "y": 30.0
+      },
+      {
+        "playerId": 252,
+        "name": "K. Malone",
+        "x": 86.0,
+        "y": 44.0
+      },
+      {
+        "playerId": 965,
+        "name": "D. Fisher",
+        "x": 64.0,
+        "y": 40.0
+      }
+    ],
+    "DET": [
+      {
+        "playerId": 739,
+        "name": "R. Wallace",
+        "x": 69.0,
+        "y": 3.0
+      },
+      {
+        "playerId": 2419,
+        "name": "T. Prince",
+        "x": 77.0,
+        "y": 17.3
+      },
+      {
+        "playerId": 1497,
+        "name": "C. Billups",
+        "x": 81.2,
+        "y": 28.5
+      },
+      {
+        "playerId": 1888,
+        "name": "R. Hamilton",
+        "x": 86.8,
+        "y": 38.3
+      },
+      {
+        "playerId": 1112,
+        "name": "B. Wallace",
+        "x": 71.4,
+        "y": 35.5
+      }
+    ]
+  }
+}

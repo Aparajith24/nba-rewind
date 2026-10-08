@@ -1,0 +1,82 @@
+{
+  "id": "2005-wcsf-g6-nash",
+  "number": 17,
+  "title": "Nash Forces Overtime",
+  "game": "2005 West Semifinals · Game 6",
+  "season": "2004-05",
+  "gameId": "0040400226",
+  "period": 4,
+  "clockSeconds": 11.5,
+  "throughAction": 504,
+  "hook": "Down 3. 11.5 seconds left.",
+  "intro": "Game 6 of the 2005 West Semifinals, Suns at Mavericks. The Suns trail 111-108 with 11.5 seconds left in the 4th quarter, and they have the ball.",
+  "realOutcome": "Nash's three to force OT vs. Dallas.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (baseline layout). To be adjusted by hand.",
+  "positions": {
+    "DAL": [
+      {
+        "playerId": 2572,
+        "name": "J. Howard",
+        "x": 4.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 714,
+        "name": "M. Finley",
+        "x": 21.0,
+        "y": 15.7
+      },
+      {
+        "playerId": 1717,
+        "name": "D. Nowitzki",
+        "x": 24.4,
+        "y": 31.8
+      },
+      {
+        "playerId": 1891,
+        "name": "J. Terry",
+        "x": 45.6,
+        "y": 39.5
+      },
+      {
+        "playerId": 711,
+        "name": "J. Stackhouse",
+        "x": 57.5,
+        "y": 9.7
+      }
+    ],
+    "PHX": [
+      {
+        "playerId": 754,
+        "name": "J. Jackson",
+        "x": -1.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 959,
+        "name": "S. Nash",
+        "x": 9.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 962,
+        "name": "W. McCarty",
+        "x": 13.0,
+        "y": 33.0
+      },
+      {
+        "playerId": 2047,
+        "name": "Q. Richardson",
+        "x": 38.0,
+        "y": 42.0
+      },
+      {
+        "playerId": 1890,
+        "name": "S. Marion",
+        "x": 52.0,
+        "y": 7.0
+      }
+    ]
+  }
+}

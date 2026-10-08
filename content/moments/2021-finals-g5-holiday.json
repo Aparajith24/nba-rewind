@@ -1,0 +1,81 @@
+{
+  "id": "2021-finals-g5-holiday",
+  "number": 54,
+  "title": "Jrue's Steal",
+  "game": "2021 NBA Finals · Game 5",
+  "season": "2020-21",
+  "gameId": "0042000405",
+  "period": 4,
+  "clockSeconds": 37.8,
+  "hook": "Up 1. 37.8 seconds left.",
+  "intro": "Game 5 of the 2021 NBA Finals, Bucks at Suns. The Bucks lead 120-119 with 37.8 seconds left in the 4th quarter, and they have the ball.",
+  "realOutcome": "Jrue's steal and the lob to Giannis.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (sideline layout). To be adjusted by hand.",
+  "positions": {
+    "PHX": [
+      {
+        "playerId": 1629028,
+        "name": "D. Ayton",
+        "x": 69.0,
+        "y": 3.0
+      },
+      {
+        "playerId": 1626164,
+        "name": "D. Booker",
+        "x": 77.0,
+        "y": 17.3
+      },
+      {
+        "playerId": 101108,
+        "name": "C. Paul",
+        "x": 81.2,
+        "y": 28.5
+      },
+      {
+        "playerId": 203109,
+        "name": "J. Crowder",
+        "x": 86.8,
+        "y": 38.3
+      },
+      {
+        "playerId": 1628969,
+        "name": "M. Bridges",
+        "x": 71.4,
+        "y": 35.5
+      }
+    ],
+    "MIL": [
+      {
+        "playerId": 203507,
+        "name": "G. Antetokounmpo",
+        "x": 66.0,
+        "y": -1.0
+      },
+      {
+        "playerId": 201950,
+        "name": "J. Holiday",
+        "x": 72.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 1626192,
+        "name": "P. Connaughton",
+        "x": 78.0,
+        "y": 30.0
+      },
+      {
+        "playerId": 203114,
+        "name": "K. Middleton",
+        "x": 86.0,
+        "y": 44.0
+      },
+      {
+        "playerId": 200782,
+        "name": "P. Tucker",
+        "x": 64.0,
+        "y": 40.0
+      }
+    ]
+  }
+}

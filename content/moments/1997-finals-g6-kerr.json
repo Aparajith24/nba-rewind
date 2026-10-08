@@ -1,0 +1,82 @@
+{
+  "id": "1997-finals-g6-kerr",
+  "number": 4,
+  "title": "Kerr's Title Shot",
+  "game": "1997 NBA Finals · Game 6",
+  "season": "1996-97",
+  "gameId": "0049600088",
+  "period": 4,
+  "clockSeconds": 28.0,
+  "throughAction": 455,
+  "hook": "Tied at 86. 28.0 seconds left.",
+  "intro": "Game 6 of the 1997 NBA Finals, Jazz at Bulls. It's tied 86-86 with 28.0 seconds left in the 4th quarter, and the Bulls have the ball.",
+  "realOutcome": "Kerr's title-winning jumper off Jordan's pass.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (sideline layout). To be adjusted by hand.",
+  "positions": {
+    "CHI": [
+      {
+        "playerId": 937,
+        "name": "S. Pippen",
+        "x": 66.0,
+        "y": -1.0
+      },
+      {
+        "playerId": 70,
+        "name": "S. Kerr",
+        "x": 72.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 23,
+        "name": "D. Rodman",
+        "x": 78.0,
+        "y": 30.0
+      },
+      {
+        "playerId": 389,
+        "name": "T. Kukoc",
+        "x": 86.0,
+        "y": 44.0
+      },
+      {
+        "playerId": 893,
+        "name": "M. Jordan",
+        "x": 64.0,
+        "y": 40.0
+      }
+    ],
+    "UTA": [
+      {
+        "playerId": 304,
+        "name": "J. Stockton",
+        "x": 69.0,
+        "y": 3.0
+      },
+      {
+        "playerId": 204,
+        "name": "J. Hornacek",
+        "x": 77.0,
+        "y": 17.3
+      },
+      {
+        "playerId": 935,
+        "name": "B. Russell",
+        "x": 81.2,
+        "y": 28.5
+      },
+      {
+        "playerId": 1000,
+        "name": "S. Anderson",
+        "x": 86.8,
+        "y": 38.3
+      },
+      {
+        "playerId": 252,
+        "name": "K. Malone",
+        "x": 71.4,
+        "y": 35.5
+      }
+    ]
+  }
+}

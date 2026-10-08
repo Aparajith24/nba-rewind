@@ -1,0 +1,81 @@
+{
+  "id": "2026-ecf-g1-brunson",
+  "number": 64,
+  "title": "Brunson's Comeback",
+  "game": "2026 Eastern Conference Finals · Game 1",
+  "season": "2025-26",
+  "gameId": "0042500301",
+  "period": 4,
+  "clockSeconds": 480.0,
+  "hook": "Up 21. 8:00 left.",
+  "intro": "Game 1 of the 2026 Eastern Conference Finals, Cavaliers at Knicks. The Cavaliers lead 92-71 with 8:00 left in the 4th quarter, and they have the ball.",
+  "realOutcome": "Brunson leads a comeback from 22 down with 8 minutes left, won in OT.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (halfcourt layout). To be adjusted by hand.",
+  "positions": {
+    "NYK": [
+      {
+        "playerId": 1629011,
+        "name": "M. Robinson",
+        "x": 50.0,
+        "y": 3.0
+      },
+      {
+        "playerId": 1628969,
+        "name": "M. Bridges",
+        "x": 54.6,
+        "y": 17.3
+      },
+      {
+        "playerId": 1626157,
+        "name": "K. Towns",
+        "x": 65.8,
+        "y": 25.0
+      },
+      {
+        "playerId": 1629013,
+        "name": "L. Shamet",
+        "x": 70.0,
+        "y": 36.2
+      },
+      {
+        "playerId": 1628973,
+        "name": "J. Brunson",
+        "x": 51.1,
+        "y": 34.1
+      }
+    ],
+    "CLE": [
+      {
+        "playerId": 1630596,
+        "name": "E. Mobley",
+        "x": 47.0,
+        "y": -1.0
+      },
+      {
+        "playerId": 201935,
+        "name": "J. Harden",
+        "x": 40.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 1628378,
+        "name": "D. Mitchell",
+        "x": 56.0,
+        "y": 25.0
+      },
+      {
+        "playerId": 1629731,
+        "name": "D. Wade",
+        "x": 62.0,
+        "y": 41.0
+      },
+      {
+        "playerId": 203471,
+        "name": "D. Schröder",
+        "x": 35.0,
+        "y": 38.0
+      }
+    ]
+  }
+}

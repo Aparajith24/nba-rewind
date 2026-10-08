@@ -1,0 +1,81 @@
+{
+  "id": "2001-finals-g1-iverson-ot",
+  "number": 13,
+  "title": "Iverson's Overtime",
+  "game": "2001 NBA Finals · Game 1",
+  "season": "2000-01",
+  "gameId": "0040000083",
+  "period": 5,
+  "clockSeconds": 300.0,
+  "hook": "Tied at 94. Start of overtime.",
+  "intro": "Game 1 of the 2001 NBA Finals, 76ers at Lakers. It's tied 94-94 at the start of overtime, and the Lakers have the ball.",
+  "realOutcome": "Iverson's overtime, the step-over on Lue.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (jumpball layout). To be adjusted by hand.",
+  "positions": {
+    "LAL": [
+      {
+        "playerId": 977,
+        "name": "K. Bryant",
+        "x": 45.0,
+        "y": 25.0
+      },
+      {
+        "playerId": 1731,
+        "name": "T. Lue",
+        "x": 40.0,
+        "y": 12.0
+      },
+      {
+        "playerId": 296,
+        "name": "R. Fox",
+        "x": 40.0,
+        "y": 38.0
+      },
+      {
+        "playerId": 406,
+        "name": "S. O'Neal",
+        "x": 54.0,
+        "y": 12.0
+      },
+      {
+        "playerId": 109,
+        "name": "R. Horry",
+        "x": 54.0,
+        "y": 38.0
+      }
+    ],
+    "PHI": [
+      {
+        "playerId": 87,
+        "name": "D. Mutombo",
+        "x": 49.0,
+        "y": 25.0
+      },
+      {
+        "playerId": 947,
+        "name": "A. Iverson",
+        "x": 54.0,
+        "y": 12.0
+      },
+      {
+        "playerId": 727,
+        "name": "E. Snow",
+        "x": 54.0,
+        "y": 38.0
+      },
+      {
+        "playerId": 238,
+        "name": "T. Hill",
+        "x": 40.0,
+        "y": 12.0
+      },
+      {
+        "playerId": 243,
+        "name": "A. McKie",
+        "x": 40.0,
+        "y": 38.0
+      }
+    ]
+  }
+}

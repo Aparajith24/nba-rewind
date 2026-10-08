@@ -1,0 +1,82 @@
+{
+  "id": "2024-wcf-g2-doncic",
+  "number": 58,
+  "title": "Luka Over Gobert",
+  "game": "2024 Western Conference Finals · Game 2",
+  "season": "2023-24",
+  "gameId": "0042300312",
+  "period": 4,
+  "clockSeconds": 12.8,
+  "throughAction": 681,
+  "hook": "Down 2. 12.8 seconds left.",
+  "intro": "Game 2 of the 2024 Western Conference Finals, Mavericks at Timberwolves. The Mavericks trail 108-106 with 12.8 seconds left in the 4th quarter, and they have the ball.",
+  "realOutcome": "Luka's step-back three over Gobert.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (sideline layout). To be adjusted by hand.",
+  "positions": {
+    "MIN": [
+      {
+        "playerId": 203937,
+        "name": "K. Anderson",
+        "x": 69.0,
+        "y": 3.0
+      },
+      {
+        "playerId": 1630183,
+        "name": "J. McDaniels",
+        "x": 77.0,
+        "y": 17.3
+      },
+      {
+        "playerId": 1629675,
+        "name": "N. Reid",
+        "x": 81.2,
+        "y": 28.5
+      },
+      {
+        "playerId": 1630162,
+        "name": "A. Edwards",
+        "x": 86.8,
+        "y": 38.3
+      },
+      {
+        "playerId": 203497,
+        "name": "R. Gobert",
+        "x": 71.4,
+        "y": 35.5
+      }
+    ],
+    "DAL": [
+      {
+        "playerId": 1641726,
+        "name": "D. Lively II",
+        "x": 66.0,
+        "y": -1.0
+      },
+      {
+        "playerId": 202681,
+        "name": "K. Irving",
+        "x": 72.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 1627884,
+        "name": "D. Jones Jr.",
+        "x": 78.0,
+        "y": 30.0
+      },
+      {
+        "playerId": 1629023,
+        "name": "P. Washington",
+        "x": 86.0,
+        "y": 44.0
+      },
+      {
+        "playerId": 1629029,
+        "name": "L. Dončić",
+        "x": 64.0,
+        "y": 40.0
+      }
+    ]
+  }
+}

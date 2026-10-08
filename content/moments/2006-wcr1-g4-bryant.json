@@ -1,0 +1,81 @@
+{
+  "id": "2006-wcr1-g4-bryant",
+  "number": 19,
+  "title": "Kobe's OT Buzzer-Beater",
+  "game": "2006 West First Round · Game 4",
+  "season": "2005-06",
+  "gameId": "0040500154",
+  "period": 5,
+  "clockSeconds": 11.7,
+  "hook": "Up 1. 11.7 seconds left.",
+  "intro": "Game 4 of the 2006 West First Round, Suns at Lakers. The Suns lead 98-97 with 11.7 seconds left in overtime, and they have the ball.",
+  "realOutcome": "Kobe's OT buzzer-beater vs. Phoenix.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (baseline layout). To be adjusted by hand.",
+  "positions": {
+    "LAL": [
+      {
+        "playerId": 1904,
+        "name": "D. George",
+        "x": 4.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 2575,
+        "name": "L. Walton",
+        "x": 21.0,
+        "y": 15.7
+      },
+      {
+        "playerId": 977,
+        "name": "K. Bryant",
+        "x": 24.4,
+        "y": 31.8
+      },
+      {
+        "playerId": 1885,
+        "name": "L. Odom",
+        "x": 45.6,
+        "y": 39.5
+      },
+      {
+        "playerId": 2756,
+        "name": "S. Vujacic",
+        "x": 57.5,
+        "y": 9.7
+      }
+    ],
+    "PHX": [
+      {
+        "playerId": 1501,
+        "name": "T. Thomas",
+        "x": -1.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 1952,
+        "name": "R. Bell",
+        "x": 9.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 2564,
+        "name": "B. Diaw",
+        "x": 13.0,
+        "y": 33.0
+      },
+      {
+        "playerId": 959,
+        "name": "S. Nash",
+        "x": 38.0,
+        "y": 42.0
+      },
+      {
+        "playerId": 2592,
+        "name": "J. Jones",
+        "x": 52.0,
+        "y": 7.0
+      }
+    ]
+  }
+}

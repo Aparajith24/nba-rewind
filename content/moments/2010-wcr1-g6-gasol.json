@@ -1,0 +1,82 @@
+{
+  "id": "2010-wcr1-g6-gasol",
+  "number": 25,
+  "title": "Pau's Tip-In",
+  "game": "2010 West First Round · Game 6",
+  "season": "2009-10",
+  "gameId": "0040900146",
+  "period": 4,
+  "clockSeconds": 47.3,
+  "throughAction": 496,
+  "hook": "Down 1. 47.3 seconds left.",
+  "intro": "Game 6 of the 2010 West First Round, Lakers at Thunder. The Lakers trail 94-93 with 47.3 seconds left in the 4th quarter, and they have the ball.",
+  "realOutcome": "Pau's tip-in to close out OKC.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (sideline layout). To be adjusted by hand.",
+  "positions": {
+    "OKC": [
+      {
+        "playerId": 201142,
+        "name": "K. Durant",
+        "x": 69.0,
+        "y": 3.0
+      },
+      {
+        "playerId": 201145,
+        "name": "J. Green",
+        "x": 77.0,
+        "y": 17.3
+      },
+      {
+        "playerId": 201586,
+        "name": "S. Ibaka",
+        "x": 81.2,
+        "y": 28.5
+      },
+      {
+        "playerId": 201566,
+        "name": "R. Westbrook",
+        "x": 86.8,
+        "y": 38.3
+      },
+      {
+        "playerId": 2555,
+        "name": "N. Collison",
+        "x": 71.4,
+        "y": 35.5
+      }
+    ],
+    "LAL": [
+      {
+        "playerId": 2200,
+        "name": "P. Gasol",
+        "x": 66.0,
+        "y": -1.0
+      },
+      {
+        "playerId": 965,
+        "name": "D. Fisher",
+        "x": 72.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 1897,
+        "name": "M. World Peace",
+        "x": 78.0,
+        "y": 30.0
+      },
+      {
+        "playerId": 1885,
+        "name": "L. Odom",
+        "x": 86.0,
+        "y": 44.0
+      },
+      {
+        "playerId": 977,
+        "name": "K. Bryant",
+        "x": 64.0,
+        "y": 40.0
+      }
+    ]
+  }
+}

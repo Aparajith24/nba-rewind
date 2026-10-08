@@ -1,0 +1,82 @@
+{
+  "id": "2018-finals-g1-hill",
+  "number": 44,
+  "title": "J.R. Smith's Dribble-Out",
+  "game": "2018 NBA Finals · Game 1",
+  "season": "2017-18",
+  "gameId": "0041700401",
+  "period": 4,
+  "clockSeconds": 4.7,
+  "throughAction": 595,
+  "hook": "Down 1. 4.7 seconds left.",
+  "intro": "Game 1 of the 2018 NBA Finals, Cavaliers at Warriors. The Cavaliers trail 107-106 with 4.7 seconds left in the 4th quarter, and they have the ball.",
+  "realOutcome": "George Hill's missed FT and J.R. Smith's dribble-out.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (sideline layout). To be adjusted by hand.",
+  "positions": {
+    "GSW": [
+      {
+        "playerId": 1626172,
+        "name": "K. Looney",
+        "x": 69.0,
+        "y": 3.0
+      },
+      {
+        "playerId": 201939,
+        "name": "S. Curry",
+        "x": 77.0,
+        "y": 17.3
+      },
+      {
+        "playerId": 203110,
+        "name": "D. Green",
+        "x": 81.2,
+        "y": 28.5
+      },
+      {
+        "playerId": 202691,
+        "name": "K. Thompson",
+        "x": 86.8,
+        "y": 38.3
+      },
+      {
+        "playerId": 201142,
+        "name": "K. Durant",
+        "x": 71.4,
+        "y": 35.5
+      }
+    ],
+    "CLE": [
+      {
+        "playerId": 201567,
+        "name": "K. Love",
+        "x": 66.0,
+        "y": -1.0
+      },
+      {
+        "playerId": 2594,
+        "name": "K. Korver",
+        "x": 72.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 201588,
+        "name": "G. Hill",
+        "x": 78.0,
+        "y": 30.0
+      },
+      {
+        "playerId": 2544,
+        "name": "L. James",
+        "x": 86.0,
+        "y": 44.0
+      },
+      {
+        "playerId": 2747,
+        "name": "J. Smith",
+        "x": 64.0,
+        "y": 40.0
+      }
+    ]
+  }
+}

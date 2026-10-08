@@ -1,0 +1,82 @@
+{
+  "id": "2021-ecr1-g1-young",
+  "number": 51,
+  "title": "Trae at the Garden",
+  "game": "2021 East First Round · Game 1",
+  "season": "2020-21",
+  "gameId": "0042000131",
+  "period": 4,
+  "clockSeconds": 9.8,
+  "throughAction": 592,
+  "hook": "Tied at 105. 9.8 seconds left.",
+  "intro": "Game 1 of the 2021 East First Round, Hawks at Knicks. It's tied 105-105 with 9.8 seconds left in the 4th quarter, and the Hawks have the ball.",
+  "realOutcome": "Trae Young's floater at MSG.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (baseline layout). To be adjusted by hand.",
+  "positions": {
+    "NYK": [
+      {
+        "playerId": 1628373,
+        "name": "F. Ntilikina",
+        "x": 4.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 203944,
+        "name": "J. Randle",
+        "x": 21.0,
+        "y": 15.7
+      },
+      {
+        "playerId": 201959,
+        "name": "T. Gibson",
+        "x": 24.4,
+        "y": 31.8
+      },
+      {
+        "playerId": 202692,
+        "name": "A. Burks",
+        "x": 45.6,
+        "y": 39.5
+      },
+      {
+        "playerId": 203493,
+        "name": "R. Bullock Jr.",
+        "x": 57.5,
+        "y": 9.7
+      }
+    ],
+    "ATL": [
+      {
+        "playerId": 1628381,
+        "name": "J. Collins",
+        "x": -1.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 1629027,
+        "name": "T. Young",
+        "x": 9.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 201568,
+        "name": "D. Gallinari",
+        "x": 13.0,
+        "y": 33.0
+      },
+      {
+        "playerId": 203992,
+        "name": "B. Bogdanović",
+        "x": 38.0,
+        "y": 42.0
+      },
+      {
+        "playerId": 1628989,
+        "name": "K. Huerter",
+        "x": 52.0,
+        "y": 7.0
+      }
+    ]
+  }
+}

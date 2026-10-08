@@ -1,0 +1,81 @@
+{
+  "id": "1999-ecr1-g5-houston",
+  "number": 7,
+  "title": "Houston's Runner",
+  "game": "1999 East First Round · Game 5",
+  "season": "1998-99",
+  "gameId": "0049800033",
+  "period": 4,
+  "clockSeconds": 19.9,
+  "hook": "Down 1. 19.9 seconds left.",
+  "intro": "Game 5 of the 1999 East First Round, Knicks at Heat. The Knicks trail 77-76 with 19.9 seconds left in the 4th quarter, and they have the ball.",
+  "realOutcome": "Allan Houston's runner: the 8th seed beats the 1st.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (sideline layout). To be adjusted by hand.",
+  "positions": {
+    "MIA": [
+      {
+        "playerId": 297,
+        "name": "A. Mourning",
+        "x": 69.0,
+        "y": 3.0
+      },
+      {
+        "playerId": 105,
+        "name": "D. Majerle",
+        "x": 77.0,
+        "y": 17.3
+      },
+      {
+        "playerId": 345,
+        "name": "T. Porter",
+        "x": 81.2,
+        "y": 28.5
+      },
+      {
+        "playerId": 896,
+        "name": "T. Hardaway",
+        "x": 86.8,
+        "y": 38.3
+      },
+      {
+        "playerId": 136,
+        "name": "P. Brown",
+        "x": 71.4,
+        "y": 35.5
+      }
+    ],
+    "NYK": [
+      {
+        "playerId": 121,
+        "name": "P. Ewing",
+        "x": 66.0,
+        "y": -1.0
+      },
+      {
+        "playerId": 275,
+        "name": "A. Houston",
+        "x": 72.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 913,
+        "name": "L. Johnson",
+        "x": 78.0,
+        "y": 30.0
+      },
+      {
+        "playerId": 84,
+        "name": "L. Sprewell",
+        "x": 86.0,
+        "y": 44.0
+      },
+      {
+        "playerId": 369,
+        "name": "C. Ward",
+        "x": 64.0,
+        "y": 40.0
+      }
+    ]
+  }
+}

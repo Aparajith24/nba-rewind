@@ -1,0 +1,82 @@
+{
+  "id": "2013-finals-g7-duncan",
+  "number": 33,
+  "title": "Duncan's Hook",
+  "game": "2013 NBA Finals · Game 7",
+  "season": "2012-13",
+  "gameId": "0041200407",
+  "period": 4,
+  "clockSeconds": 99.0,
+  "throughAction": 505,
+  "hook": "Up 2. 1:39 left.",
+  "intro": "Game 7 of the 2013 NBA Finals, Spurs at Heat. The Heat lead 90-88 with 1:39 left in the 4th quarter, and they have the ball.",
+  "realOutcome": "Duncan misses the hook and the tip.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (baseline layout). To be adjusted by hand.",
+  "positions": {
+    "MIA": [
+      {
+        "playerId": 2547,
+        "name": "C. Bosh",
+        "x": -1.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 2548,
+        "name": "D. Wade",
+        "x": 9.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 2203,
+        "name": "S. Battier",
+        "x": 13.0,
+        "y": 33.0
+      },
+      {
+        "playerId": 2544,
+        "name": "L. James",
+        "x": 38.0,
+        "y": 42.0
+      },
+      {
+        "playerId": 201596,
+        "name": "M. Chalmers",
+        "x": 52.0,
+        "y": 7.0
+      }
+    ],
+    "SAS": [
+      {
+        "playerId": 202695,
+        "name": "K. Leonard",
+        "x": 4.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 1938,
+        "name": "M. Ginobili",
+        "x": 21.0,
+        "y": 15.7
+      },
+      {
+        "playerId": 1495,
+        "name": "T. Duncan",
+        "x": 24.4,
+        "y": 31.8
+      },
+      {
+        "playerId": 201980,
+        "name": "D. Green",
+        "x": 45.6,
+        "y": 39.5
+      },
+      {
+        "playerId": 2225,
+        "name": "T. Parker",
+        "x": 57.5,
+        "y": 9.7
+      }
+    ]
+  }
+}

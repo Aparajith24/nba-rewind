@@ -1,0 +1,82 @@
+{
+  "id": "2001-ecsf-g7-carter",
+  "number": 12,
+  "title": "Carter's Buzzer Miss",
+  "game": "2001 East Semifinals · Game 7",
+  "season": "2000-01",
+  "gameId": "0040000068",
+  "period": 4,
+  "clockSeconds": 2.0,
+  "throughAction": 426,
+  "hook": "Down 1. 2.0 seconds left.",
+  "intro": "Game 7 of the 2001 East Semifinals, Raptors at 76ers. The Raptors trail 88-87 with 2.0 seconds left in the 4th quarter, and they have the ball.",
+  "realOutcome": "Vince Carter's buzzer miss, after graduation that morning.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (sideline layout). To be adjusted by hand.",
+  "positions": {
+    "PHI": [
+      {
+        "playerId": 238,
+        "name": "T. Hill",
+        "x": 69.0,
+        "y": 3.0
+      },
+      {
+        "playerId": 947,
+        "name": "A. Iverson",
+        "x": 77.0,
+        "y": 17.3
+      },
+      {
+        "playerId": 727,
+        "name": "E. Snow",
+        "x": 81.2,
+        "y": 28.5
+      },
+      {
+        "playerId": 243,
+        "name": "A. McKie",
+        "x": 86.8,
+        "y": 38.3
+      },
+      {
+        "playerId": 87,
+        "name": "D. Mutombo",
+        "x": 71.4,
+        "y": 35.5
+      }
+    ],
+    "TOR": [
+      {
+        "playerId": 213,
+        "name": "A. Davis",
+        "x": 66.0,
+        "y": -1.0
+      },
+      {
+        "playerId": 1713,
+        "name": "V. Carter",
+        "x": 72.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 1541,
+        "name": "A. Williams",
+        "x": 78.0,
+        "y": 30.0
+      },
+      {
+        "playerId": 209,
+        "name": "D. Curry",
+        "x": 86.0,
+        "y": 44.0
+      },
+      {
+        "playerId": 891,
+        "name": "C. Oakley",
+        "x": 64.0,
+        "y": 40.0
+      }
+    ]
+  }
+}

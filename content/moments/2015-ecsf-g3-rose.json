@@ -1,0 +1,82 @@
+{
+  "id": "2015-ecsf-g3-rose",
+  "number": 36,
+  "title": "Rose's Bank Three",
+  "game": "2015 East Semifinals · Game 3",
+  "season": "2014-15",
+  "gameId": "0041400213",
+  "period": 4,
+  "clockSeconds": 3.0,
+  "throughAction": 549,
+  "hook": "Tied at 96. 3.0 seconds left.",
+  "intro": "Game 3 of the 2015 East Semifinals, Cavaliers at Bulls. It's tied 96-96 with 3.0 seconds left in the 4th quarter, and the Bulls have the ball.",
+  "realOutcome": "Derrick Rose's bank three at the buzzer.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (baseline layout). To be adjusted by hand.",
+  "positions": {
+    "CHI": [
+      {
+        "playerId": 2399,
+        "name": "M. Dunleavy",
+        "x": -1.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 202710,
+        "name": "J. Butler III",
+        "x": 9.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 201565,
+        "name": "D. Rose",
+        "x": 13.0,
+        "y": 33.0
+      },
+      {
+        "playerId": 201959,
+        "name": "T. Gibson",
+        "x": 38.0,
+        "y": 42.0
+      },
+      {
+        "playerId": 202703,
+        "name": "N. Mirotic",
+        "x": 52.0,
+        "y": 7.0
+      }
+    ],
+    "CLE": [
+      {
+        "playerId": 202681,
+        "name": "K. Irving",
+        "x": 4.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 2747,
+        "name": "J. Smith",
+        "x": 21.0,
+        "y": 15.7
+      },
+      {
+        "playerId": 2544,
+        "name": "L. James",
+        "x": 24.4,
+        "y": 31.8
+      },
+      {
+        "playerId": 202697,
+        "name": "I. Shumpert",
+        "x": 45.6,
+        "y": 39.5
+      },
+      {
+        "playerId": 202684,
+        "name": "T. Thompson",
+        "x": 57.5,
+        "y": 9.7
+      }
+    ]
+  }
+}

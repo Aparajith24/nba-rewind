@@ -1,0 +1,81 @@
+{
+  "id": "2011-wcr1-g4-roy",
+  "number": 28,
+  "title": "Brandon Roy's Comeback",
+  "game": "2011 West First Round · Game 4",
+  "season": "2010-11",
+  "gameId": "0041000164",
+  "period": 4,
+  "clockSeconds": 720.0,
+  "hook": "Up 18. Start of the 4th quarter.",
+  "intro": "Game 4 of the 2011 West First Round, Mavericks at Trail Blazers. The Mavericks lead 67-49 at the start of the 4th quarter, and they have the ball.",
+  "realOutcome": "Brandon Roy's comeback from 23 down.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (halfcourt layout). To be adjusted by hand.",
+  "positions": {
+    "POR": [
+      {
+        "playerId": 200746,
+        "name": "L. Aldridge",
+        "x": 50.0,
+        "y": 3.0
+      },
+      {
+        "playerId": 2222,
+        "name": "G. Wallace",
+        "x": 54.6,
+        "y": 17.3
+      },
+      {
+        "playerId": 201587,
+        "name": "N. Batum",
+        "x": 65.8,
+        "y": 25.0
+      },
+      {
+        "playerId": 200750,
+        "name": "B. Roy",
+        "x": 70.0,
+        "y": 36.2
+      },
+      {
+        "playerId": 201164,
+        "name": "R. Fernandez",
+        "x": 51.1,
+        "y": 34.1
+      }
+    ],
+    "DAL": [
+      {
+        "playerId": 2217,
+        "name": "B. Haywood",
+        "x": 47.0,
+        "y": -1.0
+      },
+      {
+        "playerId": 1891,
+        "name": "J. Terry",
+        "x": 40.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 200826,
+        "name": "J. Barea",
+        "x": 56.0,
+        "y": 25.0
+      },
+      {
+        "playerId": 978,
+        "name": "P. Stojakovic",
+        "x": 62.0,
+        "y": 41.0
+      },
+      {
+        "playerId": 1717,
+        "name": "D. Nowitzki",
+        "x": 35.0,
+        "y": 38.0
+      }
+    ]
+  }
+}

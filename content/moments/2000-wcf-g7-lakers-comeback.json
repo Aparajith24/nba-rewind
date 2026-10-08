@@ -1,0 +1,81 @@
+{
+  "id": "2000-wcf-g7-lakers-comeback",
+  "number": 10,
+  "title": "The Lakers' 4th-Quarter Comeback",
+  "game": "2000 Western Conference Finals · Game 7",
+  "season": "1999-00",
+  "gameId": "0049900075",
+  "period": 4,
+  "clockSeconds": 720.0,
+  "hook": "Up 13. Start of the 4th quarter.",
+  "intro": "Game 7 of the 2000 Western Conference Finals, Trail Blazers at Lakers. The Trail Blazers lead 71-58 at the start of the 4th quarter, and they have the ball.",
+  "realOutcome": "Lakers erase 15 down in the 4th; Kobe-to-Shaq oop.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (halfcourt layout). To be adjusted by hand.",
+  "positions": {
+    "LAL": [
+      {
+        "playerId": 977,
+        "name": "K. Bryant",
+        "x": 50.0,
+        "y": 3.0
+      },
+      {
+        "playerId": 296,
+        "name": "R. Fox",
+        "x": 54.6,
+        "y": 17.3
+      },
+      {
+        "playerId": 109,
+        "name": "R. Horry",
+        "x": 65.8,
+        "y": 25.0
+      },
+      {
+        "playerId": 216,
+        "name": "B. Shaw",
+        "x": 70.0,
+        "y": 36.2
+      },
+      {
+        "playerId": 406,
+        "name": "S. O'Neal",
+        "x": 51.1,
+        "y": 34.1
+      }
+    ],
+    "POR": [
+      {
+        "playerId": 717,
+        "name": "A. Sabonis",
+        "x": 47.0,
+        "y": -1.0
+      },
+      {
+        "playerId": 120,
+        "name": "S. Smith",
+        "x": 40.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 937,
+        "name": "S. Pippen",
+        "x": 56.0,
+        "y": 25.0
+      },
+      {
+        "playerId": 1719,
+        "name": "B. Wells",
+        "x": 62.0,
+        "y": 41.0
+      },
+      {
+        "playerId": 96,
+        "name": "D. Schrempf",
+        "x": 35.0,
+        "y": 38.0
+      }
+    ]
+  }
+}

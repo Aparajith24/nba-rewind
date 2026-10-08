@@ -1,0 +1,82 @@
+{
+  "id": "2026-finals-g4-anunoby",
+  "number": 61,
+  "title": "Anunoby's Tip-In",
+  "game": "2026 NBA Finals · Game 4",
+  "season": "2025-26",
+  "gameId": "0042500404",
+  "period": 4,
+  "clockSeconds": 30.3,
+  "throughAction": 709,
+  "hook": "Down 1. 30.3 seconds left.",
+  "intro": "Game 4 of the 2026 NBA Finals, Spurs at Knicks. The Knicks trail 106-105 with 30.3 seconds left in the 4th quarter, and they have the ball.",
+  "realOutcome": "Anunoby blocks Fox, then tips in Brunson's miss at 2.1s, completing a 29-point comeback.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (baseline layout). To be adjusted by hand.",
+  "positions": {
+    "NYK": [
+      {
+        "playerId": 1626157,
+        "name": "K. Towns",
+        "x": -1.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 1628404,
+        "name": "J. Hart",
+        "x": 9.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 1628384,
+        "name": "O. Anunoby",
+        "x": 13.0,
+        "y": 33.0
+      },
+      {
+        "playerId": 1628973,
+        "name": "J. Brunson",
+        "x": 38.0,
+        "y": 42.0
+      },
+      {
+        "playerId": 1630631,
+        "name": "J. Alvarado",
+        "x": 52.0,
+        "y": 7.0
+      }
+    ],
+    "SAS": [
+      {
+        "playerId": 1641705,
+        "name": "V. Wembanyama",
+        "x": 4.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 1642844,
+        "name": "D. Harper",
+        "x": 21.0,
+        "y": 15.7
+      },
+      {
+        "playerId": 1628368,
+        "name": "D. Fox",
+        "x": 24.4,
+        "y": 31.8
+      },
+      {
+        "playerId": 1630170,
+        "name": "D. Vassell",
+        "x": 45.6,
+        "y": 39.5
+      },
+      {
+        "playerId": 1642264,
+        "name": "S. Castle",
+        "x": 57.5,
+        "y": 9.7
+      }
+    ]
+  }
+}

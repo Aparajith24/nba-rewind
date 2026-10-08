@@ -1,0 +1,82 @@
+{
+  "id": "2009-ecf-g2-james",
+  "number": 23,
+  "title": "LeBron's Buzzer Three",
+  "game": "2009 Eastern Conference Finals · Game 2",
+  "season": "2008-09",
+  "gameId": "0040800302",
+  "period": 4,
+  "clockSeconds": 1.0,
+  "throughAction": 533,
+  "hook": "Down 2. 1.0 seconds left.",
+  "intro": "Game 2 of the 2009 Eastern Conference Finals, Magic at Cavaliers. The Cavaliers trail 95-93 with 1.0 seconds left in the 4th quarter, and they have the ball.",
+  "realOutcome": "LeBron's buzzer three vs. Orlando.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (baseline layout). To be adjusted by hand.",
+  "positions": {
+    "CLE": [
+      {
+        "playerId": 980,
+        "name": "Z. Ilgauskas",
+        "x": -1.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 2753,
+        "name": "D. West",
+        "x": 9.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 2544,
+        "name": "L. James",
+        "x": 13.0,
+        "y": 33.0
+      },
+      {
+        "playerId": 2562,
+        "name": "S. Pavlovic",
+        "x": 38.0,
+        "y": 42.0
+      },
+      {
+        "playerId": 2590,
+        "name": "M. Williams",
+        "x": 52.0,
+        "y": 7.0
+      }
+    ],
+    "ORL": [
+      {
+        "playerId": 2554,
+        "name": "M. Pietrus",
+        "x": 4.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 2730,
+        "name": "D. Howard",
+        "x": 21.0,
+        "y": 15.7
+      },
+      {
+        "playerId": 2045,
+        "name": "H. Turkoglu",
+        "x": 24.4,
+        "y": 31.8
+      },
+      {
+        "playerId": 1740,
+        "name": "R. Lewis",
+        "x": 45.6,
+        "y": 39.5
+      },
+      {
+        "playerId": 1747,
+        "name": "R. Alston",
+        "x": 57.5,
+        "y": 9.7
+      }
+    ]
+  }
+}

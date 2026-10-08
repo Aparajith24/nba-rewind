@@ -1,0 +1,82 @@
+{
+  "id": "2005-finals-g5-horry",
+  "number": 18,
+  "title": "Horry's Overtime Three",
+  "game": "2005 NBA Finals · Game 5",
+  "season": "2004-05",
+  "gameId": "0040400405",
+  "period": 5,
+  "clockSeconds": 9.5,
+  "throughAction": 488,
+  "hook": "Down 2. 9.5 seconds left.",
+  "intro": "Game 5 of the 2005 NBA Finals, Spurs at Pistons. The Spurs trail 95-93 with 9.5 seconds left in overtime, and they have the ball.",
+  "realOutcome": "Horry's OT three from the left wing.",
+  "draft": true,
+  "positionsNote": "Generated starting positions (baseline layout). To be adjusted by hand.",
+  "positions": {
+    "DET": [
+      {
+        "playerId": 1112,
+        "name": "B. Wallace",
+        "x": 4.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 283,
+        "name": "L. Hunter",
+        "x": 21.0,
+        "y": 15.7
+      },
+      {
+        "playerId": 2419,
+        "name": "T. Prince",
+        "x": 24.4,
+        "y": 31.8
+      },
+      {
+        "playerId": 1888,
+        "name": "R. Hamilton",
+        "x": 45.6,
+        "y": 39.5
+      },
+      {
+        "playerId": 739,
+        "name": "R. Wallace",
+        "x": 57.5,
+        "y": 9.7
+      }
+    ],
+    "SAS": [
+      {
+        "playerId": 109,
+        "name": "R. Horry",
+        "x": -1.0,
+        "y": 21.0
+      },
+      {
+        "playerId": 1938,
+        "name": "M. Ginobili",
+        "x": 9.0,
+        "y": 14.0
+      },
+      {
+        "playerId": 1495,
+        "name": "T. Duncan",
+        "x": 13.0,
+        "y": 33.0
+      },
+      {
+        "playerId": 1477,
+        "name": "B. Bowen",
+        "x": 38.0,
+        "y": 42.0
+      },
+      {
+        "playerId": 2225,
+        "name": "T. Parker",
+        "x": 52.0,
+        "y": 7.0
+      }
+    ]
+  }
+}
