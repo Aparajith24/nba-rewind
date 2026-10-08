@@ -3,9 +3,13 @@
  * and never stored in this repo (see README: Data source and credits).
  */
 
-/** Small player headshot (260x190). Unknown IDs get the CDN's generic silhouette. */
-export function headshotUrl(playerId: number): string {
-  return `https://cdn.nba.com/headshots/nba/latest/260x190/${playerId}.png`;
+/**
+ * Player headshot on a transparent background. "small" (260x190) for dots and lists,
+ * "large" (1040x760) for hero and card art. Unknown IDs get the CDN's generic silhouette.
+ */
+export function headshotUrl(playerId: number, size: "small" | "large" = "small"): string {
+  const dims = size === "large" ? "1040x760" : "260x190";
+  return `https://cdn.nba.com/headshots/nba/latest/${dims}/${playerId}.png`;
 }
 
 /** Team logo (SVG). The CDN only has each franchise's current logo. */

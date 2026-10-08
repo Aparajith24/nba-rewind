@@ -1,0 +1,12 @@
+{
+  "_about": "Homepage picks. Numbers refer to content/moments/candidates.md. Titles here are short card names; built moments may have their own title in content/moments/{id}.json.",
+  "hero": { "number": 32, "whatIf": "Curry" },
+  "featured": [
+    { "number": 6, "title": "Jordan's Last Shot" },
+    { "number": 38, "title": "LeBron's Block" },
+    { "number": 32, "title": "Ray Allen's Corner Three" },
+    { "number": 16, "title": "Kobe's Three to Force OT" },
+    { "number": 5, "title": "Reggie Miller's Push-Off Three" }
+  ],
+  "eraFaces": { "1990s": 6, "2000s": 16, "2010s": 38, "2020s": 48 }
+}
