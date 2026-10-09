@@ -261,6 +261,13 @@ trust = his clutch minutes ÷ (his clutch minutes + ${T.clutch.trustMinutes})`}
                 shooters actually stay hot is mixed, so the hot hand mostly decides who gets the ball; it only nudges whether it goes in (by{" "}
                 {h.makeBump} × the boost above 1).
               </Example>
+              <strong>The last shot goes to the top option.</strong> In the final {T.lastShot.seconds}s of the 4th quarter or overtime with the score
+              within {T.lastShot.margin}, the share is sharpened so the best scorer takes most of the looks:
+              <Formula>{`his chance to take the last shot  ∝  his usage^${T.lastShot.usagePower} × his hot hand`}</Formula>
+              <Example>
+                Usages of 33%, 20%, 18%, 16% and 13% normally give the top option a third of the shots. Squared, he takes about half, and the 13%
+                player drops to 8%.
+              </Example>
               <Example>
                 LeBron James in 2015–16 used 31% of the Cavs&apos; plays normally and 43% in 126 clutch minutes, so in crunch time the sim gives him{" "}
                 {pct(lebronClutch, 1)}. Tristan Thompson fell from his usual share to 9% in the clutch.
@@ -377,6 +384,7 @@ teammate's make chance × (1 + ${pm.strength} × change × (his share of assiste
               { name: "Playmaking strength", value: `${pm.strength}`, does: "How strongly a change in the lineup's offensive lift moves teammates' shooting.", start: true },
               { name: "Typical assisted share", value: pct(pm.typicalAssistedShare), does: "Players assisted more often than this rely more on creators.", start: true },
               { name: "Playmaking limits", value: `${pm.clamp[0]}×–${pm.clamp[1]}×`, does: "Most a teammate's shooting can move from a swap.", start: true },
+              { name: "Last-shot takeover", value: `${T.lastShot.seconds}s, within ${T.lastShot.margin}`, does: `When shot share follows usage^${T.lastShot.usagePower}, so the top option takes over.`, start: true },
               { name: "Defense limits", value: `${T.defenseClamp[0]}–${T.defenseClamp[1]}`, does: "Most the defense on the floor can move make chances.", start: true },
               { name: "Late game", value: `${T.lateGameSeconds}s`, does: "When late-game rules (fouling, timeouts, clock management) kick in." },
               { name: "Heave", value: `${T.heaveSeconds}s`, does: "Below this, with no time to cross half court, it's a heave." },

@@ -54,6 +54,15 @@ export const TUNING = {
 
   /** Defense on the floor: make% × (defenders' defensive rating / league), clamped. START */
   defenseClamp: [0.9, 1.1] as const,
+  /** Last shot: in the final seconds of a close game the ball goes to the top option. */
+  lastShot: {
+    /** Inside this many seconds of the 4th quarter or overtime... */
+    seconds: 24,
+    /** ...with the score this close... */
+    margin: 5,
+    /** ...shot share follows usage raised to this power (2: a 33% option takes about half). START */
+    usagePower: 2,
+  },
 
   /** Fouling: what NBA teams actually do (sources in docs/simulation-rules.md). */
   fouling: {

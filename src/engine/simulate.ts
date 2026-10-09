@@ -3,7 +3,8 @@
  * (overtime included). Pure and seeded: same input + seed = same timeline.
  *
  * Late-game rules (docs/simulation-rules.md):
- * - Who shoots: usage × hot hand (swapped-in player neutral); in crunch time, clutch usage.
+ * - Who shoots: usage × hot hand (swapped-in player neutral); in crunch time, clutch usage;
+ *   on the last shot of a close game, the top option takes over (usage sharpened).
  * - Playmaking: swapping a creator in or out moves teammates' make %, more for players who rely on assists.
  * - Fouling: what NBA teams do. Up 3: never with >10 s left, sometimes at 6-10 s, often at ≤6 s.
  *   Trailing late: foul to stop the clock when the game clock is under the shot clock.
@@ -121,12 +122,22 @@ function isClutch(g: Game) {
   return g.period >= REGULATION_PERIODS && g.clock <= TUNING.clutch.seconds && Math.abs(g.score.home - g.score.away) <= TUNING.clutch.margin;
 }
 
-/** Usage × hot hand decides who takes the shot; in crunch time, clutch usage (stars take over). */
+/** The last shot of a close game: final seconds of the 4th or OT, score within a few points. */
+function isLastShot(g: Game) {
+  const s = TUNING.lastShot;
+  return g.period >= REGULATION_PERIODS && g.clock <= s.seconds && Math.abs(g.score.home - g.score.away) <= s.margin;
+}
+
+/**
+ * Usage × hot hand decides who takes the shot; in crunch time, clutch usage (stars take over);
+ * on the last shot of a close game, usage is sharpened so the top option gets most of the looks.
+ */
 function pickShooter(g: Game, side: Side, needThree: boolean): SimPlayer {
   const clutch = isClutch(g);
+  const power = isLastShot(g) ? TUNING.lastShot.usagePower : 1;
   return g.rng.weighted(five(g, side), (p) => {
     const threes = THREE_ZONES.reduce((s, z) => s + p.zoneShare[z], 0);
-    return (clutch ? p.clutchUsage : p.usage) * p.hotHand * (needThree ? Math.max(threes, 0.02) : 1);
+    return (clutch ? p.clutchUsage : p.usage) ** power * p.hotHand * (needThree ? Math.max(threes, 0.02) : 1);
   });
 }
 
