@@ -2,7 +2,7 @@
 
 Each call returns every player (or team) in the league for one season, so a
 full season is only a couple dozen requests. Includes crunch-time ("clutch")
-usage: last 5 minutes, score within 5. Totals, not per-game, so the
+usage and shooting: last 5 minutes, score within 5. Totals, not per-game, so the
 transform step can build any rate it needs.
 
     uv run python -m ingest.season_stats --season 2012-13
@@ -26,6 +26,8 @@ LAST_SEASON = 2025  # 2025-26, the last completed season
 SEASON_TYPES = ("Playoffs", "Regular Season")
 PLAYER_MEASURES = ("Base", "Advanced", "Misc", "Defense", "Usage", "Scoring")
 TEAM_MEASURES = ("Base", "Advanced")
+# Crunch-time usage (who takes over) and shooting (how much harder late-game shots get).
+CLUTCH_MEASURES = ("Usage", "Base")
 
 
 def season_label(start_year: int) -> str:
@@ -48,15 +50,16 @@ def requests_for_season(season: str):
             per_mode_detailed="Totals",
         )
         # Crunch time, by the NBA's definition: last 5 minutes, score within 5.
-        yield LeagueDashPlayerClutch, dict(
-            season=season,
-            season_type_all_star=season_type,
-            measure_type_detailed_defense="Usage",
-            per_mode_detailed="Totals",
-            clutch_time="Last 5 Minutes",
-            point_diff=5,
-            ahead_behind="Ahead or Behind",
-        )
+        for measure in CLUTCH_MEASURES:
+            yield LeagueDashPlayerClutch, dict(
+                season=season,
+                season_type_all_star=season_type,
+                measure_type_detailed_defense=measure,
+                per_mode_detailed="Totals",
+                clutch_time="Last 5 Minutes",
+                point_diff=5,
+                ahead_behind="Ahead or Behind",
+            )
         for measure in TEAM_MEASURES:
             yield LeagueDashTeamStats, dict(
                 season=season,
