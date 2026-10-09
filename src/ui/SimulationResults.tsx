@@ -87,6 +87,8 @@ export function SimulationResults({
   const defense: Side = offense === "home" ? "away" : "home";
   const changed = pct(tally.historyChanged, tally.runs);
   const baselineChanged = baseline ? pct(baseline.historyChanged, baseline.runs) : null;
+  // The headline: how far the swap moved the real loser's chances from the real lineup's.
+  const shift = baselineChanged !== null ? changed - baselineChanged : null;
   const shooterShare = swapId !== null ? pct(tally.firstShooter[swapId] ?? 0, tally.runs) : 0;
 
   const scenarios: [FirstPlay, string][] = [
@@ -106,19 +108,26 @@ export function SimulationResults({
           <span className="absolute inset-0 flex items-center justify-center text-xl font-bold tabular-nums">{fmt(changed)}</span>
         </div>
         <div className="flex flex-col gap-1.5">
-          <p className="text-lg leading-snug font-semibold">
-            History changed in <span className="underline decoration-2 underline-offset-4">{fmt(changed)}</span> of simulations
-          </p>
+          {shift !== null && baselineChanged !== null ? (
+            <>
+              <p className="text-sm text-muted">{teams[realLoser].name} win chance, real lineup → {swapName ? `with ${swapName}` : "your swap"}</p>
+              <p className="text-lg leading-snug font-semibold tabular-nums">
+                {fmt(baselineChanged)} → {fmt(changed)}{" "}
+                <span className="underline decoration-2 underline-offset-4">
+                  {shift >= 0 ? "+" : "−"}
+                  {Math.abs(shift).toFixed(1)} pts
+                </span>
+              </p>
+            </>
+          ) : (
+            <p className="text-lg leading-snug font-semibold">
+              History changed in <span className="underline decoration-2 underline-offset-4">{fmt(changed)}</span> of simulations
+            </p>
+          )}
           <p className="text-sm text-muted">
-            In {tally.historyChanged.toLocaleString()} of {tally.runs.toLocaleString()} runs{running ? ` (of ${target.toLocaleString()})` : ""}, the {teams[realLoser].name} won
+            History changed in {tally.historyChanged.toLocaleString()} of {tally.runs.toLocaleString()} runs{running ? ` (of ${target.toLocaleString()})` : ""}: the {teams[realLoser].name} won
             {swapName ? ` with ${swapName} on the floor` : ""}.
           </p>
-          {baselineChanged !== null ? (
-            <p className="text-xs text-muted">
-              With the real lineup: {fmt(baselineChanged)} ({changed >= baselineChanged ? "+" : ""}
-              {(changed - baselineChanged).toFixed(1)} points from your swap)
-            </p>
-          ) : null}
         </div>
       </div>
 
