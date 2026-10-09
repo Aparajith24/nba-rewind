@@ -2,8 +2,6 @@
 
 **Rewrite basketball history.** Pick one of 66 of the greatest NBA playoff moments since 1996–97, swap any player from any season onto the floor, and watch what happens.
 
-**Live:** [rewind-moments.pages.dev](https://rewind-moments.pages.dev)
-
 Every moment starts from its real game state, rebuilt from official play-by-play: the score, the clock, who has the ball, and the ten players on the floor. With no swap you watch what really happened. Make a swap and the engine plays the moment out thousands of times in your browser, to the final buzzer and through overtime, and tells you how often history changes.
 
 ---
