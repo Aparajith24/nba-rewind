@@ -52,8 +52,10 @@ export const TUNING = {
     clamp: [0.85, 1.15] as const,
   },
 
-  /** Defense on the floor: make% × (defenders' defensive rating / league), clamped. START */
+  /** Defense on the floor: make% × (defensive rating / league), clamped. START */
   defenseClamp: [0.9, 1.1] as const,
+  /** Share of that defensive rating that comes from the shooter's own man; the other four split the rest. START */
+  matchupWeight: 0.5,
   /** Last shot: in the final seconds of a close game the ball goes to the top option. */
   lastShot: {
     /** Inside this many seconds of the 4th quarter or overtime... */

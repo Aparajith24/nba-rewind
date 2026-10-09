@@ -282,8 +282,12 @@ trust = his clutch minutes ÷ (his clutch minutes + ${T.clutch.trustMinutes})`}
               <Formula>
                 {`make chance = his zone make % × the defense on the floor (+ hot-hand nudge + surprise swing)
 
-defense on the floor = the five defenders' points allowed per 100 ÷ the league's, kept between ${T.defenseClamp[0]} and ${T.defenseClamp[1]}`}
+defense on the floor = (${T.matchupWeight} × his own defender's points allowed per 100
+                        + ${1 - T.matchupWeight} × the other four's average) ÷ the league's,
+                        kept between ${T.defenseClamp[0]} and ${T.defenseClamp[1]}`}
               </Formula>
+              His own defender is matched by listed position: each five is sorted from guards to centers and paired off in that order. The player you
+              swap in takes over the role, and the matchup, of the man he replaced.
               Good defenses push the make chance down by up to {pct(1 - T.defenseClamp[0])}; bad ones push it up by up to{" "}
               {pct(T.defenseClamp[1] - 1)}.
               <p className="pt-3">
@@ -384,6 +388,7 @@ teammate's make chance × (1 + ${pm.strength} × change × (his share of assiste
               { name: "Playmaking strength", value: `${pm.strength}`, does: "How strongly a change in the lineup's offensive lift moves teammates' shooting.", start: true },
               { name: "Typical assisted share", value: pct(pm.typicalAssistedShare), does: "Players assisted more often than this rely more on creators.", start: true },
               { name: "Playmaking limits", value: `${pm.clamp[0]}×–${pm.clamp[1]}×`, does: "Most a teammate's shooting can move from a swap.", start: true },
+              { name: "Matchup weight", value: pct(T.matchupWeight), does: "Share of the defense that comes from the shooter's own defender.", start: true },
               { name: "Last-shot takeover", value: `${T.lastShot.seconds}s, within ${T.lastShot.margin}`, does: `When shot share follows usage^${T.lastShot.usagePower}, so the top option takes over.`, start: true },
               { name: "Defense limits", value: `${T.defenseClamp[0]}–${T.defenseClamp[1]}`, does: "Most the defense on the floor can move make chances.", start: true },
               { name: "Late game", value: `${T.lateGameSeconds}s`, does: "When late-game rules (fouling, timeouts, clock management) kick in." },

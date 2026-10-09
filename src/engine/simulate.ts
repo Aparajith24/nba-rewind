@@ -5,6 +5,7 @@
  * Late-game rules (docs/simulation-rules.md):
  * - Who shoots: usage × hot hand (swapped-in player neutral); in crunch time, clutch usage;
  *   on the last shot of a close game, the top option takes over (usage sharpened).
+ * - Defense: the shooter's own man (by position) counts for half, the other four for the rest.
  * - Playmaking: swapping a creator in or out moves teammates' make %, more for players who rely on assists.
  * - Fouling: what NBA teams do. Up 3: never with >10 s left, sometimes at 6-10 s, often at ≤6 s.
  *   Trailing late: foul to stop the clock when the game clock is under the shot clock.
@@ -82,9 +83,15 @@ function offensiveReboundShotClock(g: Game) {
   return g.input.league.rules.offensive_rebound_reset_14 ? 14 : SHOT_CLOCK;
 }
 
-function defenseFactor(g: Game, defense: Side) {
+/** The shooter's own defender counts for `matchupWeight` of the defense; the other four share the rest. */
+function defenseFactor(g: Game, defense: Side, shooter: SimPlayer) {
   const players = five(g, defense);
-  const rating = players.reduce((s, p) => s + p.defensiveRating, 0) / players.length;
+  const manId = g.input.matchups[shooter.playerId];
+  const man = players.find((p) => p.playerId === manId);
+  const rest = players.filter((p) => p !== man);
+  const restRating = rest.reduce((s, p) => s + p.defensiveRating, 0) / rest.length;
+  const w = TUNING.matchupWeight;
+  const rating = man ? w * man.defensiveRating + (1 - w) * restRating : restRating;
   const [lo, hi] = TUNING.defenseClamp;
   return clamp(rating / g.input.league.playoffs.pts_per_100, lo, hi);
 }
@@ -255,7 +262,7 @@ function shoot(g: Game, shooter: SimPlayer, zone: Zone) {
   } else {
     const hot = (shooter.hotHand - 1) * TUNING.hotHand.makeBump;
     pMake = clamp(
-      shooter.zonePct[zone] * defenseFactor(g, defense) * playmakingFactor(g, shooter) + hot + (g.surprise.get(shooter.playerId) ?? 0),
+      shooter.zonePct[zone] * defenseFactor(g, defense, shooter) * playmakingFactor(g, shooter) + hot + (g.surprise.get(shooter.playerId) ?? 0),
       0.01,
       0.95,
     );

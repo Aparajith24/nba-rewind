@@ -14,6 +14,29 @@ export type Swap = {
   season: string;
 };
 
+// Listed positions from smallest to biggest, for lining up matchups.
+const POSITION_ORDER = ["G", "G-F", "F-G", "F", "F-C", "C-F", "C"];
+
+/**
+ * Who guards whom: each five sorted by listed position (guards first, centers last, ties in
+ * lineup order), then paired off in that order. Returns attacker id → defender id for both sides.
+ */
+export function assignMatchups(players: Record<Side, SimPlayer[]>): Record<number, number> {
+  const rank = (p: SimPlayer) => {
+    const i = POSITION_ORDER.indexOf(p.position);
+    return i === -1 ? POSITION_ORDER.indexOf("F") : i;
+  };
+  const sorted = (side: Side) => players[side].map((p, i) => ({ p, i })).sort((a, b) => rank(a.p) - rank(b.p) || a.i - b.i).map((x) => x.p);
+  const home = sorted("home");
+  const away = sorted("away");
+  const matchups: Record<number, number> = {};
+  home.forEach((p, i) => {
+    matchups[p.playerId] = away[i].playerId;
+    matchups[away[i].playerId] = p.playerId;
+  });
+  return matchups;
+}
+
 export function buildSimInput(args: {
   moment: MomentFile;
   /** Player files for everyone on the floor, plus the swapped-in player. */
@@ -45,6 +68,8 @@ export function buildSimInput(args: {
           ownLeague,
           // The swapped-in player comes in neutral (no hot hand): he didn't play in this game.
           inGame: swapped ? null : moment.inGame[String(slot.playerId)],
+          // He takes over the role of the man he replaced, matchup included.
+          position: slot.position,
         }),
       );
     }
@@ -56,5 +81,5 @@ export function buildSimInput(args: {
     const out = moment.lineups[side].find((p) => p.playerId === swap?.out);
     if (swap && out) playmakingChange[side] = (lift(swap.in, swap.season) - lift(out.playerId, out.season)) / league.playoffs.pts_per_100;
   }
-  return { moment, players, league, seed, playmakingChange, swappedIn: swap?.in ?? null };
+  return { moment, players, league, seed, playmakingChange, matchups: assignMatchups(players), swappedIn: swap?.in ?? null };
 }

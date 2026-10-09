@@ -2,10 +2,10 @@
 
 import { describe, expect, it } from "vitest";
 
-import { buildSimInput } from "../input";
+import { assignMatchups, buildSimInput } from "../input";
 import { clutchUsage } from "../profile";
 import { TUNING } from "../tuning";
-import type { LeagueFile, MomentFile, PlayerFile } from "../types";
+import type { LeagueFile, MomentFile, PlayerFile, SimPlayer } from "../types";
 
 describe("clutch usage", () => {
   it("falls back to regular-season usage without clutch data", () => {
@@ -53,5 +53,17 @@ describe("playmaking change", () => {
     expect(input.playmakingChange.home).toBeCloseTo((-3 - 15) / 100);
     expect(input.playmakingChange.away).toBe(0);
     expect(input.swappedIn).toBe(99);
+  });
+});
+
+describe("matchups", () => {
+  const p = (playerId: number, position: string, side: "home" | "away") => ({ playerId, position, side }) as unknown as SimPlayer;
+
+  it("pairs each five by listed position, guards to centers, ties in lineup order", () => {
+    const home = [p(1, "C", "home"), p(2, "G", "home"), p(3, "F", "home"), p(4, "G", "home"), p(5, "F-C", "home")];
+    const away = [p(6, "G", "away"), p(7, "C-F", "away"), p(8, "G-F", "away"), p(9, "F", "away"), p(10, "G", "away")];
+    const m = assignMatchups({ home, away });
+    expect([m[2], m[4], m[3], m[5], m[1]]).toEqual([6, 10, 8, 9, 7]);
+    expect(m[6]).toBe(2);
   });
 });

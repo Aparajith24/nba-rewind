@@ -214,8 +214,10 @@ export function buildSimPlayer(args: {
   ownLeague: LeagueFile;
   /** His shooting earlier in this game; omit for a swapped-in player. */
   inGame?: InGameShooting | null;
+  /** Listed roster position, for matchups. */
+  position?: string;
 }): SimPlayer {
-  const { file, season, side, ownLeague, inGame } = args;
+  const { file, season, side, ownLeague, inGame, position = "F" } = args;
   const entry = file.seasons[season];
   if (!entry) throw new Error(`${file.name} has no ${season} season`);
 
@@ -239,6 +241,7 @@ export function buildSimPlayer(args: {
     name: file.name,
     season,
     side,
+    position,
     usage: mix(playoff.usage, projected.usage),
     hotHand: hotHandBoost(inGame, seasonFgPct),
     zoneShare,

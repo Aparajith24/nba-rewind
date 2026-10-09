@@ -71,7 +71,7 @@ export type MomentFile = {
   realFinal: { periods: number; score: Record<Side, number>; winner: Side };
   timeoutsLeft: Record<Side, number>;
   teams: Record<Side, { teamId: number; tricode: string }>;
-  lineups: Record<Side, { playerId: number; name: string; season: string; x: number; y: number }[]>;
+  lineups: Record<Side, { playerId: number; name: string; season: string; position?: string; x: number; y: number }[]>;
   inGame: Record<string, InGameShooting>;
   realTimeline: RealTimeline;
 };
@@ -82,6 +82,8 @@ export type SimPlayer = {
   name: string;
   season: string;
   side: Side;
+  /** Listed roster position ("G", "F-C", ...); a swapped-in player takes the role of the man he replaced. */
+  position: string;
   /** Share of team plays he finishes while on the floor. */
   usage: number;
   /** Hot-hand multiplier on his share of shots (1 = neutral). */
@@ -123,6 +125,8 @@ export type SimInput = {
    * with the real five) ÷ league points per 100. 0 for both teams with no swap.
    */
   playmakingChange: Record<Side, number>;
+  /** Who guards whom, by position: attacker id → defender id, both directions. */
+  matchups: Record<number, number>;
   /** The swapped-in player, whose own shooting already reflects his own game. */
   swappedIn: number | null;
 };
