@@ -202,7 +202,9 @@ trust = his playoff minutes ÷ (his playoff minutes + ${T.playoffTrustMinutes})`
           <h3 className="pt-2 text-lg font-semibold text-foreground">Shooting by zone</h3>
           <p>
             Every shot comes from one of seven zones (at the rim, in the paint, mid-range, left corner three, right corner three, above-the-break
-            three, backcourt heave). A player&apos;s make rate in each zone leans on his actual shots there, and on a broader average when he has few:
+            three, backcourt heave). A player&apos;s make rate in each zone leans on his actual shots there, and on a broader average when he has few. For his
+            regular season, that average is what the season&apos;s <em>fringe players</em> (under 500 minutes) did, not the league average:
+            barely playing is itself evidence of a weaker player. His playoff numbers lean on his projection from the regular season.
           </p>
           <Formula>
             {`zone make % = (his makes + ${T.zoneTrustAttempts} × the broader average) ÷ (his attempts + ${T.zoneTrustAttempts})`}

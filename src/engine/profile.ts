@@ -121,6 +121,17 @@ function profileRates(p: SeasonProfile | undefined, prior: Rates): Rates {
   };
 }
 
+/**
+ * A fringe player that season: the prior for small samples, since barely playing is itself
+ * evidence of a weaker player. Defense stays at the league average (a fringe player's
+ * defensive rating mostly reflects garbage-time opponents).
+ */
+function benchRates(league: LeagueFile): Rates {
+  const average = leagueRates(league);
+  if (!league.bench) return average;
+  return { ...profileRates(league.bench, average), defensiveRating: average.defensiveRating };
+}
+
 function leagueRates(league: LeagueFile): Rates {
   const lp = league.playoffs;
   const zonePct = {} as Record<Zone, number>;
@@ -208,9 +219,9 @@ export function buildSimPlayer(args: {
   const entry = file.seasons[season];
   if (!entry) throw new Error(`${file.name} has no ${season} season`);
 
-  const league = leagueRates(ownLeague);
-  const regular = profileRates(entry.regularSeason, league);
-  const projected = entry.regularSeason ? project(regular, file, season, ownLeague) : league;
+  const bench = benchRates(ownLeague);
+  const regular = profileRates(entry.regularSeason, bench);
+  const projected = entry.regularSeason ? project(regular, file, season, ownLeague) : bench;
 
   const poMinutes = num(entry.playoffs, "min");
   const w = poMinutes / (poMinutes + TUNING.playoffTrustMinutes);

@@ -54,6 +54,8 @@ export type LeagueFile = {
   season: string;
   rules: Record<string, number | boolean>;
   playoffAdjustment: Record<string, number>;
+  /** A fringe player that season: regular-season totals of everyone under 500 minutes. */
+  bench?: SeasonProfile;
   playoffs: Record<string, number>;
   regularSeason: Record<string, number>;
 };

@@ -336,6 +336,17 @@ each simulated timeline adds a little randomness, larger when the sample is smal
 - **One hot playoff game:** mostly his regular season, with a chance of that hot hand showing up in some timelines. That's the surprise element, kept in check by the cap.
 - **No playoff games:** a pure projection. What if Jordan's Bulls had beaten the Pistons?
 
+**Small samples lean toward a fringe player.** Every rate is blended toward a prior when the sample is small. That prior is the season's **bench profile**: the combined regular-season numbers of everyone under 500 minutes (`bench` in each league file), not the league average, because barely playing is itself evidence of a weaker player.
+
+```
+1999-00              league    fringe players (127 players, under 500 min)
+above-the-break 3    34.6%     27.9%
+at the rim           60.9%     55.0%
+usage                ~20%      16.1%
+```
+
+Defensive rating is left out of the bench profile: for fringe players it mostly reflects garbage-time opponents and comes out better than the league's, so the league average is kept.
+
 The exact weighting and the size of the randomness will be tuned once the simulation runs and can be checked against real outcomes.
 
 ### 5. Crunch time and playmaking
